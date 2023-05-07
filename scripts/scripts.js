@@ -13,6 +13,7 @@ import {
   loadCSS,
 } from './lib-franklin.js';
 
+const PRODUCTION_DOMAINS = ['www.elixirsolutions.com'];
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
 /**
@@ -79,7 +80,7 @@ async function loadEager(doc) {
 export function addFavIcon(href) {
   const link = document.createElement('link');
   link.rel = 'icon';
-  link.type = 'image/svg+xml';
+  link.type = 'image/x-icon';
   link.href = href;
   const existingLink = document.querySelector('head link[rel="icon"]');
   if (existingLink) {
@@ -87,6 +88,47 @@ export function addFavIcon(href) {
   } else {
     document.getElementsByTagName('head')[0].appendChild(link);
   }
+}
+
+export function decorateLinks(element) {
+  const hosts = ['localhost', 'hlx.page', 'hlx.live', ...PRODUCTION_DOMAINS];
+  element.querySelectorAll('a').forEach((a) => {
+    try {
+      if (a.href) {
+        const url = new URL(a.href);
+
+        // local links are relative
+        // non local links open in a new tab
+        const hostMatch = hosts.some((host) => url.hostname.includes(host));
+        if (hostMatch) {
+          a.href = `${url.pathname.replace('.html', '')}${url.search}${url.hash}`;
+        } else {
+          a.target = '_blank';
+        }
+      }
+    } catch (e) {
+      // something went wrong
+      // eslint-disable-next-line no-console
+      console.log(e);
+    }
+  });
+}
+
+/**
+ * Wraps images followed by links within a matching <a> tag.
+ * @param {Element} container The container element
+ */
+export function wrapImgsInLinks(container) {
+  const pictures = container.querySelectorAll('p picture');
+  pictures.forEach((pic) => {
+    const parent = pic.parentNode;
+    const link = parent.nextElementSibling.querySelector('a');
+    if (link && link.textContent.includes(link.getAttribute('href'))) {
+      link.parentElement.remove();
+      link.innerHTML = pic.outerHTML;
+      parent.replaceWith(link);
+    }
+  });
 }
 
 /**
@@ -105,7 +147,10 @@ async function loadLazy(doc) {
   loadFooter(doc.querySelector('footer'));
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
-  addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.svg`);
+  addFavIcon(`${window.hlx.codeBasePath}/icons/favicon_icon.png`);
+  decorateLinks(main);
+  wrapImgsInLinks(main);
+
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
   sampleRUM.observe(main.querySelectorAll('picture > img'));
