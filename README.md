@@ -1,9 +1,9 @@
-# Your Project's Title...
-Your project's description...
+# Elixir Solutions
+AEM Project Franklin site for Elixir Solutions
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.hlx.page/
-- Live: https://main--{repo}--{owner}.hlx.live/
+- Preview: https://main--elixirsolutions--hlxsites.hlx.page/
+- Live: https://main--elixirsolutions--hlxsites.hlx.live/
 
 ## Installation
 
