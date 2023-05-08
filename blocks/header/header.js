@@ -129,6 +129,17 @@ export default async function decorate(block) {
       regLink.classList.add('button');
     }
 
+    const search = nav.querySelector('.nav-tools .icon-search');
+    if (search) {
+      const tools = nav.querySelector('.nav-tools');
+      tools.innerHTML = `
+      <div class="search-form">
+        <input type="text" name="fulltext" placeholder="Search" maxlength="100"></input>
+        <span class="icon icon-search"></span>
+      </div>`;
+      console.log('replace with form');
+    }
+
     // hamburger for mobile
     const hamburger = document.createElement('div');
     hamburger.classList.add('nav-hamburger');
