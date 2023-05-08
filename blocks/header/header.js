@@ -137,7 +137,6 @@ export default async function decorate(block) {
         <input type="text" name="fulltext" placeholder="Search" maxlength="100"></input>
         <span class="icon icon-search"></span>
       </div>`;
-      console.log('replace with form');
     }
 
     // hamburger for mobile
