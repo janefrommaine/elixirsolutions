@@ -206,7 +206,7 @@ header nav .nav-sections a {
   header nav .nav-sections ul {
     flex-direction: row;
     width: 100%;
-    justify-content: space-around;
+    justify-content: space-between;
     gap: 0;
   }
 
