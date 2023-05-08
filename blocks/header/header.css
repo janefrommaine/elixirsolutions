@@ -101,15 +101,22 @@ header nav .nav-hamburger-icon::after {
   transition: transform .5s;
 }
 
-header nav[aria-expanded="false"] .nav-hamburger-icon::after {
-  transition: transform .5s, background-color .5s;
-}
-
 header nav .nav-hamburger-icon::after {
   content: '';
   position: absolute;
   width: 20px;
   top: 10px;
+}
+
+header nav[aria-expanded="false"] .nav-hamburger-icon::after {
+  transition: transform .5s, background-color .5s;
+}
+
+header nav[aria-expanded="true"] .nav-hamburger-icon::after {
+  background: var(--link-color);
+  width: 32px;
+  transform: rotate(-90deg);
+  top: 0;
 }
 
 header nav[aria-expanded="false"] .nav-hamburger:hover .nav-hamburger-icon::after {
@@ -118,13 +125,6 @@ header nav[aria-expanded="false"] .nav-hamburger:hover .nav-hamburger-icon::afte
 
 header nav[aria-expanded="true"] .nav-hamburger-icon {
   transform: rotate(45deg);
-}
-
-header nav[aria-expanded="true"] .nav-hamburger-icon::after {
-  background: var(--link-color);
-  width: 32px;
-  transform: rotate(-90deg);
-  top: 0;
 }
 
 @media (min-width: 900px) {
@@ -266,7 +266,6 @@ header nav .nav-tools .search-form input {
   font-size: var(--body-font-size-xs);
   line-height: 35px;
   font-weight: 400;
-  line-height: 1.5;
   background-color: #E7F5F9;
   border: 1px solid #479DC7;
   border-radius: 3px;
