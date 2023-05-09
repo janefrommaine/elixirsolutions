@@ -178,6 +178,8 @@ footer .footer-links ul li {
   footer .footer-links {
     display: inline-block;
     width: unset;
+    position: relative;
+    top: -22px;
   }
 }
 
@@ -207,6 +209,19 @@ footer .footer-social-icon {
   align-items: center;
   justify-content: center;
   transition: .3s;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50%;
+}
+
+footer .footer-social-icon-twitter {
+  background-color: #479DC7;
+  background-image: url('/icons/twitter.webp');
+}
+
+footer .footer-social-icon-linkedin {
+  background-color: #00ADA6;
+  background-image: url('/icons/linkedin.webp');
 }
 
 footer .footer-social-icon:hover {

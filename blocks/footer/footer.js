@@ -2,17 +2,16 @@ import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
 import { wrapImgsInLinks } from '../../scripts/scripts.js';
 
 const handleSocialLinks = (block) => {
-  const container = block.querySelector('.footer-social-container');
-  Object.values(container.children).forEach((child) => {
-    const picture = child.children[0];
-    const { href } = child.children[1].querySelector('a');
-    const color = child.children[2].innerText;
-    const icon = document.createElement('a');
+  const footerSocialContainer = block.querySelector('.footer-social ul');
+  footerSocialContainer.classList.add('footer-social-container');
+  Object.values(footerSocialContainer.children).forEach((child) => {
+    const icon = child.children[0];
+    const host = (new URL(icon.href).hostname).split('.');
+    const social = host[0] === 'www' ? host[1] : host[0];
     icon.classList.add('footer-social-icon');
-    icon.style.backgroundColor = color;
-    icon.appendChild(picture);
-    icon.href = href;
-    child.replaceWith(icon);
+    icon.innerText = '';
+    icon.classList.add(`footer-social-icon-${social}`);
+    child.replaceWith(child.children[0]);
   });
 };
 
@@ -64,6 +63,7 @@ export default async function decorate(block) {
       if (section) linksContainer.appendChild(section);
     });
     upperFooterContent.appendChild(linksContainer);
+    handleSocialLinks(linksContainer);
 
     // structure lower footer
     const lowerFooterNames = ['legal', 'copyright'];
@@ -78,7 +78,6 @@ export default async function decorate(block) {
     lowerFooter.appendChild(lowerFooterContent);
     footer.appendChild(lowerFooter);
 
-    handleSocialLinks(footer);
     decorateIcons(footer);
     wrapImgsInLinks(footer);
     block.append(footer);
