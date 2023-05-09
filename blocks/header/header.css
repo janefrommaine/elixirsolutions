@@ -8,6 +8,7 @@ header .nav-wrapper {
   width: 100%;
   position: sticky;
   z-index: 2;
+  border-bottom: 2px solid rgb(0 0 0 / 10%);
 }
 
 header nav {
@@ -17,11 +18,10 @@ header nav {
   align-items: center;
   justify-content: center;
   margin: auto;
-  max-width: 1264px;
+  max-width: var(--max-content-width);
   height: var(--nav-height);
   padding: 0 1rem;
   font-family: var(--body-font-family);
-  border-bottom: 2px solid rgb(0 0 0 / 10%);
   min-height: 0;
   transition: min-height .5s ease;
 }
@@ -57,7 +57,6 @@ header nav[aria-expanded="true"] {
     grid-template:
     'brand . tools' 72px
     'brand sections register' 72px / auto 1fr auto;
-    gap: 0 1em;
     min-height: 0;
     overflow: visible;
     border-bottom: 2px solid rgb(0 0 0 / 10%);
@@ -206,7 +205,7 @@ header nav .nav-sections a {
   header nav .nav-sections ul {
     flex-direction: row;
     width: 100%;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 0;
   }
 
