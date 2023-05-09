@@ -9,14 +9,21 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */
+ html {
+  /* 1rem = 10 px */
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
 
  :root {
   /* colors */
-  --link-color: rgb(2 76 153);
+  --clr-blue: rgb(2 76 153);
+  --clr-green: rgb(128 188 0);
+
+  /* element colors */
+  --link-color: var( --clr-blue);
   --link-hover-color: rgb(65 121 179);
   --background-color: rgb(255 255 255);
-  --overlay-background-color: #eee;
-  --highlight-background-color: #ccc;
   --text-color: rgb(36 36 36);
   --headline-color: rgb(0 34 80);
 
@@ -39,7 +46,7 @@
   --heading-font-size-xs: 18px;
 
   /* nav height */
-  --nav-height: 64px;
+  --nav-height: 80px;
 
 }
 
@@ -51,12 +58,20 @@
     --heading-font-size-m: 30px;
     --heading-font-size-s: 24px;
     --heading-font-size-xs: 22px;
+
+    /* nav height */
+    --nav-height: 144px;
   }
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   font-size: var(--body-font-size-m);
-  margin: 0;
   font-family: var(--body-font-family);
   line-height: 1.6;
   color: var(--text-color);
@@ -140,7 +155,7 @@ a.button:any-link, button {
   box-sizing: border-box;
   text-decoration: none;
   border: 2px solid transparent;
-  padding: 5px 30px;
+  padding: .6em 1.2em;
   text-align: center;
   font-style: normal;
   font-weight: 600;
@@ -237,9 +252,4 @@ main .section {
     max-width: 1200px;
     margin: auto;
   }
-}
-
-/* section metadata */
-main .section.highlight {
-  background-color: var(--highlight-background-color);
 }
