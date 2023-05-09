@@ -11,6 +11,10 @@
  */
 /* global WebImporter */
 /* eslint-disable no-console, class-methods-use-this */
+const isBlogPost = (params) => {
+  const urlAsUrl = new URL(params.originalURL);
+  return urlAsUrl.host === 'blog.elixirsolutions.com';
+};
 
 const transformBlocks = (main, document) => {
   const sectionBreak = document.createElement('p');
@@ -110,6 +114,41 @@ const transformBlocks = (main, document) => {
   });
 };
 
+const transformBlogBlocks = (main, document) => {
+  const sectionBreak = document.createElement('p');
+  sectionBreak.innerHTML = '---';
+
+  // hero
+  const hero = main.querySelector('.post-header');
+  if (hero) {
+    hero.append(sectionBreak.cloneNode(true));
+  }
+};
+
+const addBlogMetadata = (meta, main, html, document) => {
+  const topics = [];
+  main.querySelectorAll('.topic-link').forEach((topic) => {
+    topics.push(topic.innerHTML);
+  });
+  meta.Tags = topics.join(', ');
+
+  const dp = new DOMParser();
+  const dpDoc = dp.parseFromString(html, 'text/html');
+  const postedBy = dpDoc.querySelector('.posted-by--blog');
+  if (postedBy) {
+    for (let i = 0; i < postedBy.childNodes.length; i += 1) {
+      if (postedBy.childNodes[i].nodeType === Node.COMMENT_NODE) {
+        const commentText = postedBy.childNodes[i].textContent;
+        const dateStr = commentText.replace('<!--', '').replace('-->', '');
+        const d = new Date(dateStr);
+        console.log(d);
+        console.log(dateStr);
+        meta.Date = `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
+      }
+    }
+  }
+};
+
 const createMetadata = (main, document) => {
   const meta = {};
 
@@ -129,9 +168,6 @@ const createMetadata = (main, document) => {
     el.src = img.content;
     meta.Image = el;
   }
-
-  const block = WebImporter.Blocks.getMetadataBlock(document, meta);
-  main.append(block);
 
   return meta;
 };
@@ -153,18 +189,34 @@ export default {
     // define the main element: the one that will be transformed to Markdown
     const main = document.body;
 
-    // use helper method to remove header, footer, etc.
-    WebImporter.DOMUtils.remove(main, [
-      '.header',
-      '.footer',
-      '.breadcrumb',
-    ]);
+    const meta = createMetadata(main, document);
 
-    // create block structures within the dom
-    transformBlocks(main, document);
+    if (isBlogPost(params)) {
+      addBlogMetadata(meta, main, html, document);
+      WebImporter.DOMUtils.remove(main, [
+        '.header-container-wrapper',
+        '.footer-container-wrapper',
+        '#hubspot-topic_data',
+        '.hs_cos_wrapper_type_social_sharing',
+        '.widget-type-post_filter',
+      ]);
 
-    // create the metadata block and append it to the main element
-    createMetadata(main, document);
+      // create block structures within the dom
+      transformBlogBlocks(main, document);
+    } else {
+      // use helper method to remove header, footer, etc.
+      WebImporter.DOMUtils.remove(main, [
+        '.header',
+        '.footer',
+        '.breadcrumb',
+      ]);
+
+      // create block structures within the dom
+      transformBlocks(main, document);
+    }
+
+    const metaBlock = WebImporter.Blocks.getMetadataBlock(document, meta);
+    main.append(metaBlock);
 
     return main;
   },
