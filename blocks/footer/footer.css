@@ -213,12 +213,12 @@ footer .footer-social-icon {
 
 footer .footer-social-icon-twitter {
   background-color: #479DC7;
-  background-image: url('/icons/twitter.webp');
+  background-image: url('/blocks/footer/images/twitter.webp');
 }
 
 footer .footer-social-icon-linkedin {
   background-color: #00ADA6;
-  background-image: url('/icons/linkedin.webp');
+  background-image: url('/blocks/footer/images/linkedin.webp');
 }
 
 footer .footer-social-icon:hover {
