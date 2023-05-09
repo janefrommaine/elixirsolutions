@@ -205,9 +205,6 @@ footer .footer-social-icon {
   height: 60px;
   border-radius: 30px;
   margin: 0 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: .3s;
   background-repeat: no-repeat;
   background-position: center;
@@ -230,13 +227,6 @@ footer .footer-social-icon:hover {
 
 footer .footer-social-icon a {
   text-decoration: none;
-}
-
-footer .footer-social-icon img {
-  width: 25px;
-  height: 24px;
-  margin-right: 29%;
-  padding-top: 10px;
 }
 
 @media (min-width: 600px) {
