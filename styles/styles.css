@@ -23,13 +23,14 @@
   --clr-white: rgb(255 255 255);
   --clr-black: rgb(0 0 0);
   --clr-near-black: rgb(36 36 36);
+  --clr-midnight-blue: rgb(0 34 80);
 
   /* element colors */
   --link-color: var(--clr-blue);
   --link-hover-color: var(--clr-light-blue);
   --background-color: var(--clr-white);
   --text-color: var(--clr-near-black);
-  --headline-color: rgb(0 34 80);
+  --headline-color: var(--clr-midnight-blue);
 
   /* fonts */
   --body-font-family: proxima-nova, sans-serif;
@@ -56,12 +57,12 @@
 
 @media (min-width: 900px) {
   :root {
-    --heading-font-size-xxl: 60px;
+    /* --heading-font-size-xxl: 60px;
     --heading-font-size-xl: 48px;
     --heading-font-size-l: 36px;
     --heading-font-size-m: 30px;
     --heading-font-size-s: 24px;
-    --heading-font-size-xs: 22px;
+    --heading-font-size-xs: 22px; */
 
     /* nav height */
     --nav-height: 144px;
@@ -75,9 +76,9 @@
 }
 
 body {
-  font-size: var(--body-font-size-m);
+  font-size: var(--body-font-size-xs);
   font-family: var(--body-font-family);
-  line-height: 1.6;
+  line-height: 1.5;
   color: var(--text-color);
   background-color: var(--background-color);
   display: none;
@@ -97,7 +98,6 @@ h4, h5, h6 {
   color: var(--headline-color);
   font-weight: 600;
   line-height: 1.25;
-  margin-top: 1em;
   margin-bottom: .5em;
   scroll-margin: calc(var(--nav-height) + 1em);
 }
@@ -241,7 +241,7 @@ main img {
   width: 100%;
 }
 
-/* Sectiont */
+/* Sections */
 main .section {
   padding: 32px 16px;
   max-width: var(--max-content-width);
@@ -258,4 +258,4 @@ main .section.highlight {
   background-color: var(--clr-blue);
 
   --headline-color: var(--clr-white);
-} 
+}
