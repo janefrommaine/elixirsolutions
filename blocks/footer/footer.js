@@ -1,17 +1,17 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
-import { wrapImgsInLinks } from '../../scripts/scripts.js';
+import { wrapImgsInLinks, decorateLinks } from '../../scripts/scripts.js';
 
 const handleSocialLinks = (block) => {
   const footerSocialContainer = block.querySelector('.footer-social ul');
   footerSocialContainer.classList.add('footer-social-container');
   Object.values(footerSocialContainer.children).forEach((child) => {
-    const icon = child.children[0];
-    const host = (new URL(icon.href).hostname).split('.');
+    const link = child.querySelector('a');
+    const host = (new URL(link.href).hostname).split('.');
     const social = host[0] === 'www' ? host[1] : host[0];
-    icon.classList.add('footer-social-icon');
-    icon.innerText = '';
-    icon.classList.add(`footer-social-icon-${social}`);
-    child.replaceWith(child.children[0]);
+    link.classList.add('footer-social-icon');
+    link.innerText = '';
+    link.classList.add(`footer-social-icon-${social}`);
+    child.replaceWith(link);
   });
 };
 
@@ -79,6 +79,7 @@ export default async function decorate(block) {
     footer.appendChild(lowerFooter);
 
     decorateIcons(footer);
+    decorateLinks(footer);
     wrapImgsInLinks(footer);
     block.append(footer);
   }

@@ -1,5 +1,5 @@
 footer {
-  border-top: 10px solid #024c99;
+  border-top: 10px solid var(--clr-blue);
   background-color: #fff;
   font-size: var(--body-font-size-s);
 }
