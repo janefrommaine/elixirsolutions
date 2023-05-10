@@ -239,6 +239,7 @@ main img {
 .icon svg {
   height: 100%;
   width: 100%;
+  fill: currentcolor;
 }
 
 /* Sections */
