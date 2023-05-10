@@ -1,10 +1,6 @@
 footer {
   border-top: 10px solid var(--clr-blue);
-<<<<<<< HEAD
-  background-color: var(--clr-white);
-=======
   background-color: #fff;
->>>>>>> main
   font-size: var(--body-font-size-s);
 }
 
