@@ -18,14 +18,19 @@
  :root {
   /* colors */
   --clr-blue: rgb(2 76 153);
+  --clr-light-blue: rgb(65 121 179);
   --clr-green: rgb(128 188 0);
+  --clr-white: rgb(255 255 255);
+  --clr-black: rgb(0 0 0);
+  --clr-near-black: rgb(36 36 36);
+  --clr-midnight-blue: rgb(0 34 80);
 
   /* element colors */
-  --link-color: var( --clr-blue);
-  --link-hover-color: rgb(65 121 179);
-  --background-color: rgb(255 255 255);
-  --text-color: rgb(36 36 36);
-  --headline-color: rgb(0 34 80);
+  --link-color: var(--clr-blue);
+  --link-hover-color: var(--clr-light-blue);
+  --background-color: var(--clr-white);
+  --text-color: var(--clr-near-black);
+  --headline-color: var(--clr-midnight-blue);
 
   /* fonts */
   --body-font-family: proxima-nova, sans-serif;
@@ -45,19 +50,19 @@
   --heading-font-size-s: 20px;
   --heading-font-size-xs: 18px;
 
-  /* nav height */
+  /* misc. */
   --nav-height: 80px;
-
+  --max-content-width: 1440px;
 }
 
 @media (min-width: 900px) {
   :root {
-    --heading-font-size-xxl: 60px;
+    /* --heading-font-size-xxl: 60px;
     --heading-font-size-xl: 48px;
     --heading-font-size-l: 36px;
     --heading-font-size-m: 30px;
     --heading-font-size-s: 24px;
-    --heading-font-size-xs: 22px;
+    --heading-font-size-xs: 22px; */
 
     /* nav height */
     --nav-height: 144px;
@@ -71,9 +76,9 @@
 }
 
 body {
-  font-size: var(--body-font-size-m);
+  font-size: var(--body-font-size-xs);
   font-family: var(--body-font-family);
-  line-height: 1.6;
+  line-height: 1.5;
   color: var(--text-color);
   background-color: var(--background-color);
   display: none;
@@ -93,7 +98,6 @@ h4, h5, h6 {
   color: var(--headline-color);
   font-weight: 600;
   line-height: 1.25;
-  margin-top: 1em;
   margin-bottom: .5em;
   scroll-margin: calc(var(--nav-height) + 1em);
 }
@@ -237,19 +241,44 @@ main img {
   width: 100%;
 }
 
+/* Sections */
 main .section {
-  padding: 64px 16px;
+  padding: 32px;
 }
 
-@media (min-width: 600px) {
-  main .section {
-    padding: 64px 32px;
-  }
+main .section .default-content-wrapper {
+  padding: 16px 48px;
 }
 
-@media (min-width: 900px) {
-  .section > div {
-    max-width: 1200px;
-    margin: auto;
-  }
+main .section .section-container {
+  max-width: var(--max-content-width);
+  margin: auto;
+}
+
+main .section.highlight .section-container {
+  background-color: var(--clr-blue);
+
+  --headline-color: var(--clr-white);
+  
+  /* 
+  I think this should work, but it doesn't
+  --text-color: var(--clr-white); 
+  */
+  color: var(--clr-white);
+}
+
+/* screen reade only text  util class */
+.sr-only {
+	border: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+	-webkit-clip-path: inset(50%) !important;
+					clip-path: inset(50%) !important; 
+	height: 1px !important;
+	overflow: hidden !important;
+	margin: -1px !important;
+	padding: 0 !important;
+	position: absolute !important;
+	width: 1px !important;
+	white-space: nowrap !important;            
 }
