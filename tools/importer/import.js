@@ -143,7 +143,7 @@ const addBlogMetadata = (meta, main, html, document) => {
         const d = new Date(dateStr);
         console.log(d);
         console.log(dateStr);
-        meta.Date = `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
+        meta['Publication Date'] = `${d.getUTCMonth() + 1}/${d.getUTCDate()}/${d.getUTCFullYear()}`;
       }
     }
   }
