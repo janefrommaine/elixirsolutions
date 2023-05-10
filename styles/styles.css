@@ -247,7 +247,7 @@ main .section {
 }
 
 main .section .default-content-wrapper {
-  padding: 16px;
+  padding: 16px 48px;
 }
 
 main .section .section-container {

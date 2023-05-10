@@ -93,6 +93,11 @@ main .section.highlight .cards-wrapper {
   padding: 48px;
 }
 
+main .section.highlight.cards-container .default-content-wrapper h3 {
+  margin-block: .25em;
+  text-align: center;
+}
+
 main .section.highlight .cards {
   --headline-color: var(--clr-midnight-blue);
 }
