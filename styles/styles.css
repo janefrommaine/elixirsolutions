@@ -259,6 +259,7 @@ main .section.highlight .section-container {
   background-color: var(--clr-blue);
 
   --headline-color: var(--clr-white);
+  
   /* 
   I think this should work, but it doesn't
   --text-color: var(--clr-white); 

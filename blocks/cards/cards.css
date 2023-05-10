@@ -89,7 +89,7 @@
 
 /* when in highlight section */
 main .section.highlight .cards-wrapper {
-  background-color: rgb(209, 231, 241);
+  background-color: rgb(209 231 241);
   padding: 48px;
 }
 
