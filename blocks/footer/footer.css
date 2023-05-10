@@ -1,6 +1,6 @@
 footer {
   border-top: 10px solid var(--clr-blue);
-  background-color: #fff;
+  background-color: var(--clr-white);
   font-size: var(--body-font-size-s);
 }
 
@@ -31,7 +31,7 @@ footer .footer-upper {
 }
 
 footer .footer-upper-content {
-  max-width: 1200px;
+  max-width: var(--max-content-width);
   margin: 0 auto;
 }
 
@@ -60,7 +60,7 @@ footer .footer-lower {
 }
 
 footer .footer-lower-content {
-  max-width: 1200px;
+  max-width: var(--max-content-width);
   margin: 0 auto;
   padding: 30px;
 }

@@ -35,14 +35,10 @@
   grid-template-columns: repeat(var(--num-cols), minmax(0, 1fr));
 }
 
-@media (min-width: 900px) {
-  .cards > ul {
-    gap: 4rem;
-  }
-}
-
 .cards > ul > li {
   text-align: center;
+  max-width: 350px;
+  margin: 0 auto;
 }
 
 @media (min-width: 600px) {
