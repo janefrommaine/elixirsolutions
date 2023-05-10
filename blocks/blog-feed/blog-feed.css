@@ -1,3 +1,11 @@
+main .blog-feed {
+  visibility: hidden;
+}
+
+main .blog-feed.appear {
+  visibility: visible;
+}
+
 main .blog-feed ul.blog-list {
   --blog-feed-cols: 1;
 
@@ -17,23 +25,25 @@ main .blog-feed ul.blog-list {
 main .blog-feed .blog-post-card {
   box-shadow: 0 2px 8px #dde0e2;
   border-radius: 4px;
+  overflow: hidden;
   height: 100%;
-  display: flex;
-  flex-direction: column;
+}
+
+main .blog-feed .blog-post-card picture {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 6 / 4;
 }
 
 main .blog-feed .blog-post-card picture > img {
+  position: absolute;
   object-fit: cover;
   width: 100%;
   height: 100%;
-  border-radius: 4px 4px 0 0;
 }
 
 main .blog-feed .blog-post-card .blog-post-content {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   padding: 2rem 1rem;
 }
 
@@ -127,7 +137,6 @@ main .blog-feed.mini .blog-post-mini-card {
 
 main .blog-feed.mini .blog-post-mini-card .blog-post-content {
   padding: 0;
-  justify-content: start;
 }
 
 main .blog-feed.mini .blog-post-mini-card .blog-post-content .post-description {

@@ -43,6 +43,7 @@ function buildPost(post, eager) {
     tagsUl.append(li);
   });
 
+  decorateIcons(postCard);
   return postCard;
 }
 
@@ -75,7 +76,7 @@ export default async function decorate(block) {
         ul.append(li);
       }
     } else {
-      li.append(buildPost(post, i < 4));
+      li.append(buildPost(post, i < 1));
       ul.append(li);
     }
 
@@ -89,5 +90,5 @@ export default async function decorate(block) {
     block.append(formWrapper);
   }
 
-  decorateIcons(block);
+  block.classList.add('appear');
 }
