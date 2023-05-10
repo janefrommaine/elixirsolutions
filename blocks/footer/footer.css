@@ -189,20 +189,13 @@ footer .footer-social {
   grid-area: social;
   margin: 0 0 30px;
   display: flex;
-}
-
-footer .footer-social .footer-social-container  {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 16px;
-  margin: 0 auto;
-  padding: 0;
+  justify-content: center;
 }
 
 footer .footer-social-icon {
   width: 60px;
   height: 60px;
+  display: inline-block;
   border-radius: 30px;
   margin: 0 10px;
   transition: .3s;

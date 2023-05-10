@@ -265,3 +265,19 @@ main .section.highlight .section-container {
   */
   color: var(--clr-white);
 }
+
+/* screen reade only text  util class */
+.sr-only {
+	border: 0 !important;
+	clip: rect(1px, 1px, 1px, 1px) !important;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+	-webkit-clip-path: inset(50%) !important;
+					clip-path: inset(50%) !important; 
+	height: 1px !important;
+	overflow: hidden !important;
+	margin: -1px !important;
+	padding: 0 !important;
+	position: absolute !important;
+	width: 1px !important;
+	white-space: nowrap !important;            
+}
