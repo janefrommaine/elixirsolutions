@@ -2,18 +2,17 @@ import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
 import { wrapImgsInLinks, decorateLinks } from '../../scripts/scripts.js';
 
 const handleSocialLinks = (block) => {
-  const footerSocial = block.querySelector('.footer-social');
-  const footerSocialContainer = footerSocial.querySelector(':scope > ul');
+  const footerSocialContainer = block.querySelector('.footer-social ul');
+  footerSocialContainer.classList.add('footer-social-container');
   Object.values(footerSocialContainer.children).forEach((child) => {
     const link = child.querySelector('a');
     const host = (new URL(link.href).hostname).split('.');
     const social = host[0] === 'www' ? host[1] : host[0];
     link.classList.add('footer-social-icon');
-    link.innerHTML = `<span class="sr-only">${social}</span>`;
+    link.innerText = '';
     link.classList.add(`footer-social-icon-${social}`);
-    footerSocial.append(link);
+    child.replaceWith(link);
   });
-  footerSocialContainer.remove();
 };
 
 /**
