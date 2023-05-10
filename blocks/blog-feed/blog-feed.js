@@ -15,13 +15,13 @@ function buildSmallPost(post) {
   return postCard;
 }
 
-function buildPost(post) {
+function buildPost(post, eager) {
   const postCard = document.createElement('div');
   postCard.classList.add('blog-post-card');
 
   postCard.innerHTML = `
       <div class="blog-post-image">
-        <a href="${post.path}">${createOptimizedPicture(post.image, `Teaser image for ${post.title}`).outerHTML}</a>
+        <a href="${post.path}">${createOptimizedPicture(post.image, `Teaser image for ${post.title}`, eager).outerHTML}</a>
       </div>
       <div class="blog-post-content">
         <a class="post-title" href="${post.path}">${post.title}</a>
@@ -75,7 +75,7 @@ export default async function decorate(block) {
         ul.append(li);
       }
     } else {
-      li.append(buildPost(post));
+      li.append(buildPost(post, i < 4));
       ul.append(li);
     }
 
