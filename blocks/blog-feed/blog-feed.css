@@ -1,3 +1,7 @@
+main .blog-feed:not(.mini) {
+  min-height: 100vh;
+}
+
 main .blog-feed ul.blog-list {
   --blog-feed-cols: 1;
 
