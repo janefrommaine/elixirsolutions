@@ -59,7 +59,7 @@ async function buildMiniFeed(block, ul) {
     if (i === 0) {
       const callout = buildPost(post);
       callout.classList.add('blog-post-callout-card');
-      block.append(callout);
+      block.prepend(callout);
     } else {
       li.append(buildSmallPost(post));
       ul.append(li);
