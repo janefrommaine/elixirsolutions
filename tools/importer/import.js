@@ -20,20 +20,6 @@ const transformBlocks = (main, document) => {
   const sectionBreak = document.createElement('p');
   sectionBreak.innerHTML = '---';
 
-  // sections
-  main.querySelectorAll('section').forEach((section) => {
-    if (section.querySelector(':scope > .blue-box')) {
-      const metdataCells = [
-        ['Section Metadata'],
-        ['Style', 'Highlight'],
-      ];
-      const sectionMetadataBlock = WebImporter.DOMUtils.createTable(metdataCells, document);
-      section.append(sectionMetadataBlock);
-    }
-
-    section.insertAdjacentElement('beforeend', sectionBreak.cloneNode(true));
-  });
-
   // blog feed
   const blog = main.querySelector('.blog');
   if (blog) {
@@ -74,42 +60,127 @@ const transformBlocks = (main, document) => {
     }
   }
 
-  main.querySelectorAll('.row-cols').forEach((cols) => {
-    let areEqual = true;
-    let teaserCount = 0;
-    const numCols = cols.children.length;
-    [...cols.children].forEach((col) => {
-      const teaser = col.querySelector(':scope > .teaser');
-      if (teaser) {
-        if (teaser.querySelector('h5') && teaser.querySelector('.desc-tile') && teaser.querySelector('.more')) {
-          teaserCount += 1;
-        }
-      }
-    });
-    const areCards = teaserCount === numCols;
-    if (areCards) {
-      const cardCells = [
-        ['Cards'],
+  // teaser
+  main.querySelectorAll('.teaser:not(.tile)').forEach((teaser) => {
+    if (teaser.classList.contains('cmp-teaser-fullwidthbluebox')) {
+      teaser.insertAdjacentElement('beforebegin', sectionBreak.cloneNode('true'));
+      teaser.insertAdjacentElement('afterend', sectionBreak.cloneNode('true'));
+      const metdataCells = [
+        ['Section Metadata'],
+        ['Style', 'Highlight'],
       ];
-      [...cols.children].forEach((col) => {
-        const cardData = [col.querySelector('img'), [col.querySelector('h5'), col.querySelector('.desc-tile'), col.querySelector('.more')]];
-        cardCells.push(cardData);
-      });
-      const cardsBlock = WebImporter.DOMUtils.createTable(cardCells, document);
-      cols.replaceWith(cardsBlock);
-    } else {
+      const sectionMetadataBlock = WebImporter.DOMUtils.createTable(metdataCells, document);
+      teaser.insertAdjacentElement('afterend', sectionMetadataBlock);
+    }
+
+    const contentCols = [];
+    const rowCols = teaser.querySelector('.row-cols');
+    if (rowCols) {
+      if (rowCols.classList.contains('floatright')) {
+        // content first
+        contentCols.push(rowCols.querySelector('.col-two-thirds'));
+        contentCols.push(rowCols.querySelector('.col-thirds'));
+      } else {
+        // image first
+        contentCols.push(rowCols.querySelector('.col-thirds'));
+        contentCols.push(rowCols.querySelector('.col-two-thirds'));
+      }
+
       const columnCells = [
-        ['Columns'],
+        ['Columns (teaser)'],
+        contentCols,
       ];
-      [...cols.children].forEach((col) => {
-        if (col.children.length > 0) {
-          columnCells.push([...col.children]);
-        }
-      });
-      if (columnCells.length > 1) {
-        const colsBlock = WebImporter.DOMUtils.createTable(columnCells, document);
-        cols.replaceWith(colsBlock);
-      }
+
+      const colsBlock = WebImporter.DOMUtils.createTable(columnCells, document);
+      teaser.replaceWith(colsBlock);
+    }
+  });
+
+  // cards
+  main.querySelectorAll('.row-cols.icons, .full-width-blue-box .blue-box .row-cols').forEach((cards) => {
+    const colContainer = cards.closest('.columncontainer');
+    if (colContainer && colContainer.querySelector(':scope > .full-width-blue-box')) {
+      colContainer.insertAdjacentElement('beforebegin', sectionBreak.cloneNode('true'));
+      colContainer.insertAdjacentElement('afterend', sectionBreak.cloneNode('true'));
+      const metdataCells = [
+        ['Section Metadata'],
+        ['Style', 'Highlight'],
+      ];
+      const sectionMetadataBlock = WebImporter.DOMUtils.createTable(metdataCells, document);
+      colContainer.insertAdjacentElement('afterend', sectionMetadataBlock);
+    }
+
+    const cardCells = [
+      ['Cards'],
+    ];
+    cards.querySelectorAll('.teaser').forEach((card) => {
+      const cardData = [card.querySelector('img'), [card.querySelector('h5'), card.querySelector('.desc-tile'), card.querySelector('.more')]];
+      cardCells.push(cardData);
+    });
+
+    const cardsBlock = WebImporter.DOMUtils.createTable(cardCells, document);
+    cards.replaceWith(cardsBlock);
+  });
+
+  const createAccordion = (elem, headingLevel) => {
+    const accContent = document.createElement('div');
+    elem.querySelectorAll(':scope > .cmp-accordion__item').forEach((item) => {
+      const button = item.querySelector('.cmp-accordion__button');
+      const panelId = button.getAttribute('aria-controls');
+      const panel = item.querySelector(`#${panelId}`);
+
+      const heading = document.createElement(headingLevel);
+      heading.innerHTML = button.querySelector('.accordion').textContent;
+      accContent.append(heading);
+      accContent.append(panel);
+    });
+    return accContent;
+  };
+
+  const processAccordionPanel = (panel) => {
+    panel.querySelectorAll('ul.expand').forEach((acc) => {
+      const accContent = createAccordion(acc, 'h3');
+      acc.replaceWith(accContent);
+    });
+
+    return panel;
+  };
+
+  // accordion
+  main.querySelectorAll('ul.expand-groups').forEach((acc) => {
+    acc.insertAdjacentElement('beforebegin', sectionBreak.cloneNode('true'));
+    acc.insertAdjacentElement('afterend', sectionBreak.cloneNode('true'));
+    const metdataCells = [
+      ['Section Metadata'],
+      ['Style', 'Accordion'],
+    ];
+    const sectionMetadataBlock = WebImporter.DOMUtils.createTable(metdataCells, document);
+    acc.insertAdjacentElement('afterend', sectionMetadataBlock);
+
+    const accContent = createAccordion(acc, 'h2');
+    acc.replaceWith(processAccordionPanel(accContent));
+  });
+
+  main.querySelectorAll('.row-cols').forEach((cols) => {
+    let columnVar = '';
+    if (cols.querySelector('.col-twenty') && cols.querySelector('.col-eighty')) columnVar = ' (20-80)';
+    if (cols.querySelector('.col-two-thirds') && cols.querySelector('.col-thirds')) columnVar = ' (thirds)';
+    const columnCells = [
+      [`Columns ${columnVar}`],
+      [...cols.children],
+    ];
+    if (cols.classList.contains('floatright')) {
+      columnCells[1].reverse();
+    }
+
+    const colsBlock = WebImporter.DOMUtils.createTable(columnCells, document);
+    cols.replaceWith(colsBlock);
+  });
+
+  // fix links
+  main.querySelectorAll('a').forEach((a) => {
+    if (a.href.startsWith('/')) {
+      a.href = `https://www.elixirsolutions.com${a.href}`;
     }
   });
 };
