@@ -162,6 +162,7 @@ main .blog-feed .blog-pages ul {
   gap: 1rem
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main .blog-feed .blog-pages ul > li:is(.prev, .next) > a,
 main .blog-feed .blog-pages ul > li.cur > span {
   position: relative;
@@ -174,11 +175,13 @@ main .blog-feed .blog-pages ul > li.cur > span {
   border: 2px solid var(--link-color);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main .blog-feed .blog-pages ul > li:is(.prev, .next) > a:hover {
   background-color: var(--link-color);
   color: var(--clr-white);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main .blog-feed .blog-pages ul > li.prev > a .icon {
   rotate: 180deg;
 }
