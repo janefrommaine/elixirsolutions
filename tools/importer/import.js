@@ -67,11 +67,7 @@ const transformBlocks = (main, document) => {
       teaser.insertAdjacentElement('afterend', sectionBreak.cloneNode('true'));
       const metdataCells = [
         ['Section Metadata'],
-<<<<<<< HEAD
         ['Style', 'Highlight'],
-=======
-        ['Style', 'Alternate Hero'],
->>>>>>> main
       ];
       const sectionMetadataBlock = WebImporter.DOMUtils.createTable(metdataCells, document);
       teaser.insertAdjacentElement('afterend', sectionMetadataBlock);
