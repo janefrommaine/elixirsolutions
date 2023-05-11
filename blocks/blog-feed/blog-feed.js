@@ -122,6 +122,10 @@ async function buildBlogFeed(ul, pageNum, pageControl) {
   });
 
   decorateIcons(pageControl);
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
 }
 
 export default async function decorate(block) {
