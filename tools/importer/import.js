@@ -163,7 +163,7 @@ const transformBlocks = (main, document) => {
 
   main.querySelectorAll('.row-cols').forEach((cols) => {
     let columnVar = '';
-    if (cols.querySelector('.col-twenty') && cols.querySelector('.col-eighty')) columnVar = ' (20-80)';
+    if (cols.querySelector('.col-twenty') && cols.querySelector('.col-eighty')) columnVar = ' (fifths)';
     if (cols.querySelector('.col-two-thirds') && cols.querySelector('.col-thirds')) columnVar = ' (thirds)';
     const columnCells = [
       [`Columns ${columnVar}`],
