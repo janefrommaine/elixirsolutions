@@ -152,3 +152,37 @@ main .blog-feed.mini .blog-post-mini-card .blog-post-content .post-description {
   color: var(--text-color);
   margin-top: .25em;
 }
+
+/* page control */
+main .blog-feed .blog-pages ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem
+}
+
+main .blog-feed .blog-pages ul > li:is(.prev, .next) > a,
+main .blog-feed .blog-pages ul > li.cur > span {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  aspect-ratio: 1 / 1;
+  border-radius: 25px;
+  border: 2px solid var(--link-color);
+}
+
+main .blog-feed .blog-pages ul > li:is(.prev, .next) > a:hover {
+  background-color: var(--link-color);
+  color: var(--clr-white);
+}
+
+main .blog-feed .blog-pages ul > li.prev > a .icon {
+  rotate: 180deg;
+}
+
+main .blog-feed .blog-pages ul > li:is(.prev, .next) a::after {
+  content: '';
+}
