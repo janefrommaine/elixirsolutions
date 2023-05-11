@@ -6,11 +6,11 @@ import {
   decorateButtons,
   decorateIcons,
   decorateSections,
-  decorateBlocks,
   decorateTemplateAndTheme,
   waitForLCP,
   loadBlocks,
   loadCSS,
+  decorateBlock,
 } from './lib-franklin.js';
 
 const PRODUCTION_DOMAINS = ['www.elixirsolutions.com'];
@@ -22,11 +22,32 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
  */
 function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
-  const picture = main.querySelector('picture');
-  // eslint-disable-next-line no-bitwise
-  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
+  if (!h1) {
+    return;
+  }
+
+  const section = h1.closest('div');
+
+  const h2 = section.querySelector('h2');
+  const picture = section.querySelector('picture');
+  const cta = section.querySelector('a');
+
+  if (picture) {
+    section.append(buildBlock('hero', { elems: [h1, h2, picture, cta] }));
+    main.prepend(section);
+  }
+}
+
+/**
+ * Builds breadcrumb block and prepends to main in a new section.
+ * @param {Element} main The container element
+ */
+function buildBreadcrumbBlock(main) {
+  const title = document.querySelector('head title');
+
+  if (title.innerText !== 'Elixir-Home' && window.isErrorPage !== true) {
     const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
+    section.append(buildBlock('breadcrumb', { elems: [] }));
     main.prepend(section);
   }
 }
@@ -38,10 +59,34 @@ function buildHeroBlock(main) {
 function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
+    buildBreadcrumbBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
   }
+}
+
+/**
+ * adds container divs to each section and other additional section decoration activities
+ * @param {Element} main The container element
+ */
+function decorateSectionsExt(main) {
+  main.querySelectorAll('.section').forEach((section) => {
+    const container = document.createElement('div');
+    container.classList.add('section-container');
+    [...section.children].forEach((child) => container.append(child));
+    section.append(container);
+  });
+}
+
+/**
+ * Decorates all blocks in a container element.
+ * @param {Element} main The container element
+ */
+export function decorateBlocks(main) {
+  main
+    .querySelectorAll('div.section > div > div > div')
+    .forEach(decorateBlock);
 }
 
 /**
@@ -55,6 +100,7 @@ export function decorateMain(main) {
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
+  decorateSectionsExt(main);
   decorateBlocks(main);
 }
 
