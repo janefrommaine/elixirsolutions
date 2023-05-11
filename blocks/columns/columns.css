@@ -62,3 +62,29 @@
 .columns.grey p {
   margin: 0 0 15px;
 }
+
+/* 20-80 variant */
+
+.columns.col-20-80 > div {
+  gap: unset;
+  margin-bottom: 25px;
+}
+
+.columns.col-20-80 > div > div {
+  padding: 5px;
+}
+
+@media (min-width: 600px) {
+  .columns.col-20-80 > div {
+    display: grid;
+    grid-template-columns: 20% 80%;
+  }
+
+  .columns.col-20-80 > div > div:first-child {
+    text-align: center;
+  }
+
+  .columns.col-20-80 img {
+    max-width: 196px;
+  }
+}
