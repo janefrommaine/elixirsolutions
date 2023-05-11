@@ -82,7 +82,7 @@ async function buildBlogFeed(ul, pageNum, pageControl) {
     .slice(offset, offset + limit + 1);
 
   let i = 0;
-  ul.innerHTML = '';
+  const newUl = document.createElement('ul');
   // eslint-disable-next-line no-restricted-syntax
   for await (const post of blogPosts) {
     if (i >= limit) {
@@ -93,7 +93,7 @@ async function buildBlogFeed(ul, pageNum, pageControl) {
 
     const li = document.createElement('li');
     li.append(buildPost(post, i < 1));
-    ul.append(li);
+    newUl.append(li);
 
     i += 1;
   }
@@ -122,6 +122,7 @@ async function buildBlogFeed(ul, pageNum, pageControl) {
   });
 
   decorateIcons(pageControl);
+  ul.innerHTML = newUl.innerHTML;
   window.scrollTo({
     top: 0,
     behavior: 'smooth',
