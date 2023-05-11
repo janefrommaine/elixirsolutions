@@ -1,11 +1,3 @@
-main .blog-feed {
-  visibility: hidden;
-}
-
-main .blog-feed.appear {
-  visibility: visible;
-}
-
 main .blog-feed ul.blog-list {
   --blog-feed-cols: 1;
 

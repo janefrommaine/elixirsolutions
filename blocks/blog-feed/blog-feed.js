@@ -143,6 +143,4 @@ export default async function decorate(block) {
   const page = usp.get('page');
   const pageNum = Number(!page ? '0' : page - 1);
   buildBlogFeed(ul, pageNum, pageControl);
-
-  block.classList.add('appear');
 }
