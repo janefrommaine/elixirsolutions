@@ -9,6 +9,11 @@
   margin: 0 auto;
 }
 
+.columns.thirds a.button {
+  font-size: var(--body-font-size-m);
+  padding: 5px 25px;
+}
+
 .columns > div > div {
   order: 1;
 }
@@ -51,13 +56,6 @@
   border-radius: 50%;
   max-width: 280px;
   margin: auto;
-}
-
-.columns.thirds .button {
-  background-color: var(--clr-white);
-  color: var(--link-color);
-  font-size: var(--body-font-size-m);
-  padding: 5px 25px;
 }
 
 @media (min-width: 900px) {

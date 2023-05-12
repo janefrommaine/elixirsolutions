@@ -189,6 +189,11 @@ a.button.secondary, button.secondary {
   color: var(--text-color)
 }
 
+.section.highlight a.button {
+  background-color: var(--clr-white);
+  color: var(--link-color);
+}
+
 main input {
   font-size: 1.25rem;
   width: 100%;
