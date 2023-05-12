@@ -20,11 +20,6 @@
   display: block;
 }
 
-/* normally image on mobile view is on the top, but some variant shows at bottom */
-.columns.image-bottom > div > div:has(img) {
-  order: 2;
-}
-
 @media (min-width: 600px) {
   .columns > div {
     align-items: stretch;
@@ -41,6 +36,42 @@
 @media (min-width: 900px) {
   .columns > div {
     gap: 100px;
+  }
+}
+
+/* thirds variant */
+
+.columns.thirds > div {
+  display: grid;
+  padding: 40px;
+}
+
+.columns.thirds > div > div:has(img) img {
+  border-radius: 50%;
+  max-width: 280px;
+  margin: auto;
+}
+
+.columns.thirds .button {
+  background-color: var(--clr-white);
+  color: var(--link-color);
+  font-size: var(--body-font-size-m);
+  padding: 5px 25px;
+}
+
+@media (min-width: 900px) {
+  .columns.thirds > div {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .columns.thirds > div > div {
+    order: 1;
+    grid-column: span 2;
+  }
+  
+  .columns.thirds > div > div:has(img) {
+    order: 0;
+    grid-column: span 1;
   }
 }
 
@@ -85,56 +116,26 @@
     grid-template-columns: repeat(5, 1fr);
   }
 
-  .columns.fifths > div > div:has(img) {
-    text-align: center;
-    grid-column: span 1;
-  }
-
-  .columns.fifths > div > div img {
-    margin: 0 auto;
+  .columns.fifths img {
+    max-width: 196px;
   }
 
   .columns.fifths > div > div {
     grid-column: span 4;
   }
 
-  .columns.fifths img {
-    max-width: 196px;
-  }
-}
-
-/* thirds variant */
-
-.columns.thirds > div {
-  display: grid;
-  padding: 40px;
-}
-
-.columns.thirds > div > div:has(img) img {
-  border-radius: 50%;
-  max-width: 280px;
-  margin: auto;
-}
-
-.columns.thirds .button {
-  background-color: var(--clr-white);
-  color: var(--link-color);
-  font-size: var(--body-font-size-m);
-  padding: 5px 25px;
-}
-
-@media (min-width: 900px) {
-  .columns.thirds > div {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .columns.thirds > div > div {
-    order: 1;
-    grid-column: span 2;
-  }
-  
-  .columns.thirds > div > div:has(img) {
-    order: 0;
+  .columns.fifths > div > div:has(img) {
+    text-align: center;
     grid-column: span 1;
   }
+
+  .columns.fifths > div > div:has(img) img {
+    margin: 0 auto;
+  }
+
+}
+
+/* normally image on mobile view is on the top, but some variant shows at bottom */
+.columns.image-bottom > div > div:has(img) {
+  order: 2;
 }
