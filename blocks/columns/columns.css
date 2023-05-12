@@ -63,28 +63,64 @@
   margin: 0 0 15px;
 }
 
-/* 20-80 variant */
+/* fifths variant */
 
-.columns.col-20-80 > div {
+.columns.fifths > div {
   gap: unset;
   margin-bottom: 25px;
 }
 
-.columns.col-20-80 > div > div {
+.columns.fifths > div > div {
   padding: 5px;
 }
 
 @media (min-width: 600px) {
-  .columns.col-20-80 > div {
+  .columns.fifths > div {
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: repeat(5, 1fr);
   }
 
-  .columns.col-20-80 > div > div:first-child {
+  .columns.fifths > div > div:has(img) {
     text-align: center;
+    grid-column: span 1;
   }
 
-  .columns.col-20-80 img {
+  .columns.fifths > div > div img {
+    margin: 0 auto;
+  }
+
+  .columns.fifths > div > div {
+    grid-column: span 4;
+  }
+
+  .columns.fifths img {
     max-width: 196px;
   }
 }
+
+/* thirds variant */
+/* 
+.columns.thirds > div {
+  padding: 40px;
+}
+
+.columns.thirds > div > div {
+  order: 0;
+}
+
+.columns.thirds > div > .columns-img-col {
+  order: 1;
+}
+
+.columns.thirds > div > .columns-img-col img {
+  border-radius: 50%;
+  max-width: 280px;
+  margin: auto;
+}
+
+.columns.thirds .button {
+  background-color: var(--clr-white);
+  color: var(--link-color);
+  font-size: var(--body-font-size-m);
+  padding: 5px 25px;
+} */
