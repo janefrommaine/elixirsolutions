@@ -5,7 +5,8 @@
 }
 
 .columns img {
-  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .columns > div > div {
@@ -46,7 +47,7 @@
   padding: 40px;
 }
 
-.columns.thirds > div > div:has(img) img {
+.columns.thirds > div > div.columns-img-col img {
   border-radius: 50%;
   max-width: 280px;
   margin: auto;
@@ -69,7 +70,7 @@
     grid-column: span 2;
   }
   
-  .columns.thirds > div > div:has(img) {
+  .columns.thirds > div > div.columns-img-col {
     order: 0;
     grid-column: span 1;
   }
@@ -82,7 +83,7 @@
 }
 
 .columns.grey > div > div {
-  background-color: var(--clr-grey);
+  background-color: rgb(240 243 244);
   padding: 20px;
   min-height: 145px;
 }
@@ -124,18 +125,18 @@
     grid-column: span 4;
   }
 
-  .columns.fifths > div > div:has(img) {
+  .columns.fifths > div > div.columns-img-col {
     text-align: center;
     grid-column: span 1;
   }
 
-  .columns.fifths > div > div:has(img) img {
+  .columns.fifths > div > div.columns-img-col img {
     margin: 0 auto;
   }
 
 }
 
 /* normally image on mobile view is on the top, but some variant shows at bottom */
-.columns.image-bottom > div > div:has(img) {
+.columns.image-bottom > div > div.columns-img-col {
   order: 2;
 }
