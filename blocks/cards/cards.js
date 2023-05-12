@@ -12,23 +12,37 @@ export default function decorate(block) {
 
   [...block.children].forEach((row) => {
     const li = document.createElement('li');
-    const cardButtonContainer = row.querySelector('.button-container');
-    const cardLink = cardButtonContainer.querySelector('a');
-    const clonedLink = cardLink.cloneNode(false);
-    clonedLink.className = 'card-link-wrapper';
-    cardButtonContainer.remove();
-    li.append(clonedLink);
+    const cardLink = row.querySelector('.button-container > a');
+    if (cardLink) {
+      const cardButtonContainer = cardLink.closest('.button-container');
 
-    [...row.children].forEach((div) => {
-      if (div.children.length === 1 && div.querySelector('picture')) {
-        div.className = 'cards-card-image';
-      } else {
-        div.className = 'cards-card-body';
-        div.insertAdjacentHTML('beforeEnd', `<span class="card-more-cta">${clonedLink.title}</span>`);
-      }
+      const cardLinkTitle = cardLink.textContent;
+      cardLink.innerHTML = '';
+      cardLink.className = 'card-link-wrapper';
+      li.append(cardLink);
 
-      clonedLink.append(div);
-    });
+      [...row.children].forEach((div) => {
+        if (div.children.length === 1 && div.querySelector('picture')) {
+          div.className = 'cards-card-image';
+        } else {
+          div.className = 'cards-card-body';
+          if (div !== cardButtonContainer) cardButtonContainer.remove();
+          div.insertAdjacentHTML('beforeEnd', `<span class="card-more-cta">${cardLinkTitle}</span>`);
+        }
+
+        cardLink.append(div);
+      });
+    } else {
+      [...row.children].forEach((div) => {
+        if (div.children.length === 1 && div.querySelector('picture')) {
+          div.className = 'cards-card-image';
+        } else {
+          div.className = 'cards-card-body';
+        }
+
+        li.append(div);
+      });
+    }
     ul.append(li);
   });
   ul.querySelectorAll('img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));

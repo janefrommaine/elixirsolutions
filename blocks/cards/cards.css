@@ -59,7 +59,7 @@
   color: var(--text-color);
 }
 
-.cards .card-link-wrapper :is(h2, h3, h4, h5, h6) {
+.cards .cards-card-body :is(h2, h3, h4, h5, h6) {
   color: var(--headline-color);
   margin-block: .75em;
 }
