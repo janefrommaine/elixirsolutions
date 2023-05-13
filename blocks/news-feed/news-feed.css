@@ -42,22 +42,6 @@ main .news-feed .news-card .news-content .post-description p {
   color: var(--text-color);
 }
 
-/* main .news-feed .news-card .news-content .post-description span {
-  display: inline-block;
-  box-sizing: border-box;
-  text-decoration: none;
-  border: 2px solid var(--link-color);
-  padding: .6em 1.2em;
-  text-align: center;
-  font-style: normal;
-  font-weight: 600;
-  margin: 20px 0 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  border-radius: 30px;
-} */
-
 main .news-feed .news-card .news-content .post-description span {
   color: var(--link-color);
   font-weight: 800;
