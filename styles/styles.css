@@ -78,6 +78,7 @@
 body {
   font-size: var(--body-font-size-xs);
   font-family: var(--body-font-family);
+  -webkit-font-smoothing: antialiased;
   line-height: 1.5;
   color: var(--text-color);
   background-color: var(--background-color);
@@ -249,7 +250,13 @@ main img {
 
 /* Sections */
 main .section {
-  padding: 32px;
+  padding: 15px;
+}
+
+@media(min-width: 900px) {
+  main .section {
+    padding: 32px;
+  }
 }
 
 main .section .default-content-wrapper {
