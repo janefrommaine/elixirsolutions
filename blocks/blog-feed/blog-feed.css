@@ -2,10 +2,6 @@ main .blog-feed {
   min-height: 100vh;
 }
 
-main .blog-feed.mini {
-  min-height: 500px;
-}
-
 main .blog-feed ul.blog-list {
   --blog-feed-cols: 1;
 
@@ -115,6 +111,7 @@ main .blog-feed .blog-post-callout-card .blog-post-content .post-tags {
 
 /* mini feed */
 main .blog-feed.mini {
+  min-height: 500px;
   display: grid;
   grid-auto-flow: row;
   gap: 2rem;
