@@ -17,6 +17,26 @@ const PRODUCTION_DOMAINS = ['www.elixirsolutions.com'];
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
 /**
+ * load a script by adding to page head
+ * @param {string} url the script src url
+ * @param {string} type the script type
+ * @param {function} callback a funciton to callback after loading
+ */
+export function loadScript(url, type, callback) {
+  const head = document.querySelector('head');
+  let script = head.querySelector(`script[src="${url}"]`);
+  if (!script) {
+    script = document.createElement('script');
+    script.src = url;
+    if (type) script.setAttribute('type', type);
+    head.append(script);
+    script.onload = callback;
+    return script;
+  }
+  return script;
+}
+
+/**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
