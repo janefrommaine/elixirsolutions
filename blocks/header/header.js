@@ -18,7 +18,8 @@ async function execSearch(query, resultsContainer) {
   if (query.length >= 3) {
     const regex = new RegExp(query, 'id');
     const results = ffetch('/query-index.json')
-      .filter((p) => regex.test(p.title) || regex.test(p.description));
+      .filter((p) => regex.test(p.title) || regex.test(p.description))
+      .limit(10);
     let hasResults = false;
     resultsContainer.innerHTML = '';
     // eslint-disable-next-line no-restricted-syntax
