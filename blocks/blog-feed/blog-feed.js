@@ -73,7 +73,7 @@ async function buildMiniFeed(block, ul) {
   block.append(formWrapper);
 }
 
-async function buildBlogFeed(ul, pageNum, pageControl) {
+async function buildBlogFeed(ul, pageNum, pagesElem) {
   const limit = 10;
   const offset = pageNum * limit;
   let morePages = false;
@@ -98,7 +98,11 @@ async function buildBlogFeed(ul, pageNum, pageControl) {
     i += 1;
   }
 
-  pageControl.innerHTML = `
+  // pageNum is stored as a 0-based index
+  // but when passed as a url param, it's normalized to be 1 based
+  // thus the difference b/w data-page (-1 | +1) and page (0 || +2)
+  // see also where pageNum is initialized in decorate
+  pagesElem.innerHTML = `
       <ul class="pages">
         <li class="prev"><a data-page="${pageNum - 1}" href="${window.location.pathname}?page=${pageNum}"><span class="icon icon-next"><span class="sr-only">Previous Page</span></a></li>
         <li class="cur"><span>${pageNum + 1}</span></li>
@@ -107,21 +111,21 @@ async function buildBlogFeed(ul, pageNum, pageControl) {
     `;
 
   if (pageNum === 0) {
-    pageControl.querySelector('.prev').remove();
+    pagesElem.querySelector('.prev').remove();
   }
 
   if (!morePages) {
-    pageControl.querySelector('.next').remove();
+    pagesElem.querySelector('.next').remove();
   }
 
-  pageControl.querySelectorAll('li > a').forEach((link) => {
+  pagesElem.querySelectorAll('li > a').forEach((link) => {
     link.addEventListener('click', (evt) => {
       evt.preventDefault();
-      buildBlogFeed(ul, Number(link.dataset.page), pageControl);
+      buildBlogFeed(ul, Number(link.dataset.page), pagesElem);
     });
   });
 
-  decorateIcons(pageControl);
+  decorateIcons(pagesElem);
   ul.innerHTML = newUl.innerHTML;
   window.scrollTo({
     top: 0,
@@ -143,14 +147,14 @@ export default function decorate(block) {
         return;
       }
 
-      const pageControl = document.createElement('div');
-      pageControl.classList.add('blog-pages');
-      block.append(pageControl);
+      const pagesElem = document.createElement('div');
+      pagesElem.classList.add('blog-pages');
+      block.append(pagesElem);
 
       const usp = new URLSearchParams(window.location.search);
       const page = usp.get('page');
       const pageNum = Number(!page ? '0' : page - 1);
-      buildBlogFeed(ul, pageNum, pageControl);
+      buildBlogFeed(ul, pageNum, pagesElem);
     }
   });
   observer.observe(block);

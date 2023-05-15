@@ -25,11 +25,11 @@ function buildPost(post, eager) {
   return postCard;
 }
 
-async function buildNewsFeed(ul, pageNum, pageControl) {
+async function buildNewsFeed(ul, pageNum, pagesElem) {
   const limit = 5;
   const offset = pageNum * limit;
   let morePages = false;
-  const blogPosts = ffetch('/query-index.json')
+  const newsFeed = ffetch('/query-index.json')
     .filter((p) => p.path.startsWith('/news/'))
     .slice(offset, offset + limit + 1)
     .follow('path', 'content');
@@ -37,7 +37,7 @@ async function buildNewsFeed(ul, pageNum, pageControl) {
   let i = 0;
   const newUl = document.createElement('ul');
   // eslint-disable-next-line no-restricted-syntax
-  for await (const post of blogPosts) {
+  for await (const post of newsFeed) {
     if (i >= limit) {
       // skip render, but know we have more page
       morePages = true;
@@ -51,7 +51,11 @@ async function buildNewsFeed(ul, pageNum, pageControl) {
     i += 1;
   }
 
-  pageControl.innerHTML = `
+  // pageNum is stored as a 0-based index
+  // but when passed as a url param, it's normalized to be 1 based
+  // thus the difference b/w data-page (-1 | +1) and page (0 || +2)
+  // see also where pageNum is initialized in decorate
+  pagesElem.innerHTML = `
       <ul class="pages">
         <li class="prev"><a data-page="${pageNum - 1}" href="${window.location.pathname}?page=${pageNum}"><span class="icon icon-next"><span class="sr-only">Previous Page</span></a></li>
         <li class="cur"><span>${pageNum + 1}</span></li>
@@ -60,21 +64,21 @@ async function buildNewsFeed(ul, pageNum, pageControl) {
     `;
 
   if (pageNum === 0) {
-    pageControl.querySelector('.prev').remove();
+    pagesElem.querySelector('.prev').remove();
   }
 
   if (!morePages) {
-    pageControl.querySelector('.next').remove();
+    pagesElem.querySelector('.next').remove();
   }
 
-  pageControl.querySelectorAll('li > a').forEach((link) => {
+  pagesElem.querySelectorAll('li > a').forEach((link) => {
     link.addEventListener('click', (evt) => {
       evt.preventDefault();
-      buildNewsFeed(ul, Number(link.dataset.page), pageControl);
+      buildNewsFeed(ul, Number(link.dataset.page), pagesElem);
     });
   });
 
-  decorateIcons(pageControl);
+  decorateIcons(pagesElem);
   ul.innerHTML = newUl.innerHTML;
   window.scrollTo({
     top: 0,
@@ -90,14 +94,14 @@ export default function decorate(block) {
       ul.classList.add('news-list');
       block.append(ul);
 
-      const pageControl = document.createElement('div');
-      pageControl.classList.add('news-pages');
-      block.append(pageControl);
+      const pagesElem = document.createElement('div');
+      pagesElem.classList.add('news-pages');
+      block.append(pagesElem);
 
       const usp = new URLSearchParams(window.location.search);
       const page = usp.get('page');
       const pageNum = Number(!page ? '0' : page - 1);
-      buildNewsFeed(ul, pageNum, pageControl);
+      buildNewsFeed(ul, pageNum, pagesElem);
     }
   });
   observer.observe(block);
