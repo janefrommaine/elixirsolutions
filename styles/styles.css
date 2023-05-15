@@ -78,7 +78,10 @@
 @font-face {
   font-family: 'proxima-nova-fallback';
   src: local("Arial");
-  size-adjust: 97.57%;
+  size-adjust: 87%;
+  ascent-override: 105%;
+  descent-override: 41%;
+  line-gap-override: 27%;
 }
 
 body {
