@@ -195,11 +195,17 @@ export default async function decorate(block) {
         <div class="search-results"></div>
       </div>`;
       const searchInput = tools.querySelector('.search-input');
+      const results = tools.querySelector('.search-results');
       searchInput.addEventListener('keyup', () => {
         debounce(() => {
           const q = searchInput.value;
-          execSearch(q, tools.querySelector('.search-results'));
+          execSearch(q, results);
         }, 250);
+      });
+      document.addEventListener('click', (event) => {
+        if (!results.contains(event.target)) {
+          results.classList.remove('visible');
+        }
       });
     }
 
