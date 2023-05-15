@@ -82,17 +82,23 @@ async function buildNewsFeed(ul, pageNum, pageControl) {
   });
 }
 
-export default async function decorate(block) {
-  const ul = document.createElement('ul');
-  ul.classList.add('news-list');
-  block.append(ul);
+export default function decorate(block) {
+  const observer = new IntersectionObserver(async (entries) => {
+    if (entries.some((e) => e.isIntersecting)) {
+      observer.disconnect();
+      const ul = document.createElement('ul');
+      ul.classList.add('news-list');
+      block.append(ul);
 
-  const pageControl = document.createElement('div');
-  pageControl.classList.add('news-pages');
-  block.append(pageControl);
+      const pageControl = document.createElement('div');
+      pageControl.classList.add('news-pages');
+      block.append(pageControl);
 
-  const usp = new URLSearchParams(window.location.search);
-  const page = usp.get('page');
-  const pageNum = Number(!page ? '0' : page - 1);
-  buildNewsFeed(ul, pageNum, pageControl);
+      const usp = new URLSearchParams(window.location.search);
+      const page = usp.get('page');
+      const pageNum = Number(!page ? '0' : page - 1);
+      buildNewsFeed(ul, pageNum, pageControl);
+    }
+  });
+  observer.observe(block);
 }

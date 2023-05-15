@@ -1,3 +1,7 @@
+main .news-feed {
+  min-height: 100vh;
+}
+
 main .news-feed ul.news-list {
   display: grid;
   gap: 2rem;

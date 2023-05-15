@@ -1,5 +1,9 @@
-main .blog-feed:not(.mini) {
+main .blog-feed {
   min-height: 100vh;
+}
+
+main .blog-feed.mini {
+  min-height: 500px;
 }
 
 main .blog-feed ul.blog-list {

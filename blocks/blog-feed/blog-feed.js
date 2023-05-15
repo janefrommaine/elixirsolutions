@@ -129,23 +129,29 @@ async function buildBlogFeed(ul, pageNum, pageControl) {
   });
 }
 
-export default async function decorate(block) {
-  const small = block.classList.contains('mini');
-  const ul = document.createElement('ul');
-  ul.classList.add('blog-list');
-  block.append(ul);
+export default function decorate(block) {
+  const observer = new IntersectionObserver(async (entries) => {
+    if (entries.some((e) => e.isIntersecting)) {
+      observer.disconnect();
+      const small = block.classList.contains('mini');
+      const ul = document.createElement('ul');
+      ul.classList.add('blog-list');
+      block.append(ul);
 
-  if (small) {
-    await buildMiniFeed(block, ul);
-    return;
-  }
+      if (small) {
+        await buildMiniFeed(block, ul);
+        return;
+      }
 
-  const pageControl = document.createElement('div');
-  pageControl.classList.add('blog-pages');
-  block.append(pageControl);
+      const pageControl = document.createElement('div');
+      pageControl.classList.add('blog-pages');
+      block.append(pageControl);
 
-  const usp = new URLSearchParams(window.location.search);
-  const page = usp.get('page');
-  const pageNum = Number(!page ? '0' : page - 1);
-  buildBlogFeed(ul, pageNum, pageControl);
+      const usp = new URLSearchParams(window.location.search);
+      const page = usp.get('page');
+      const pageNum = Number(!page ? '0' : page - 1);
+      buildBlogFeed(ul, pageNum, pageControl);
+    }
+  });
+  observer.observe(block);
 }
