@@ -14,43 +14,29 @@
   background: var(--stroke-color)
 }
 
-.error-gears .gear:before {
+.error-gears .gear::before,
+.error-gears .gear::after {
   position: absolute;
+  content: '';
+  border-radius: 50%;
+  background: var(--main-color)
+}
+
+.error-gears .gear::before {
   left: 5px;
   top: 5px;
   right: 5px;
   bottom: 5px;
   z-index: 2;
-  content: "";
-  border-radius: 50%;
-  background: var(--main-color)
 }
 
-.error-gears .gear:after {
-  position: absolute;
+.error-gears .gear::after {
   left: 25px;
   top: 25px;
   z-index: 3;
-  content: "";
   width: 70px;
   height: 70px;
-  border-radius: 50%;
   border: 5px solid var(--stroke-color);
-  box-sizing: border-box;
-  background: var(--main-color)
-}
-
-.error-gears .gear.one {
-  left: -130px
-}
-
-.error-gears .gear.two {
-  top: -75px
-}
-
-.error-gears .gear.three {
-  top: -235px;
-  left: 130px
 }
 
 .gear .bar {
@@ -65,7 +51,7 @@
   background: var(--stroke-color)
 }
 
-.error-gears .gear .bar:before {
+.error-gears .gear .bar::before {
   position: absolute;
   left: 5px;
   top: 5px;
@@ -78,12 +64,10 @@
 }
 
 .error-gears .gear .bar:nth-child(2) {
-  transform: rotate(60deg);
   transform: rotate(60deg)
 }
 
 .error-gears .gear .bar:nth-child(3) {
-  transform: rotate(120deg);
   transform: rotate(120deg)
 }
 
@@ -97,7 +81,7 @@
   }
 }
 
-@keyframes anticlockwise {
+@keyframes anti-clockwise {
   0% {
       transform: rotate(360deg)
   }
@@ -107,7 +91,7 @@
   }
 }
 
-@keyframes clockwiseError {
+@keyframes clockwise-error {
   0% {
       transform: rotate(0)
   }
@@ -129,7 +113,7 @@
   }
 }
 
-@keyframes anticlockwiseErrorStop {
+@keyframes anti-clockwise-error-stop {
   0% {
       transform: rotate(0)
   }
@@ -147,7 +131,7 @@
   }
 }
 
-@keyframes anticlockwiseError {
+@keyframes anti-clockwise-error {
   0% {
       transform: rotate(0)
   }
@@ -170,13 +154,17 @@
 }
 
 .error-gears .gear.one {
-  animation: anticlockwiseErrorStop 2s linear infinite
+  left: -130px;
+  animation: anti-clockwise-error-stop 2s linear infinite
 }
 
 .error-gears .gear.two {
-  animation: anticlockwiseError 2s linear infinite
+  top: -75px;
+  animation: anti-clockwise-error 2s linear infinite
 }
 
 .error-gears .gear.three {
-  animation: clockwiseError 2s linear infinite
+  top: -235px;
+  left: 130px;
+  animation: clockwise-error 2s linear infinite
 }
