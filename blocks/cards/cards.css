@@ -2,16 +2,9 @@
   --num-cols: 1;
 }
 
-.cards.cards-four-up {
-  --num-cols: 1;
-}
 
 @media (min-width: 600px) {
   .cards {
-    --num-cols: 3;
-  }
-  
-  .cards.cards-four-up {
     --num-cols: 2;
   }
 }
@@ -31,7 +24,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 2rem;
+  gap: 3rem;
   grid-template-columns: repeat(var(--num-cols), minmax(0, 1fr));
 }
 
@@ -59,7 +52,7 @@
   color: var(--text-color);
 }
 
-.cards .card-link-wrapper :is(h2, h3, h4, h5, h6) {
+.cards .cards-card-body :is(h2, h3, h4, h5, h6) {
   color: var(--headline-color);
   margin-block: .75em;
 }

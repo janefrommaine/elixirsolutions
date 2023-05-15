@@ -78,6 +78,7 @@
 body {
   font-size: var(--body-font-size-xs);
   font-family: var(--body-font-family);
+  -webkit-font-smoothing: antialiased;
   line-height: 1.5;
   color: var(--text-color);
   background-color: var(--background-color);
@@ -189,6 +190,11 @@ a.button.secondary, button.secondary {
   color: var(--text-color)
 }
 
+.section.highlight a.button {
+  background-color: var(--clr-white);
+  color: var(--link-color);
+}
+
 main input {
   font-size: 1.25rem;
   width: 100%;
@@ -244,7 +250,13 @@ main img {
 
 /* Sections */
 main .section {
-  padding: 32px;
+  padding: 16px;
+}
+
+@media(min-width: 900px) {
+  main .section {
+    padding: 32px;
+  }
 }
 
 main .section .default-content-wrapper {
