@@ -189,14 +189,29 @@ const transformBlogBlocks = (main, document) => {
   const sectionBreak = document.createElement('p');
   sectionBreak.innerHTML = '---';
 
+  // remove hero image link
+  const heroImg = main.querySelector('.hs-featured-image');
+  if (heroImg) {
+    const parentLink = heroImg.closest('.hs-featured-image-link');
+    if (heroImg.parentElement === parentLink) {
+      parentLink.replaceWith(heroImg);
+    }
+  }
+
   // hero
   const hero = main.querySelector('.post-header');
   if (hero) {
     hero.append(sectionBreak.cloneNode(true));
   }
+
+  main.querySelectorAll('table').forEach((table) => {
+    table.querySelector('tbody').insertAdjacentHTML('afterbegin', '<tr><td>Table</td></tr>');
+  });
+
+  main.querySelector('.clear--sidebar').prepend(sectionBreak.cloneNode(true));
 };
 
-const addBlogMetadata = (meta, main, html, document) => {
+const addBlogMetadata = (meta, main, html) => {
   const topics = [];
   main.querySelectorAll('.topic-link').forEach((topic) => {
     topics.push(topic.innerHTML);
@@ -263,13 +278,15 @@ export default {
     const meta = createMetadata(main, document);
 
     if (isBlogPost(params)) {
-      addBlogMetadata(meta, main, html, document);
+      addBlogMetadata(meta, main, html);
       WebImporter.DOMUtils.remove(main, [
         '.header-container-wrapper',
         '.footer-container-wrapper',
         '#hubspot-topic_data',
         '.hs_cos_wrapper_type_social_sharing',
         '.widget-type-post_filter',
+        '.hs_cos_wrapper_type_post_filter',
+        '.clear-subscribe-form',
       ]);
 
       // create block structures within the dom
