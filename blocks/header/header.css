@@ -278,6 +278,38 @@ header nav .nav-tools .search-form input {
   border-radius: 3px;
 }
 
+header nav .nav-tools .search-form .search-results {
+  position: absolute;
+  background-color: #E7F5F9;
+  border: 1px solid #479DC7;
+  display: none;
+  flex-direction: column;
+  padding-top: 3px;
+  width: 100%;
+}
+
+header nav .nav-tools .search-form .search-results.visible { 
+  display: flex;
+}
+
+header nav .nav-tools .search-form .search-results .search-result {
+  color: var(--text-color);
+}
+
+header nav .nav-tools .search-form .search-results .search-result:is(:hover, :focus) {
+  color: var(--clr-white);
+  background-color: #1e90ff;
+  text-decoration: none;
+}
+
+header nav .nav-tools .search-form .search-results .search-no-results,
+header nav .nav-tools .search-form .search-results .search-result span {
+  margin-inline: 8px;
+  display: block;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
 /* reg */
 header nav .nav-register {
   grid-area: register;
