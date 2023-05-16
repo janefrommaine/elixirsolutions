@@ -53,11 +53,6 @@
   .columns > div > div {
     flex: 1;
   }
-
-  .columns ul {
-    list-style-type: circle;
-    padding: 0 20px;
-  }
 }
 
 @media (min-width: 900px) {

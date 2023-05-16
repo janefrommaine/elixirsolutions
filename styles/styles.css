@@ -124,6 +124,11 @@ p, dl, ol, ul, pre, blockquote {
   margin-bottom: 1em;
 }
 
+ul {
+  list-style-type: circle;
+  padding-inline: 40px;
+}
+
 hr {
   margin-top: 1.5em;
   margin-bottom: 1.5em;
