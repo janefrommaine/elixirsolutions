@@ -1,90 +1,43 @@
 import ffetch from '../../scripts/ffetch.js';
 import { createOptimizedPicture, decorateIcons } from '../../scripts/lib-franklin.js';
 
-function buildSmallPost(post) {
-  const postCard = document.createElement('div');
-  postCard.classList.add('blog-post-card', 'blog-post-mini-card');
-
-  postCard.innerHTML = `
-    <div class="blog-post-content">
-      <a class="post-title" href="${post.path}">${post.title}</a>
-      <p class="post-description">${post.description}</p>
-    </div>
-  `;
-
-  return postCard;
-}
-
 function buildPost(post, eager) {
   const postCard = document.createElement('div');
-  postCard.classList.add('blog-post-card');
+  postCard.classList.add('news-card');
+
+  const description = post.content.querySelector('h1 + p');
+  const title = post.content.querySelector('h1').textContent;
 
   postCard.innerHTML = `
-      <div class="blog-post-image">
-        <a href="${post.path}">${createOptimizedPicture(post.image, `Teaser image for ${post.title}`, eager).outerHTML}</a>
+      <div class="news-image">
+        <a href="${post.path}">${createOptimizedPicture(post.image, `Teaser image for ${title}`, eager).outerHTML}</a>
       </div>
-      <div class="blog-post-content">
-        <a class="post-title" href="${post.path}">${post.title}</a>
-        <ul class="post-tags">
-        </ul>
+      <div class="news-content">
+        <a class="post-title" href="${post.path}">${title}</a>
         <a class="post-description" href="${post.path}">
-          <p>${post.description}</p>
+          <p>${description ? description.textContent : post.description}</p>
           <span>Read More</span>
         </a>
       </div>
     </a>
   `;
 
-  const tagsUl = postCard.querySelector('.post-tags');
-  const tags = JSON.parse(post.tags);
-  tags.forEach((tag) => {
-    const li = document.createElement('li');
-    li.innerHTML = `<a href="/blog/tag?tag=${encodeURIComponent(tag)}"><span class="icon icon-tag"></span>${tag}</a>`;
-    tagsUl.append(li);
-  });
-
-  decorateIcons(postCard);
   return postCard;
 }
 
-async function buildMiniFeed(block, ul) {
-  const blogPosts = ffetch('/query-index.json')
-    .filter((p) => p.path.startsWith('/blog/'))
-    .slice(0, 4);
-
-  let i = 0;
-  // eslint-disable-next-line no-restricted-syntax
-  for await (const post of blogPosts) {
-    const li = document.createElement('li');
-    if (i === 0) {
-      const callout = buildPost(post);
-      callout.classList.add('blog-post-callout-card');
-      block.prepend(callout);
-    } else {
-      li.append(buildSmallPost(post));
-      ul.append(li);
-    }
-
-    i += 1;
-  }
-
-  const formWrapper = document.createElement('div');
-  // todo add insight form block
-  block.append(formWrapper);
-}
-
-async function buildBlogFeed(ul, pageNum, pagesElem) {
-  const limit = 10;
+async function buildNewsFeed(ul, pageNum, pagesElem) {
+  const limit = 5;
   const offset = pageNum * limit;
   let morePages = false;
-  const blogPosts = ffetch('/query-index.json')
-    .filter((p) => p.path.startsWith('/blog/'))
-    .slice(offset, offset + limit + 1);
+  const newsFeed = ffetch('/query-index.json')
+    .filter((p) => p.path.startsWith('/news/'))
+    .slice(offset, offset + limit + 1)
+    .follow('path', 'content');
 
   let i = 0;
   const newUl = document.createElement('ul');
   // eslint-disable-next-line no-restricted-syntax
-  for await (const post of blogPosts) {
+  for await (const post of newsFeed) {
     if (i >= limit) {
       // skip render, but know we have more page
       morePages = true;
@@ -121,7 +74,7 @@ async function buildBlogFeed(ul, pageNum, pagesElem) {
   pagesElem.querySelectorAll('li > a').forEach((link) => {
     link.addEventListener('click', (evt) => {
       evt.preventDefault();
-      buildBlogFeed(ul, Number(link.dataset.page), pagesElem);
+      buildNewsFeed(ul, Number(link.dataset.page), pagesElem);
     });
   });
 
@@ -137,24 +90,18 @@ export default function decorate(block) {
   const observer = new IntersectionObserver(async (entries) => {
     if (entries.some((e) => e.isIntersecting)) {
       observer.disconnect();
-      const small = block.classList.contains('mini');
       const ul = document.createElement('ul');
-      ul.classList.add('blog-list');
+      ul.classList.add('news-list');
       block.append(ul);
 
-      if (small) {
-        await buildMiniFeed(block, ul);
-        return;
-      }
-
       const pagesElem = document.createElement('div');
-      pagesElem.classList.add('blog-pages');
+      pagesElem.classList.add('news-pages');
       block.append(pagesElem);
 
       const usp = new URLSearchParams(window.location.search);
       const page = usp.get('page');
       const pageNum = Number(!page ? '0' : page - 1);
-      buildBlogFeed(ul, pageNum, pagesElem);
+      buildNewsFeed(ul, pageNum, pagesElem);
     }
   });
   observer.observe(block);

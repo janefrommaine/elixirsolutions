@@ -16,11 +16,44 @@ import {
 const PRODUCTION_DOMAINS = ['www.elixirsolutions.com'];
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
+function buildNewsColumns(main) {
+  if (!document.body.classList.contains('news')) {
+    return;
+  }
+
+  const h1 = main.querySelector('h1');
+  if (!h1) {
+    return;
+  }
+  const section = h1.closest('div');
+  const firstColElems = [];
+  const secondColElems = [];
+  let h1found = false;
+  [...section.children].forEach((elem) => {
+    if (elem === h1) {
+      h1found = true;
+    }
+
+    if (h1found) {
+      firstColElems.push(elem);
+    } else {
+      secondColElems.push(elem);
+    }
+  });
+  const columns = buildBlock('columns', [[{ elems: firstColElems }, { elems: secondColElems }]]);
+  columns.classList.add('thirds');
+  section.append(columns);
+}
+
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
+  if (document.body.classList.contains('news')) {
+    return;
+  }
+
   const h1 = main.querySelector('h1');
   if (!h1) {
     return;
@@ -58,6 +91,7 @@ function buildBreadcrumbBlock(main) {
  */
 function buildAutoBlocks(main) {
   try {
+    buildNewsColumns(main);
     buildHeroBlock(main);
     buildBreadcrumbBlock(main);
   } catch (error) {
