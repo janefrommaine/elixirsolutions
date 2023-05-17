@@ -1,0 +1,170 @@
+.error-gears {
+  --stroke-color: var( --clr-blue);
+  --main-color: var(--clr-white);
+
+  margin: 0 auto;
+}
+
+.error-gears .gear {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: var(--stroke-color)
+}
+
+.error-gears .gear::before,
+.error-gears .gear::after {
+  position: absolute;
+  content: '';
+  border-radius: 50%;
+  background: var(--main-color)
+}
+
+.error-gears .gear::before {
+  left: 5px;
+  top: 5px;
+  right: 5px;
+  bottom: 5px;
+  z-index: 2;
+}
+
+.error-gears .gear::after {
+  left: 25px;
+  top: 25px;
+  z-index: 3;
+  width: 70px;
+  height: 70px;
+  border: 5px solid var(--stroke-color);
+}
+
+.gear .bar {
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  z-index: 0;
+  width: 150px;
+  height: 30px;
+  margin-top: -15px;
+  border-radius: 5px;
+  background: var(--stroke-color)
+}
+
+.error-gears .gear .bar::before {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  right: 5px;
+  bottom: 5px;
+  z-index: 1;
+  content: "";
+  border-radius: 2px;
+  background: var(--main-color)
+}
+
+.error-gears .gear .bar:nth-child(2) {
+  transform: rotate(60deg)
+}
+
+.error-gears .gear .bar:nth-child(3) {
+  transform: rotate(120deg)
+}
+
+@keyframes clockwise {
+  0% {
+      transform: rotate(0)
+  }
+
+  100% {
+      transform: rotate(360deg)
+  }
+}
+
+@keyframes anti-clockwise {
+  0% {
+      transform: rotate(360deg)
+  }
+
+  100% {
+      transform: rotate(0)
+  }
+}
+
+@keyframes clockwise-error {
+  0% {
+      transform: rotate(0)
+  }
+
+  20% {
+      transform: rotate(30deg)
+  }
+
+  40% {
+      transform: rotate(25deg)
+  }
+
+  60% {
+      transform: rotate(30deg)
+  }
+
+  100% {
+      transform: rotate(0)
+  }
+}
+
+@keyframes anti-clockwise-error-stop {
+  0% {
+      transform: rotate(0)
+  }
+
+  20% {
+      transform: rotate(-30deg)
+  }
+
+  60% {
+      transform: rotate(-30deg)
+  }
+
+  100% {
+      transform: rotate(0)
+  }
+}
+
+@keyframes anti-clockwise-error {
+  0% {
+      transform: rotate(0)
+  }
+
+  20% {
+      transform: rotate(-30deg)
+  }
+
+  40% {
+      transform: rotate(-25deg)
+  }
+
+  60% {
+      transform: rotate(-30deg)
+  }
+
+  100% {
+      transform: rotate(0)
+  }
+}
+
+.error-gears .gear.one {
+  left: -130px;
+  animation: anti-clockwise-error-stop 2s linear infinite
+}
+
+.error-gears .gear.two {
+  top: -75px;
+  animation: anti-clockwise-error 2s linear infinite
+}
+
+.error-gears .gear.three {
+  top: -235px;
+  left: 130px;
+  animation: clockwise-error 2s linear infinite
+}

@@ -1,5 +1,61 @@
 import { getMetadata, decorateIcons } from '../../scripts/lib-franklin.js';
 import { wrapImgsInLinks } from '../../scripts/scripts.js';
+import ffetch from '../../scripts/ffetch.js';
+
+let tId;
+function debounce(method, delay) {
+  clearTimeout(tId);
+  tId = setTimeout(() => {
+    method();
+  }, delay);
+}
+
+async function execSearch(query, resultsContainer) {
+  if (query.length === 0) {
+    resultsContainer.classList.remove('visible');
+  }
+
+  if (query.length >= 3) {
+    const regex = new RegExp(query, 'id');
+    const results = ffetch('/query-index.json')
+      .filter((p) => regex.test(p.title) || regex.test(p.description))
+      .limit(10);
+    let hasResults = false;
+    resultsContainer.innerHTML = '';
+    // eslint-disable-next-line no-restricted-syntax
+    for await (const res of results) {
+      const a = document.createElement('a');
+      a.classList.add('search-result');
+      a.href = res.path;
+      hasResults = true;
+      const span = document.createElement('span');
+      const titleExec = regex.exec(res.title);
+      let titleContent = res.title;
+      if (titleExec && titleExec.indices) {
+        titleContent = '';
+        let lastEnd = 0;
+        titleExec.indices.forEach((index) => {
+          const [start, end] = index;
+          titleContent += res.title.substring(lastEnd, start);
+          titleContent += `<mark>${res.title.substring(start, end)}</mark>`;
+          lastEnd = end;
+        });
+        titleContent += res.title.substring(lastEnd);
+      }
+      span.innerHTML = titleContent;
+      a.append(span);
+      resultsContainer.append(a);
+    }
+
+    if (!hasResults) {
+      const span = document.createElement('span');
+      span.classList.add('search-no-results');
+      span.textContent = 'No Results Found.';
+      resultsContainer.append(span);
+    }
+    resultsContainer.classList.add('visible');
+  }
+}
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -134,9 +190,23 @@ export default async function decorate(block) {
       const tools = nav.querySelector('.nav-tools');
       tools.innerHTML = `
       <div class="search-form">
-        <input type="text" name="fulltext" placeholder="Search" maxlength="100"></input>
+        <input class="search-input" type="text" name="fulltext" placeholder="Search" maxlength="100"></input>
         <span class="icon icon-search"></span>
+        <div class="search-results"></div>
       </div>`;
+      const searchInput = tools.querySelector('.search-input');
+      const results = tools.querySelector('.search-results');
+      searchInput.addEventListener('keyup', () => {
+        debounce(() => {
+          const q = searchInput.value;
+          execSearch(q, results);
+        }, 250);
+      });
+      document.addEventListener('click', (event) => {
+        if (!results.contains(event.target)) {
+          results.classList.remove('visible');
+        }
+      });
     }
 
     // hamburger for mobile
