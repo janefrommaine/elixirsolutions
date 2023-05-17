@@ -1,34 +1,5 @@
 import { readBlockConfig } from '../../scripts/lib-franklin.js';
 
-function nodeScriptClone(node) {
-  const script = document.createElement('script');
-  script.setAttribute('replaced', true);
-  script.text = node.innerHTML;
-
-  [...node.attributes].forEach((attr) => {
-    script.setAttribute(attr.name, attr.value);
-  });
-
-  return script;
-}
-
-function nodeScriptReplace(node) {
-  if (node.tagName === 'SCRIPT' && !node.hasAttribute('replaced')) {
-    node.parentNode.replaceChild(nodeScriptClone(node), node);
-    return true;
-  }
-
-  for (let i = 0; i < node.childNodes.length; i += 1) {
-    const child = node.childNodes[i];
-    const replaced = nodeScriptReplace(child);
-    if (replaced) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
 class FormstackForm extends HTMLElement {
   constructor() {
     super();
@@ -45,27 +16,37 @@ class FormstackForm extends HTMLElement {
       formHtml += s;
     };
 
-    let htmlLen = 0;
-    let prevHtmlLen = -1;
-    const interValId = setInterval(() => {
-      htmlLen = formHtml.length;
-      if (htmlLen > prevHtmlLen) {
-        // keep going
-        prevHtmlLen = htmlLen;
-      } else {
-        // write
-        clearInterval(interValId);
-        document.write = docWrite;
-        wrapper.innerHTML = formHtml;
-
-        const scriptIntervalId = setInterval(() => {
-          const replaced = nodeScriptReplace(wrapper);
-          if (!replaced) {
-            clearInterval(scriptIntervalId);
+    setTimeout(() => {
+      document.write = docWrite;
+      const dp = new window.DOMParser();
+      const html = dp.parseFromString(formHtml, 'text/html');
+      const embed = html.querySelector('.fsEmbed');
+      let scriptsToLoad;
+      if (embed) {
+        scriptsToLoad = [...embed.querySelectorAll('script')].map((s) => {
+          const { src, type, textContent } = s;
+          s.remove();
+          return { src, type, textContent };
+        });
+        wrapper.append(embed);
+        const scriptLoadInterval = setInterval(() => {
+          if (scriptsToLoad.length === 0) {
+            clearInterval(scriptLoadInterval);
+            return;
           }
-        }, 300);
+          const toLoad = scriptsToLoad.shift();
+          const script = document.createElement('script');
+          script.src = toLoad.src;
+          script.type = toLoad.type;
+          if (toLoad.textContent) {
+            console.log(toLoad.textContent);
+            script.innerHTML = toLoad.textContent;
+          }
+          shadow.appendChild(script);
+        }, 100);
       }
-    }, 250);
+    }, 3000);
+
     this.renderForm();
   }
 
@@ -85,5 +66,57 @@ customElements.define('formstack-form', FormstackForm);
 
 export default function decorate(block) {
   const cfg = readBlockConfig(block);
-  block.innerHTML = `<formstack-form formId=${cfg['form-id']}></formstack-form>`;
+  const formId = cfg['form-id'];
+
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('form-wrapper');
+  block.innerHTML = '';
+  block.append(wrapper);
+
+  let formHtml = '';
+  const docWrite = document.write;
+  document.write = (s) => {
+    formHtml += s;
+  };
+
+  const scriptSrc = `https://elixir-form.formstack.com/forms/js.php/${formId}?no_style_strict=1`;
+  const script = document.createElement('script');
+  script.src = scriptSrc;
+  script.setAttribute('type', 'text/javascript');
+  block.append(script);
+
+  setTimeout(() => {
+    document.write = docWrite;
+    const dp = new window.DOMParser();
+    const html = dp.parseFromString(formHtml, 'text/html');
+    const embed = html.querySelector('.fsEmbed');
+    let scriptsToLoad;
+    if (embed) {
+      scriptsToLoad = [...embed.querySelectorAll('script')].map((s) => {
+        const { src, type, textContent } = s;
+        s.remove();
+        return { src, type, textContent };
+      });
+      wrapper.append(embed);
+      const scriptLoadInterval = setInterval(() => {
+        if (scriptsToLoad.length === 0) {
+          clearInterval(scriptLoadInterval);
+          if (typeof window.loadFormstack === 'function') {
+            window.loadFormstack();
+          }
+          return;
+        }
+        const toLoad = scriptsToLoad.shift();
+        const scr = document.createElement('script');
+        if (toLoad.src) scr.src = toLoad.src;
+        if (toLoad.type) scr.type = toLoad.type;
+        if (toLoad.textContent) {
+          scr.innerHTML = toLoad.textContent;
+        }
+        block.appendChild(scr);
+      }, 500);
+    }
+  }, 3000);
+
+  // block.innerHTML = `<formstack-form formId=${formId}></formstack-form>`;
 }
