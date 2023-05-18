@@ -50,7 +50,7 @@ function buildNewsColumns(main) {
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
-  if (document.body.classList.contains('news')) {
+  if (document.body.classList.contains('news') || document.body.classList.contains('blog')) {
     return;
   }
 
@@ -82,6 +82,27 @@ function buildBreadcrumbBlock(main) {
     const section = document.createElement('div');
     section.append(buildBlock('breadcrumb', { elems: [] }));
     main.prepend(section);
+  }
+}
+
+/**
+ * Builds blog topics blocks from default content
+ * @param {Element} main The container element
+ */
+function buildBlogTopicsBlock(main) {
+  const blogFeed = main.querySelector('.blog-feed:not(.mini)');
+  if (blogFeed) {
+    // const section = blogFeed.parentNode.closest('div');
+    // const block = buildBlock('blog-topics', '');
+    // section.append(block);
+
+    const section = document.createElement('div');
+    const block = buildBlock('blog-topics', '');
+    section.append(block);
+    main.append(section);
+  } else if (document.body.classList.contains('blog')) {
+    const section = main.querySelector('main > div:last-child');
+    section.prepend(buildBlock('blog-topics', ''));
   }
 }
 
@@ -124,6 +145,7 @@ function buildAutoBlocks(main) {
     buildNewsColumns(main);
     buildHeroBlock(main);
     buildBreadcrumbBlock(main);
+    buildBlogTopicsBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
