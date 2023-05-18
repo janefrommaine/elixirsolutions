@@ -269,20 +269,31 @@ export function decorateLinks(element) {
  * @param {Element} container The container element
  */
 export function wrapImgsInLinks(container) {
-  const pictures = container.querySelectorAll('p picture');
+  const pictures = container.querySelectorAll(':scope p picture');
+  // console.log('wrapImgsInLinks', container, pictures.length);
+  // debugger;
   pictures.forEach((pic) => {
     const parent = pic.parentNode;
+    console.log('parent', parent);
     if (!parent.nextElementSibling) {
       // eslint-disable-next-line no-console
       console.warn('no next element');
       return;
     }
+    console.log('parent.nextElementSibling', parent.nextElementSibling);
     const link = parent.nextElementSibling.querySelector('a');
+    // console.log(link, link.textContent.includes(link.getAttribute('href')));
     if (link && link.textContent.includes(link.getAttribute('href'))) {
+      console.log('link.parentElement', link.parentElement);
       link.parentElement.remove();
+      console.log('link.parentElement after', link.parentElement);
+      console.log('link.innerHTML', link.innerHTML);
+      console.log('pic.outerHTML', pic.outerHTML);
       link.innerHTML = pic.outerHTML;
       parent.replaceWith(link);
+      console.log(parent);
     }
+    console.log('------');
   });
 }
 

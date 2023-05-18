@@ -323,3 +323,30 @@ main .section.highlight .section-container {
     grid-template-columns: auto 370px;
   }
 }
+
+.blog main > div:last-child .default-content-wrapper {
+  color: var(--clr-blue);
+  font-size: var(--body-font-size-m);
+  background-color: #ebf7fa;
+  padding: 20px;
+  margin: 0 auto;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.blog main > div:last-child .default-content-wrapper p:not([class]) {
+  text-align: center;
+}
+
+.blog main > div:last-child .button {
+  background-color: var(--clr-green);
+  font-size: var(--body-font-size-s);
+  border-radius: unset;
+  padding: 5px 40px;
+}
+
+@media (min-width: 900px) {
+  .blog main > div:last-child .default-content-wrapper p:not([class]) {
+    text-align: left;
+  }
+}
