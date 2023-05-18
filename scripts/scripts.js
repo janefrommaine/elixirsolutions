@@ -269,7 +269,7 @@ export function decorateLinks(element) {
  * @param {Element} container The container element
  */
 export function wrapImgsInLinks(container) {
-  const pictures = container.querySelectorAll(':scope p picture');
+  const pictures = container.querySelectorAll('p picture');
   pictures.forEach((pic) => {
     const parent = pic.parentNode;
     if (!parent.nextElementSibling) {
