@@ -268,8 +268,6 @@ export function decorateLinks(element) {
  */
 export function wrapImgsInLinks(container) {
   const pictures = container.querySelectorAll(':scope p picture');
-  // console.log('wrapImgsInLinks', container, pictures.length);
-  // debugger;
   pictures.forEach((pic) => {
     const parent = pic.parentNode;
     if (!parent.nextElementSibling) {
@@ -278,7 +276,6 @@ export function wrapImgsInLinks(container) {
       return;
     }
     const link = parent.nextElementSibling.querySelector('a');
-    // console.log(link, link.textContent.includes(link.getAttribute('href')));
     if (link && link.textContent.includes(link.getAttribute('href'))) {
       link.parentElement.remove();
       link.innerHTML = pic.outerHTML;
