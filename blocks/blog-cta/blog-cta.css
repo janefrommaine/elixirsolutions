@@ -8,7 +8,7 @@ main .blog-cta {
   text-align: center;
 }
 
-main .blog-cta p:not([class]) {
+main .blog-cta p:not(.button-container) {
   text-align: center;
 }
 
@@ -20,7 +20,7 @@ main .blog-cta .button {
 }
 
 @media (min-width: 900px) {
-  main .blog-cta p:not([class]) {
+  main .blog-cta p:not(.button-container) {
     text-align: left;
   }
 }
