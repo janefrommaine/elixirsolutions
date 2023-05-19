@@ -274,7 +274,7 @@ export function wrapImgsInLinks(container) {
 
     // scenario one: paragraph after the picture contains a link
     // so we wrap the link around the picture
-    if (!parent.nextElementSibling) {
+    if (parent.nextElementSibling) {
       link = parent.nextElementSibling.querySelector('a');
     }
 
