@@ -279,9 +279,9 @@ export function wrapImgsInLinks(container) {
     }
 
     if (!link) {
-      const next = pic.nextElementSibling;
+      const next = pic?.nextElementSibling;
       const nextNext = next?.nextElementSibling;
-      // scenario 2: link break after the pic, link after that, but in the same p
+      // scenario 2: line break after the pic, link after that, but in the same p
       if (next && nextNext && next.nodeName === 'BR' && nextNext.nodeName === 'A') {
         link = nextNext;
       }
