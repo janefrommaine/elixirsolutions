@@ -267,7 +267,7 @@ export function decorateLinks(element) {
  * @param {Element} container The container element
  */
 export function wrapImgsInLinks(container) {
-  const pictures = container.querySelectorAll('p picture');
+  const pictures = container.querySelectorAll('picture');
   pictures.forEach((pic) => {
     const parent = pic.parentNode;
     let link;
