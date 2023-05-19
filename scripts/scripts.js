@@ -16,11 +16,44 @@ import {
 const PRODUCTION_DOMAINS = ['www.elixirsolutions.com'];
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
+function buildNewsColumns(main) {
+  if (!document.body.classList.contains('news')) {
+    return;
+  }
+
+  const h1 = main.querySelector('h1');
+  if (!h1) {
+    return;
+  }
+  const section = h1.closest('div');
+  const firstColElems = [];
+  const secondColElems = [];
+  let h1found = false;
+  [...section.children].forEach((elem) => {
+    if (elem === h1) {
+      h1found = true;
+    }
+
+    if (h1found) {
+      firstColElems.push(elem);
+    } else {
+      secondColElems.push(elem);
+    }
+  });
+  const columns = buildBlock('columns', [[{ elems: firstColElems }, { elems: secondColElems }]]);
+  columns.classList.add('thirds');
+  section.append(columns);
+}
+
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
+  if (document.body.classList.contains('news') || document.body.classList.contains('blog')) {
+    return;
+  }
+
   const h1 = main.querySelector('h1');
   if (!h1) {
     return;
@@ -53,16 +86,84 @@ function buildBreadcrumbBlock(main) {
 }
 
 /**
+ * Builds blog topics blocks from default content
+ * @param {Element} main The container element
+ */
+function buildBlogTopicsBlock(main) {
+  const blogFeed = main.querySelector('.blog-feed:not(.mini)');
+  if (blogFeed) {
+    // const section = blogFeed.parentNode.closest('div');
+    // const block = buildBlock('blog-topics', '');
+    // section.append(block);
+
+    const section = document.createElement('div');
+    const block = buildBlock('blog-topics', '');
+    section.append(block);
+    main.append(section);
+  } else if (document.body.classList.contains('blog')) {
+    const section = main.querySelector('main > div:last-child');
+    section.prepend(buildBlock('blog-topics', ''));
+  }
+}
+
+/**
+ * Builds accordion blocks from default content
+ * @param {Element} main The container element
+ */
+function buildAccordions(main) {
+  const accordions = main.querySelectorAll('.section.accordion');
+  accordions.forEach((accordion) => {
+    const content = accordion.querySelector('.default-content-wrapper');
+    const blockTable = [];
+    let row;
+    [...content.children].forEach((child) => {
+      if (child.nodeName === 'H2') {
+        if (row) {
+          blockTable.push([{ elems: row }]);
+        }
+        row = [];
+      }
+      row.push(child);
+    });
+    // add last row
+    if (row) {
+      blockTable.push([{ elems: row }]);
+    }
+
+    const block = buildBlock('accordion', blockTable);
+    content.append(block);
+    content.classList.remove('default-content-wrapper');
+  });
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
 function buildAutoBlocks(main) {
   try {
+    buildNewsColumns(main);
     buildHeroBlock(main);
     buildBreadcrumbBlock(main);
+    buildBlogTopicsBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
+  }
+}
+
+/**
+ * Builds all synthetic blocks in a container element.
+ * Distinct from buildAutoBlocks because this runs after section decoration
+ * for blocks that need to be created after section classes are added
+ * @param {Element} main The container element
+ */
+function buildSectionAutoBlocks(main) {
+  try {
+    buildAccordions(main);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Section Auto Blocking failed', error);
   }
 }
 
@@ -101,6 +202,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateSectionsExt(main);
+  buildSectionAutoBlocks(main);
   decorateBlocks(main);
 }
 
@@ -168,6 +270,11 @@ export function wrapImgsInLinks(container) {
   const pictures = container.querySelectorAll('p picture');
   pictures.forEach((pic) => {
     const parent = pic.parentNode;
+    if (!parent.nextElementSibling) {
+      // eslint-disable-next-line no-console
+      console.warn('no next element');
+      return;
+    }
     const link = parent.nextElementSibling.querySelector('a');
     if (link && link.textContent.includes(link.getAttribute('href'))) {
       link.parentElement.remove();
