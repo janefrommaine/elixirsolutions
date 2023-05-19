@@ -16,7 +16,9 @@ const isBlogPost = (params) => {
   return urlAsUrl.host === 'blog.elixirsolutions.com';
 };
 
-const transformBlocks = (main, document) => {
+const transformBlocks = (main, document, report) => {
+  const blocks = [];
+  report.blocks = blocks;
   const sectionBreak = document.createElement('p');
   sectionBreak.innerHTML = '---';
 
@@ -28,6 +30,7 @@ const transformBlocks = (main, document) => {
     ];
     const blogBlock = WebImporter.DOMUtils.createTable(blogCells, document);
     blog.replaceWith(blogBlock);
+    blocks.push('Blog Feed');
   }
 
   // news feed
@@ -38,6 +41,7 @@ const transformBlocks = (main, document) => {
     ];
     const newsBlock = WebImporter.DOMUtils.createTable(newsCells, document);
     news.replaceWith(newsBlock);
+    blocks.push('News Feed');
   }
 
   // hero
@@ -93,6 +97,7 @@ const transformBlocks = (main, document) => {
 
       const colsBlock = WebImporter.DOMUtils.createTable(columnCells, document);
       teaser.replaceWith(colsBlock);
+      blocks.push('Columns (teaser)');
     }
   });
 
@@ -116,6 +121,7 @@ const transformBlocks = (main, document) => {
     cards.querySelectorAll('.teaser').forEach((card) => {
       const cardData = [card.querySelector('img'), [card.querySelector('h5'), card.querySelector('.desc-tile'), card.querySelector('.more')]];
       cardCells.push(cardData);
+      blocks.push('Cards');
     });
 
     const cardsBlock = WebImporter.DOMUtils.createTable(cardCells, document);
@@ -159,6 +165,7 @@ const transformBlocks = (main, document) => {
 
     const accContent = createAccordion(acc, 'h2');
     acc.replaceWith(processAccordionPanel(accContent));
+    blocks.push('Accordion');
   });
 
   main.querySelectorAll('.row-cols').forEach((cols) => {
@@ -175,6 +182,7 @@ const transformBlocks = (main, document) => {
 
     const colsBlock = WebImporter.DOMUtils.createTable(columnCells, document);
     cols.replaceWith(colsBlock);
+    blocks.push(`Columns ${columnVar}`);
   });
 
   // fix links
@@ -185,9 +193,20 @@ const transformBlocks = (main, document) => {
   });
 };
 
-const transformBlogBlocks = (main, document) => {
+const transformBlogBlocks = (main, document, report) => {
+  const blocks = [];
+  report.blocks = blocks;
   const sectionBreak = document.createElement('p');
   sectionBreak.innerHTML = '---';
+
+  main.querySelectorAll('.widget-type-post_filter, .hs_cos_wrapper_type_post_filter, .clear-subscribe-form').forEach((widget) => {
+    const cell = widget.closest('.widget-type-cell');
+    if (cell) {
+      cell.remove();
+    } else {
+      widget.remove();
+    }
+  });
 
   // remove hero image link
   const heroImg = main.querySelector('.hs-featured-image');
@@ -198,17 +217,23 @@ const transformBlogBlocks = (main, document) => {
     }
   }
 
-  // hero
-  const hero = main.querySelector('.post-header');
-  if (hero) {
-    hero.append(sectionBreak.cloneNode(true));
-  }
-
   main.querySelectorAll('table').forEach((table) => {
     table.querySelector('tbody').insertAdjacentHTML('afterbegin', '<tr><td>Table</td></tr>');
+    blocks.push('Table');
   });
 
-  main.querySelector('.clear--sidebar').prepend(sectionBreak.cloneNode(true));
+  const sidebar = main.querySelector('.clear--sidebar');
+  sidebar.prepend(sectionBreak.cloneNode(true));
+  sidebar.querySelectorAll('div[data-hs-cos-type="module"] > *').forEach((widget) => {
+    const columnCells = [
+      ['Blog CTA'],
+      [[...widget.childNodes]],
+    ];
+
+    const colsBlock = WebImporter.DOMUtils.createTable(columnCells, document);
+    widget.replaceWith(colsBlock);
+    blocks.push('Blog CTA');
+  });
 };
 
 const addBlogMetadata = (meta, main, html) => {
@@ -258,72 +283,90 @@ const createMetadata = (main, document) => {
   return meta;
 };
 
+/**
+ * Apply DOM operations to the provided document and return
+ * the root element to be then transformed to Markdown.
+ * @param {HTMLDocument} document The document
+ * @param {string} url The url of the page imported
+ * @param {string} html The raw html (the document is cleaned up during preprocessing)
+ * @param {object} params Object containing some parameters given by the import process.
+ * @returns {HTMLElement} The root element to be transformed
+ */
+const transformDOM = ({
+  // eslint-disable-next-line no-unused-vars
+  document, url, html, params,
+}) => {
+  const report = {};
+  // define the main element: the one that will be transformed to Markdown
+  const main = document.body;
+
+  const meta = createMetadata(main, document);
+
+  if (isBlogPost(params)) {
+    addBlogMetadata(meta, main, html);
+    WebImporter.DOMUtils.remove(main, [
+      '.header-container-wrapper',
+      '.footer-container-wrapper',
+      '#hubspot-topic_data',
+      '.hs_cos_wrapper_type_social_sharing',
+    ]);
+
+    // create block structures within the dom
+    transformBlogBlocks(main, document, report);
+  } else {
+    // use helper method to remove header, footer, etc.
+    WebImporter.DOMUtils.remove(main, [
+      '.header',
+      '.footer',
+      '.breadcrumb',
+    ]);
+
+    // create block structures within the dom
+    transformBlocks(main, document, report);
+  }
+
+  const metaBlock = WebImporter.Blocks.getMetadataBlock(document, meta);
+  main.append(metaBlock);
+
+  return {
+    dom: main,
+    report,
+  };
+};
+
+/**
+ * Return a path that describes the document being transformed (file name, nesting...).
+ * The path is then used to create the corresponding Word document.
+ * @param {HTMLDocument} document The document
+ * @param {string} url The url of the page imported
+ * @param {string} html The raw html (the document is cleaned up during preprocessing)
+ * @param {object} params Object containing some parameters given by the import process.
+ * @return {string} The path
+ */
+const generateDocumentPath = ({
+  // eslint-disable-next-line no-unused-vars
+  document, url, html, params,
+}) => {
+  const urlAsUrl = new URL(params.originalURL);
+  const prefix = urlAsUrl.host === 'blog.elixirsolutions.com' ? '/blog' : '';
+  return WebImporter.FileUtils.sanitizePath(prefix + urlAsUrl.pathname.replace(/\.html$/, '').replace(/\/$/, ''));
+};
+
 export default {
-  /**
-   * Apply DOM operations to the provided document and return
-   * the root element to be then transformed to Markdown.
-   * @param {HTMLDocument} document The document
-   * @param {string} url The url of the page imported
-   * @param {string} html The raw html (the document is cleaned up during preprocessing)
-   * @param {object} params Object containing some parameters given by the import process.
-   * @returns {HTMLElement} The root element to be transformed
-   */
-  transformDOM: ({
-    // eslint-disable-next-line no-unused-vars
+  transform: ({
     document, url, html, params,
   }) => {
-    // define the main element: the one that will be transformed to Markdown
-    const main = document.body;
+    const { dom, report } = transformDOM({
+      document, url, html, params,
+    });
+    const path = generateDocumentPath({
+      document, url, html, params,
+    });
 
-    const meta = createMetadata(main, document);
-
-    if (isBlogPost(params)) {
-      addBlogMetadata(meta, main, html);
-      WebImporter.DOMUtils.remove(main, [
-        '.header-container-wrapper',
-        '.footer-container-wrapper',
-        '#hubspot-topic_data',
-        '.hs_cos_wrapper_type_social_sharing',
-        '.widget-type-post_filter',
-        '.hs_cos_wrapper_type_post_filter',
-        '.clear-subscribe-form',
-      ]);
-
-      // create block structures within the dom
-      transformBlogBlocks(main, document);
-    } else {
-      // use helper method to remove header, footer, etc.
-      WebImporter.DOMUtils.remove(main, [
-        '.header',
-        '.footer',
-        '.breadcrumb',
-      ]);
-
-      // create block structures within the dom
-      transformBlocks(main, document);
-    }
-
-    const metaBlock = WebImporter.Blocks.getMetadataBlock(document, meta);
-    main.append(metaBlock);
-
-    return main;
-  },
-
-  /**
-   * Return a path that describes the document being transformed (file name, nesting...).
-   * The path is then used to create the corresponding Word document.
-   * @param {HTMLDocument} document The document
-   * @param {string} url The url of the page imported
-   * @param {string} html The raw html (the document is cleaned up during preprocessing)
-   * @param {object} params Object containing some parameters given by the import process.
-   * @return {string} The path
-   */
-  generateDocumentPath: ({
-    // eslint-disable-next-line no-unused-vars
-    document, url, html, params,
-  }) => {
-    const urlAsUrl = new URL(params.originalURL);
-    const prefix = urlAsUrl.host === 'blog.elixirsolutions.com' ? '/blog' : '';
-    return WebImporter.FileUtils.sanitizePath(prefix + urlAsUrl.pathname.replace(/\.html$/, '').replace(/\/$/, ''));
+    return [{
+      element: dom,
+      path,
+      report,
+    }];
   },
 };
