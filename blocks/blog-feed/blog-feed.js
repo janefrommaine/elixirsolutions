@@ -15,7 +15,7 @@ function buildSmallPost(post) {
   return postCard;
 }
 
-async function buildPost(post, eager) {
+function buildPost(post, eager) {
   const postCard = document.createElement('div');
   postCard.classList.add('blog-post-card');
 
@@ -56,7 +56,7 @@ async function buildMiniFeed(block, ul) {
   for await (const post of blogPosts) {
     const li = document.createElement('li');
     if (i === 0) {
-      const callout = await buildPost(post);
+      const callout = buildPost(post);
       callout.classList.add('blog-post-callout-card');
       block.prepend(callout);
     } else {
@@ -93,7 +93,7 @@ async function buildBlogFeed(ul, pageNum, pagesElem) {
     }
 
     const li = document.createElement('li');
-    li.append(await buildPost(post, i < 1));
+    li.append(buildPost(post, i < 1));
     newUl.append(li);
 
     i += 1;
