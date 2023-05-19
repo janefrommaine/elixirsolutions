@@ -43,7 +43,6 @@ async function buildPost(post, eager) {
     tagsUl.append(li);
   });
 
-  await decorateIcons(postCard);
   return postCard;
 }
 
@@ -127,7 +126,9 @@ async function buildBlogFeed(ul, pageNum, pagesElem) {
     });
   });
 
-  decorateIcons(pagesElem);
+  await decorateIcons(pagesElem);
+  await decorateIcons(newUl);
+
   ul.innerHTML = newUl.innerHTML;
   window.scrollTo({
     top: 0,
