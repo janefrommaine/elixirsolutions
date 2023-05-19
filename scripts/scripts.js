@@ -267,26 +267,17 @@ export function decorateLinks(element) {
  * @param {Element} container The container element
  */
 export function wrapImgsInLinks(container) {
-  const pictures = container.querySelectorAll('picture');
+  const pictures = container.querySelectorAll('p picture');
   pictures.forEach((pic) => {
     const parent = pic.parentNode;
-    let link;
 
-    // scenario one: paragraph after the picture contains a link
-    // so we wrap the link around the picture
-    if (parent.nextElementSibling) {
-      link = parent.nextElementSibling.querySelector('a');
+    if (!parent.nextElementSibling) {
+      // eslint-disable-next-line no-console
+      console.warn('no next element');
+      return;
     }
 
-    if (!link) {
-      const next = pic?.nextElementSibling;
-      const nextNext = next?.nextElementSibling;
-      // scenario 2: line break after the pic, link after that, but in the same p
-      if (next && nextNext && next.nodeName === 'BR' && nextNext.nodeName === 'A') {
-        link = nextNext;
-      }
-    }
-
+    const link = parent.nextElementSibling.querySelector('a');
     if (link && link.textContent.includes(link.getAttribute('href'))) {
       link.parentElement.remove();
       link.innerHTML = pic.outerHTML;
