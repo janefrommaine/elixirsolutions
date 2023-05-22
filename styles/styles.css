@@ -78,7 +78,7 @@
 @font-face {
   font-family: proxima-nova-fallback;
   src: local(Arial Black);
-  size-adjust: 87%;
+  size-adjust: 85%;
   ascent-override: 107%;
   font-weight: 700;
 }
