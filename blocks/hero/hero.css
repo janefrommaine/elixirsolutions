@@ -11,10 +11,6 @@ main .hero-container.alternate-hero {
   --hero-cicle-color: #e88b7b; 
 }
 
-main .hero-container > div {
-  max-width: unset;
-}
-
 main .hero-container ul li {
   list-style-type: none;
   color: var(--clr-white);

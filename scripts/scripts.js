@@ -14,7 +14,7 @@ import {
 } from './lib-franklin.js';
 
 const PRODUCTION_DOMAINS = ['www.elixirsolutions.com'];
-const LCP_BLOCKS = []; // add your LCP blocks to the list
+const LCP_BLOCKS = ['hero']; // add your LCP blocks to the list
 
 function buildNewsColumns(main) {
   if (!document.body.classList.contains('news')) {
@@ -68,8 +68,10 @@ function buildHeroBlock(main) {
     return;
   }
 
-  const elems = [...section.childNodes];
-  section.append(buildBlock('hero', { elems }));
+  const elems = [...section.children];
+  const filtered = elems.filter((el) => !el.classList.contains('section-metadata'));
+  const block = buildBlock('hero', { elems: filtered });
+  section.append(block);
   main.prepend(section);
 }
 

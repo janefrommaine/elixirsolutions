@@ -77,17 +77,22 @@
 
 @font-face {
   font-family: proxima-nova-fallback;
+  src: local('arial black');
+  size-adjust: 85%;
+  ascent-override: 107%;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: proxima-nova-fallback;
   src: local(arial);
-  size-adjust: 87%;
-  ascent-override: 105%;
-  descent-override: 41%;
-  line-gap-override: 27%;
+  size-adjust: 96%;
+  font-weight: 400;
 }
 
 body {
   font-size: var(--body-font-size-xs);
   font-family: var(--body-font-family);
-  -webkit-font-smoothing: antialiased;
   line-height: 1.5;
   color: var(--text-color);
   background-color: var(--background-color);
@@ -106,7 +111,7 @@ h1, h2, h3,
 h4, h5, h6 {
   font-family: var(--heading-font-family);
   color: var(--headline-color);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.25;
   margin-bottom: .5em;
   scroll-margin: calc(var(--nav-height) + 1em);
@@ -120,13 +125,16 @@ h5 { font-size: var(--heading-font-size-s) }
 h6 { font-size: var(--heading-font-size-xs) }
 
 p, dl, ol, ul, pre, blockquote {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-block: 1em;
 }
 
 ul {
   list-style-type: circle;
   padding-inline: 40px;
+}
+
+ul ul {
+  margin-block: 0;
 }
 
 hr {
@@ -308,6 +316,19 @@ main .section.highlight .section-container {
 	position: absolute !important;
 	width: 1px !important;
 	white-space: nowrap !important;            
+}
+
+/* center align linked headlines in default content */
+.default-content-wrapper :is(h1, h2, h3, h4, h5, h6):has(a) {
+  text-align: center;
+}
+
+/* fallback for :has not supported (firefox) */
+@supports not (selector(:has(*))) {
+  .default-content-wrapper :is(h1, h2, h3, h4, h5, h6) > a {
+    text-align: center;
+    display: block;
+  }
 }
 
 /* blog */
