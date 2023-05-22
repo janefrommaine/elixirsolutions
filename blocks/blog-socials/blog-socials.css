@@ -1,3 +1,24 @@
+main .blog-socials-container {
+  margin: 0 0 24px;
+  padding: 0 32px;
+}
+
 main .blog-socials {
   color: #161b1e;
+  padding: 0 48px;
+}
+
+main .blog-socials a  {
+  width: 24px;
+  border-width: 0;
+  border: 0;
+  text-decoration: none;
+}
+
+main .blog-socials a img {
+  height: 24px;
+  width: 24px;
+  border-radius: 3px;
+  border-width: 0;
+  border: 0;
 }

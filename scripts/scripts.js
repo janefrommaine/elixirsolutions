@@ -111,7 +111,9 @@ function buildBlogTopicsBlock(main) {
 function buildBlogSocialsBlock(main) {
   const blogFeed = main.querySelector('.blog-feed:not(.mini)');
   if (!blogFeed && document.body.classList.contains('blog')) {
-    main.append(buildBlock('blog-socials', ''));
+    const section = document.createElement('div');
+    section.append(buildBlock('blog-socials', ''));
+    main.append(section);
   }
 }
 

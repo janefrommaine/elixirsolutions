@@ -318,8 +318,16 @@ main .section.highlight .section-container {
   margin: 0 auto;
 }
 
+.blog main .section {
+  padding: 0 16px;
+}
+
 @media (min-width: 900px) {
   .blog main {
     grid-template-columns: auto 370px;
+  }
+
+  .blog main .section {
+    padding: 0 32px;
   }
 }
