@@ -77,11 +77,17 @@
 
 @font-face {
   font-family: proxima-nova-fallback;
-  src: local(arial);
+  src: local(Arial Black);
   size-adjust: 87%;
-  ascent-override: 105%;
-  descent-override: 41%;
-  line-gap-override: 27%;
+  ascent-override: 107%;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: proxima-nova-fallback;
+  src: local(arial);
+  size-adjust: 96%;
+  font-weight: 400;
 }
 
 body {
