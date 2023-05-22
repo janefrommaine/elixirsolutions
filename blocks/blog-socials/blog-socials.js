@@ -2,8 +2,7 @@ export default function decorate(block) {
   const topics = document.createElement('div');
   const tags = document.querySelectorAll('head meta[property="article:tag"]');
   topics.append('Topics: ');
-  const tagLinks = [];
-  tags.forEach((tag) => tagLinks.push(`<a href="/blog/tag?tag=${encodeURIComponent(tag.content)}">${tag.content}</a>`));
+  const tagLinks = tags.map((tag) => `<a href="/blog/tag?tag=${encodeURIComponent(tag.content)}">${tag.content}</a>`);
 
   topics.innerHTML = `<p>
     Topics: ${tagLinks.join(', ')}
