@@ -68,8 +68,10 @@ function buildHeroBlock(main) {
     return;
   }
 
-  const elems = [...section.childNodes];
-  section.append(buildBlock('hero', { elems }));
+  const elems = [...section.children];
+  const filtered = elems.filter((el) => !el.classList.contains('section-metadata'));
+  const block = buildBlock('hero', { elems: filtered });
+  section.append(block);
   main.prepend(section);
 }
 

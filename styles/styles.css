@@ -120,13 +120,16 @@ h5 { font-size: var(--heading-font-size-s) }
 h6 { font-size: var(--heading-font-size-xs) }
 
 p, dl, ol, ul, pre, blockquote {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-block: 1em;
 }
 
 ul {
   list-style-type: circle;
   padding-inline: 40px;
+}
+
+ul ul {
+  margin-block: 0;
 }
 
 hr {
@@ -308,6 +311,19 @@ main .section.highlight .section-container {
 	position: absolute !important;
 	width: 1px !important;
 	white-space: nowrap !important;            
+}
+
+/* center align linked headlines in default content */
+.default-content-wrapper :is(h1, h2, h3, h4, h5, h6):has(a) {
+  text-align: center;
+}
+
+/* fallback for :has not supported (firefox) */
+@supports not (selector(:has(*))) {
+  .default-content-wrapper :is(h1, h2, h3, h4, h5, h6) > a {
+    text-align: center;
+    display: block;
+  }
 }
 
 /* blog */
