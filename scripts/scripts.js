@@ -14,7 +14,7 @@ import {
 } from './lib-franklin.js';
 
 const PRODUCTION_DOMAINS = ['www.elixirsolutions.com'];
-const LCP_BLOCKS = []; // add your LCP blocks to the list
+const LCP_BLOCKS = ['hero']; // add your LCP blocks to the list
 
 function buildNewsColumns(main) {
   if (!document.body.classList.contains('news')) {
