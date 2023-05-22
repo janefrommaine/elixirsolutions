@@ -222,16 +222,39 @@ const transformBlogBlocks = (main, document, report) => {
     blocks.push('Table');
   });
 
+  main.querySelectorAll('.hs-video-widget').forEach((video) => {
+    const image = video.querySelector('img');
+    const videoLink = document.createElement('a');
+    const videoId = video.getAttribute('data-hsv-embed-id');
+    videoLink.href = `https://play.hubspotvideo.com/${videoId}`;
+    videoLink.textContent = `https://play.hubspotvideo.com/${videoId}`;
+
+    const videoCells = [
+      ['Video'],
+      [[videoLink, image]],
+    ];
+
+    const videoBlock = WebImporter.DOMUtils.createTable(videoCells, document);
+    video.replaceWith(videoBlock);
+    blocks.push('Video');
+  });
+
+  const postBody = main.querySelector('.post-body');
+  const footnotes = postBody.querySelectorAll('span[style*="font-size: 12px;"]');
+  if (footnotes.length > 0) {
+    blocks.push('Footnotes (probably)');
+  }
+
   const sidebar = main.querySelector('.clear--sidebar');
   sidebar.prepend(sectionBreak.cloneNode(true));
   sidebar.querySelectorAll('div[data-hs-cos-type="module"] > *').forEach((widget) => {
-    const columnCells = [
+    const ctaCells = [
       ['Blog CTA'],
       [[...widget.childNodes]],
     ];
 
-    const colsBlock = WebImporter.DOMUtils.createTable(columnCells, document);
-    widget.replaceWith(colsBlock);
+    const ctaBlock = WebImporter.DOMUtils.createTable(ctaCells, document);
+    widget.replaceWith(ctaBlock);
     blocks.push('Blog CTA');
   });
 };
@@ -239,7 +262,7 @@ const transformBlogBlocks = (main, document, report) => {
 const addBlogMetadata = (meta, main, html) => {
   const topics = [];
   main.querySelectorAll('.topic-link').forEach((topic) => {
-    topics.push(topic.innerHTML);
+    topics.push(topic.textContent);
   });
   meta.Tags = topics.join(', ');
 
