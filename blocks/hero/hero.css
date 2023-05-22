@@ -3,16 +3,12 @@ main .hero-container {
   --hero-bg-color: var(--clr-blue);
   --hero-cicle-color: var(--clr-light-blue);
 
-  /* padding: 0; */
+  padding: 0;
 }
 
 main .hero-container.alternate-hero {
   --hero-bg-color: #e1654f;
   --hero-cicle-color: #e88b7b; 
-}
-
-main .hero-container > div {
-  max-width: unset;
 }
 
 main .hero-container ul li {
