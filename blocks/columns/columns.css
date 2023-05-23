@@ -69,7 +69,37 @@
 }
 
 .columns.thirds > div > div.columns-img-col img {
-  border-radius: 50%;
+  max-width: 280px;
+  margin: auto;
+}
+
+body.news .columns.thirds > div > div.columns-img-col img {
+  border-radius: unset;
+}
+
+@media (min-width: 900px) {
+  .columns.thirds > div {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 40px;
+  }
+
+  .columns.thirds > div > div {
+    grid-column: span 2;
+  }
+  
+  .columns.thirds > div > div.columns-img-col {
+    grid-column: span 1;
+  }
+}
+
+/* thirds variant */
+
+.columns.thirds > div {
+  display: grid;
+  padding: 30px;
+}
+
+.columns.thirds > div > div.columns-img-col img {
   max-width: 280px;
   margin: auto;
 }
@@ -103,6 +133,10 @@ body.news .columns.thirds > div > div.columns-img-col img {
 .columns.thirds.teaser .columns-img-col picture {
   z-index: 5;
   position: relative;
+}
+
+.columns.thirds.teaser > div > div.columns-img-col img {
+  border-radius: 50%;
 }
 
 .columns.thirds.teaser .columns-img-col div.teaser-wrapper {
@@ -173,7 +207,6 @@ body.news .columns.thirds > div > div.columns-img-col img {
   right: -9%;
 }
 
-
 /* grey variant */
 
 .columns.grey > div {
@@ -239,4 +272,19 @@ body.news .columns.thirds > div > div.columns-img-col img {
   .columns.image-bottom > div > div.columns-img-col {
     order: 2;
   }
+}
+
+/* variant styling in blog */
+
+.blog .columns-wrapper {
+  padding: 0 var(--default-content-padding-x);
+}
+
+.blog .columns-wrapper .columns div {
+  padding: 0;
+  gap: 10px;
+}
+
+.blog .columns-wrapper .columns div * {
+  margin: 0 0 10px;
 }

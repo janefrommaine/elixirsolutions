@@ -8,6 +8,14 @@ main .blog-cta {
   text-align: center;
 }
 
+main .blog-cta p {
+  margin: 5px;
+}
+
+main .blog-cta a {
+  text-decoration: underline;
+}
+
 main .blog-cta p:not(.button-container) {
   text-align: center;
 }
