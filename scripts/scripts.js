@@ -124,19 +124,23 @@ function buildBlogSocialsBlock(main) {
  * @param {Element} main The container element
  */
 function buildAccordions(main) {
-  const accordions = main.querySelectorAll('.section.accordion');
-  accordions.forEach((accordion) => {
-    const content = accordion.querySelector('.default-content-wrapper');
+  const accordionSectionContainers = main.querySelectorAll('.section.accordion > .section-container');
+  accordionSectionContainers.forEach((accordion) => {
+    const contentWrappers = accordion.querySelectorAll(':scope > div');
     const blockTable = [];
     let row;
-    [...content.children].forEach((child) => {
-      if (child.nodeName === 'H2') {
-        if (row) {
-          blockTable.push([{ elems: row }]);
+    const newWrapper = document.createElement('div');
+    contentWrappers.forEach((wrapper) => {
+      [...wrapper.children].forEach((child) => {
+        if (child.nodeName === 'H2') {
+          if (row) {
+            blockTable.push([{ elems: row }]);
+          }
+          row = [];
         }
-        row = [];
-      }
-      row.push(child);
+        row.push(child);
+      });
+      wrapper.remove();
     });
     // add last row
     if (row) {
@@ -144,8 +148,9 @@ function buildAccordions(main) {
     }
 
     const block = buildBlock('accordion', blockTable);
-    content.append(block);
-    content.classList.remove('default-content-wrapper');
+    newWrapper.append(block);
+    accordion.append(newWrapper);
+    decorateBlock(block);
   });
 }
 
@@ -163,21 +168,6 @@ function buildAutoBlocks(main) {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
-  }
-}
-
-/**
- * Builds all synthetic blocks in a container element.
- * Distinct from buildAutoBlocks because this runs after section decoration
- * for blocks that need to be created after section classes are added
- * @param {Element} main The container element
- */
-function buildSectionAutoBlocks(main) {
-  try {
-    buildAccordions(main);
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Section Auto Blocking failed', error);
   }
 }
 
@@ -216,8 +206,8 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateSectionsExt(main);
-  buildSectionAutoBlocks(main);
   decorateBlocks(main);
+  buildAccordions(main);
 }
 
 /**
