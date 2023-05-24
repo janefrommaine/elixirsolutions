@@ -194,6 +194,30 @@ export function decorateBlocks(main) {
     .forEach(decorateBlock);
 }
 
+export default function decorateBlogImage(main) {
+  if (!document.body.classList.contains('blog')) return;
+  main
+    .querySelectorAll('.default-content-wrapper picture')
+    .forEach((pic, i) => {
+      const parent = pic.parentNode;
+      if (i === 0) return; // hero image
+
+      const textContent = parent.innerText.replaceAll('\n', '').trim();
+      // inline image
+      if (textContent.length !== 0 || parent.children.length > 1) {
+        parent.classList.add('blog-img-inline');
+        const link = pic.nextSibling;
+        // inline image with link (wrap image in link)
+        if (link && link.tagName === 'A' && link.textContent.includes(link.getAttribute('href'))) {
+          link.innerHTML = pic.outerHTML;
+          pic.replaceWith(link);
+        }
+      } else if (textContent.length === 0 && parent.children.length === 1) {
+        parent.classList.add('blog-img-center');
+      }
+    });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -207,6 +231,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateSectionsExt(main);
   decorateBlocks(main);
+  decorateBlogImage(main);
   buildAccordions(main);
 }
 
@@ -283,7 +308,7 @@ export function wrapImgsInLinks(container) {
     if (link && link.textContent.includes(link.getAttribute('href'))) {
       link.parentElement.remove();
       link.innerHTML = pic.outerHTML;
-      parent.replaceWith(link);
+      pic.replaceWith(link);
     }
   });
 }
