@@ -414,12 +414,7 @@ main .section.highlight .section-container {
   margin-top: 10px;
 }
 
-.blog main .default-content-wrapper .blog-img-center img {
-  /* max-width: 200px; */
-}
-
 .blog main .default-content-wrapper .blog-img-inline picture {
   float: right;
-  /* max-width: 260px; */
   margin: 0 20px;
 }
