@@ -92,37 +92,6 @@ body.news .columns.thirds > div > div.columns-img-col img {
   }
 }
 
-/* thirds variant */
-
-.columns.thirds > div {
-  display: grid;
-  padding: 30px;
-}
-
-.columns.thirds > div > div.columns-img-col img {
-  max-width: 280px;
-  margin: auto;
-}
-
-body.news .columns.thirds > div > div.columns-img-col img {
-  border-radius: unset;
-}
-
-@media (min-width: 900px) {
-  .columns.thirds > div {
-    grid-template-columns: repeat(3, 1fr);
-    padding: 40px;
-  }
-
-  .columns.thirds > div > div {
-    grid-column: span 2;
-  }
-  
-  .columns.thirds > div > div.columns-img-col {
-    grid-column: span 1;
-  }
-}
-
 /* teaser variant */
 @media screen and (max-width: 576px) {
   .bubble {
