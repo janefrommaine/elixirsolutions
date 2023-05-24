@@ -16,6 +16,29 @@ import {
 const PRODUCTION_DOMAINS = ['www.elixirsolutions.com'];
 const LCP_BLOCKS = ['hero']; // add your LCP blocks to the list
 
+export function createElement(tagName, classes, props, html) {
+  const elem = document.createElement(tagName);
+  if (classes) {
+    const classesArr = (typeof classes === 'string') ? [classes] : classes;
+    elem.classList.add(...classesArr);
+  }
+  if (props) {
+    Object.keys(props).forEach((propName) => {
+      elem.setAttribute(propName, props[propName]);
+    });
+  }
+
+  if (html) {
+    if (html instanceof HTMLElement || html instanceof SVGElement) {
+      elem.append(html);
+    } else {
+      elem.insertAdjacentHTML('beforeend', html);
+    }
+  }
+
+  return elem;
+}
+
 function buildNewsColumns(main) {
   if (!document.body.classList.contains('news')) {
     return;

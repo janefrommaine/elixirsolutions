@@ -49,11 +49,11 @@ main .accordion .accordion-item > :is(h2, h3) > .accordion-trigger[aria-expanded
 }
 
 main .accordion .accordion-item:nth-child(3n + 2) > h2 > .accordion-trigger {
-  background: #e7f5f9
+  background: var(--clr-off-white);
 }
 
 main .accordion .accordion-item:nth-child(3n + 3) > h2 > .accordion-trigger {
-  background: #d1e7f1
+  background: #d1e7f1;
 }
 
 main .accordion .accordion-item > .accordion-panel {

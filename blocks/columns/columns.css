@@ -132,7 +132,7 @@ body.news .columns.thirds > div > div.columns-img-col img {
 }
 
 .columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-b {
-  background: #479dc7;
+  background: var(--clr-lighter-blue);
   width: 60px;
   height: 60px;
   top: 5%;

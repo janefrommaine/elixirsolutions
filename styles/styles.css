@@ -19,11 +19,13 @@
   /* colors */
   --clr-blue: rgb(2 76 153);
   --clr-light-blue: rgb(65 121 179);
+  --clr-lighter-blue: rgb(163 206 227);
   --clr-green: rgb(128 188 0);
   --clr-white: rgb(255 255 255);
   --clr-black: rgb(0 0 0);
   --clr-near-black: rgb(36 36 36);
   --clr-midnight-blue: rgb(0 34 80);
+  --clr-off-white: rgb(231 245 249);
 
   /* element colors */
   --link-color: var(--clr-blue);
@@ -215,24 +217,6 @@ a.button.secondary, button.secondary {
 .section.highlight a.button {
   background-color: var(--clr-white);
   color: var(--link-color);
-}
-
-main input {
-  font-size: 1.25rem;
-  width: 100%;
-  max-width: 50rem;
-  display: block;
-  margin-bottom: 1rem;
-  padding: 0.75rem 0.6rem;
-  border-radius: 0.25rem;
-  box-sizing: border-box;
-  border: 1px solid var(--text-color);
-  color: var(--text-color);
-  background-color: var(--background-color);
-}
-
-main input:hover {
-  border: 1px solid var(--text-color);
 }
 
 main blockquote {
