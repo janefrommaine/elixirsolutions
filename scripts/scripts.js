@@ -11,6 +11,7 @@ import {
   loadBlocks,
   loadCSS,
   decorateBlock,
+  getMetadata,
 } from './lib-franklin.js';
 
 const PRODUCTION_DOMAINS = ['www.elixirsolutions.com'];
@@ -80,9 +81,7 @@ function buildHeroBlock(main) {
  * @param {Element} main The container element
  */
 function buildBreadcrumbBlock(main) {
-  const title = document.querySelector('head title');
-
-  if (title.innerText !== 'Elixir-Home' && window.isErrorPage !== true) {
+  if (window.location.pathname !== '/' && window.isErrorPage !== true && !getMetadata('hideBreadcrumb')) {
     const section = document.createElement('div');
     section.append(buildBlock('breadcrumb', { elems: [] }));
     main.prepend(section);
