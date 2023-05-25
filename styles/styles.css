@@ -214,6 +214,11 @@ a.button.secondary, button.secondary {
   color: var(--text-color)
 }
 
+.section.highlight a {
+  color: var(--clr-white);
+  text-decoration: underline;
+}
+
 .section.highlight a.button {
   background-color: var(--clr-white);
   color: var(--link-color);
@@ -341,10 +346,15 @@ main .section.highlight .section-container {
   margin: 0 auto;
 }
 
-.blog main .default-content-wrapper :is(h1, h2, h3, h4, h5, h6) {
-  color: var(--clr-near-black);
+.blog main .section {
+  grid-column: 1;
+}
+
+.blog main :not(.highlight) .section-container :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--headline-color);
   padding: 8px 0;
 }
+
 .blog main .default-content-wrapper h1 { font-size: var(--heading-font-size-l) }
 .blog main .default-content-wrapper h2 { font-size: var(--heading-font-size-l) }
 .blog main .default-content-wrapper h3 { font-size: var(--heading-font-size-m) }
@@ -358,6 +368,14 @@ main .section.highlight .section-container {
 
 .blog main .default-content-wrapper strong {
   color: #666;
+}
+
+.blog main .section.highlight .section-container{
+  padding: 30px 0;
+}
+
+.blog main .section.highlight .default-content-wrapper strong {
+  color: #eee;
 }
 
 .blog main .default-content-wrapper p:first-child picture img {
