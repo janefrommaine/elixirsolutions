@@ -1,11 +1,11 @@
 .blog main .blog-topics-container {
-  grid-row: 3;
+  grid-row: 101;
   grid-column: 1;
 }
 
 @media (min-width: 900px) {
   .blog main .blog-topics-container {
-    grid-row: 2 / 100;
+    grid-row: 2 / 101;
     grid-column: 2 / span 1;
   }
 }
