@@ -214,11 +214,6 @@ a.button.secondary, button.secondary {
   color: var(--text-color)
 }
 
-.section.highlight a {
-  color: var(--clr-white);
-  text-decoration: underline;
-}
-
 .section.highlight a.button {
   background-color: var(--clr-white);
   color: var(--link-color);
@@ -364,6 +359,11 @@ main .section.highlight .section-container {
 
 .blog main .section {
   padding: 0 16px;
+}
+
+.blog main .section.highlight a {
+  color: var(--clr-white);
+  text-decoration: underline;
 }
 
 .blog main .default-content-wrapper strong {
