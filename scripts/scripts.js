@@ -38,7 +38,7 @@ export function createElement(tagName, classes, props, html) {
   }
 
   if (html) {
-    const appentEl = (el) => {
+    const appendEl = (el) => {
       if (el instanceof HTMLElement || el instanceof SVGElement) {
         elem.append(el);
       } else {
@@ -47,9 +47,9 @@ export function createElement(tagName, classes, props, html) {
     };
 
     if (Array.isArray(html)) {
-      html.forEach(appentEl);
+      html.forEach(appendEl);
     } else {
-      appentEl(html);
+      appendEl(html);
     }
   }
 
