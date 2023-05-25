@@ -69,10 +69,6 @@
   margin: auto;
 }
 
-body.news .columns.thirds > div > div.columns-img-col img {
-  border-radius: unset;
-}
-
 @media (min-width: 900px) {
   .columns.thirds > div {
     grid-template-columns: repeat(3, 1fr);
