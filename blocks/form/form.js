@@ -4,12 +4,20 @@ import { createElement } from '../../scripts/scripts.js';
 function constructPayload(form) {
   const payload = {};
   [...form.elements].forEach((fe) => {
-    if (fe.type === 'checkbox' || fe.type === 'radio') {
+    if (fe.type === 'checkbox') {
       if (fe.checked) {
         let fieldVal = payload[fe.dataset.id];
-        if (!fieldVal) fieldVal = [];
+        if (!fieldVal) {
+          fieldVal = [];
+        } else {
+          fieldVal = JSON.parse(fieldVal);
+        }
         fieldVal.push(fe.value);
-        payload[fe.dataset.id] = fieldVal;
+        payload[fe.dataset.id] = JSON.stringify(fieldVal);
+      }
+    } else if (fe.type === 'radio') {
+      if (fe.checked) {
+        payload[fe.dataset.id] = fe.value;
       }
     } else if (fe.id) {
       payload[fe.id] = fe.value;
