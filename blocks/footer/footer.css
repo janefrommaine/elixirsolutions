@@ -202,7 +202,7 @@ footer .footer-social-icon {
 }
 
 footer .footer-social-icon-twitter {
-  background-color: #479DC7;
+  background-color: var(--clr-lighter-blue);
   background-image: url('/blocks/footer/images/twitter.webp');
 }
 

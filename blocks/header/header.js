@@ -190,7 +190,7 @@ export default async function decorate(block) {
       const tools = nav.querySelector('.nav-tools');
       tools.innerHTML = `
       <div class="search-form">
-        <input class="search-input" type="text" name="fulltext" placeholder="Search" maxlength="100"></input>
+        <input class="search-input form-control" type="text" name="fulltext" placeholder="Search" maxlength="100"></input>
         <span class="icon icon-search"></span>
         <div class="search-results"></div>
       </div>`;
