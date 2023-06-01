@@ -10,7 +10,7 @@ let groupsRegistryCache;
 function buildForm(serchFn) {
   const wrapper = createElement('div', 'form-wrapper');
 
-  wrapper.append(createElement('input', 'registration-form-input', {
+  wrapper.append(createElement('input', ['registration-form-input', 'form-control'], {
     required: true,
     placeholder: 'e.g. 012718',
   }));
