@@ -17,6 +17,14 @@ import {
 const PRODUCTION_DOMAINS = ['www.elixirsolutions.com'];
 const LCP_BLOCKS = ['hero']; // add your LCP blocks to the list
 
+/**
+ * create an element.
+ * @param {string} tagName the tag for the element
+ * @param {string|Array<string>} classes classes to apply
+ * @param {object} props properties to apply
+ * @param {string|Element} html content to add
+ * @returns the element
+ */
 export function createElement(tagName, classes, props, html) {
   const elem = document.createElement(tagName);
   if (classes) {
@@ -30,10 +38,18 @@ export function createElement(tagName, classes, props, html) {
   }
 
   if (html) {
-    if (html instanceof HTMLElement || html instanceof SVGElement) {
-      elem.append(html);
+    const appendEl = (el) => {
+      if (el instanceof HTMLElement || el instanceof SVGElement) {
+        elem.append(el);
+      } else {
+        elem.insertAdjacentHTML('beforeend', el);
+      }
+    };
+
+    if (Array.isArray(html)) {
+      html.forEach(appendEl);
     } else {
-      elem.insertAdjacentHTML('beforeend', html);
+      appendEl(html);
     }
   }
 
@@ -105,7 +121,7 @@ function buildHeroBlock(main) {
  */
 function buildBreadcrumbBlock(main) {
   if (window.location.pathname !== '/' && window.isErrorPage !== true && !getMetadata('hideBreadcrumb')) {
-    const section = document.createElement('div');
+    const section = createElement('div');
     section.append(buildBlock('breadcrumb', { elems: [] }));
     main.prepend(section);
   }
@@ -118,7 +134,7 @@ function buildBreadcrumbBlock(main) {
 function buildBlogTopicsBlock(main) {
   const blogFeed = main.querySelector('.blog-feed:not(.mini)');
   if (blogFeed) {
-    const section = document.createElement('div');
+    const section = createElement('div');
     const block = buildBlock('blog-topics', '');
     section.append(block);
     main.append(section);
@@ -135,7 +151,7 @@ function buildBlogTopicsBlock(main) {
 function buildBlogSocialsBlock(main) {
   const blogFeed = main.querySelector('.blog-feed:not(.mini)');
   if (!blogFeed && document.body.classList.contains('blog')) {
-    const section = document.createElement('div');
+    const section = createElement('div');
     section.append(buildBlock('blog-socials', ''));
     main.append(section);
   }
@@ -151,7 +167,7 @@ function buildAccordions(main) {
     const contentWrappers = accordion.querySelectorAll(':scope > div');
     const blockTable = [];
     let row;
-    const newWrapper = document.createElement('div');
+    const newWrapper = createElement('div');
     contentWrappers.forEach((wrapper) => {
       [...wrapper.children].forEach((child) => {
         if (child.nodeName === 'H2') {
@@ -199,8 +215,7 @@ function buildAutoBlocks(main) {
  */
 function decorateSectionsExt(main) {
   main.querySelectorAll('.section').forEach((section) => {
-    const container = document.createElement('div');
-    container.classList.add('section-container');
+    const container = createElement('div', 'section-container');
     [...section.children].forEach((child) => container.append(child));
     section.append(container);
   });
@@ -277,10 +292,12 @@ async function loadEager(doc) {
  * @param {string} href The favicon URL
  */
 export function addFavIcon(href) {
-  const link = document.createElement('link');
-  link.rel = 'icon';
-  link.type = 'image/x-icon';
-  link.href = href;
+  const link = createElement('link', '', {
+    rel: 'icon',
+    type: 'image/x-icon',
+    href,
+  });
+
   const existingLink = document.querySelector('head link[rel="icon"]');
   if (existingLink) {
     existingLink.parentElement.replaceChild(link, existingLink);

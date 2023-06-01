@@ -325,27 +325,13 @@ main .section.highlight .section-container {
   margin: 0 auto;
 }
 
-.blog main .default-content-wrapper :is(h1, h2, h3, h4, h5, h6) {
-  color: var(--clr-near-black);
-  padding: 8px 0;
-}
-.blog main .default-content-wrapper h1 { font-size: var(--heading-font-size-l) }
-.blog main .default-content-wrapper h2 { font-size: var(--heading-font-size-l) }
-.blog main .default-content-wrapper h3 { font-size: var(--heading-font-size-m) }
-.blog main .default-content-wrapper h4 { font-size: var(--heading-font-size-m) }
-.blog main .default-content-wrapper h5 { font-size: var(--heading-font-size-xs) }
-.blog main .default-content-wrapper h6 { font-size: var(--heading-font-size-xs) }
-
 .blog main .section {
-  padding: 0 16px;
+  grid-column: 1;
+  padding: 0;
 }
 
-.blog main .default-content-wrapper strong {
-  color: #666;
-}
-
-.blog main .default-content-wrapper p:first-child picture img {
-  border-radius: 5px;
+.blog main :not(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
+  padding: var(--default-content-padding-y) 20px;
 }
 
 @media (min-width: 900px) {
@@ -356,10 +342,43 @@ main .section.highlight .section-container {
   .blog main .section {
     padding: 0 32px;
   }
+
+  .blog main :not(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
+    padding: var(--default-content-padding-y) var(--default-content-padding-x);
+  }
 }
 
-.blog main .default-content-wrapper {
-  padding: 0 var(--default-content-padding-x);
+.blog main :not(.highlight) .section-container :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--headline-color);
+  padding: 8px 0;
+}
+
+.blog main .default-content-wrapper h1 { font-size: var(--heading-font-size-l) }
+.blog main .default-content-wrapper h2 { font-size: var(--heading-font-size-l) }
+.blog main .default-content-wrapper h3 { font-size: var(--heading-font-size-m) }
+.blog main .default-content-wrapper h4 { font-size: var(--heading-font-size-m) }
+.blog main .default-content-wrapper h5 { font-size: var(--heading-font-size-xs) }
+.blog main .default-content-wrapper h6 { font-size: var(--heading-font-size-xs) }
+
+.blog main .default-content-wrapper strong {
+  color: #666;
+}
+
+.blog main .section.highlight a {
+  color: var(--clr-white);
+  text-decoration: underline;
+}
+
+.blog main .section.highlight .section-container {
+  padding: 30px 0;
+}
+
+.blog main .section.highlight .default-content-wrapper strong {
+  color: #eee;
+}
+
+.blog main .default-content-wrapper p:first-child picture img {
+  border-radius: 5px;
 }
 
 .blog main .default-content-wrapper p picture {
