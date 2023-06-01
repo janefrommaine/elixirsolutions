@@ -1,14 +1,55 @@
+import { readBlockConfig } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/scripts.js';
+
+function constructPayload(form) {
+  const payload = {};
+  [...form.elements].forEach((fe) => {
+    if (fe.type === 'checkbox' || fe.type === 'radio') {
+      if (fe.checked) {
+        let fieldVal = payload[fe.dataset.id];
+        if (!fieldVal) fieldVal = [];
+        fieldVal.push(fe.value);
+        payload[fe.dataset.id] = fieldVal;
+      }
+    } else if (fe.id) {
+      payload[fe.id] = fe.value;
+    }
+  });
+  return payload;
+}
+
+async function submitForm(form) {
+  const payload = constructPayload(form);
+  const resp = await fetch(form.dataset.action, {
+    method: 'POST',
+    cache: 'no-cache',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ data: payload }),
+  });
+  await resp.text();
+
+  if (form.dataset.thankYou) {
+    window.location.href = form.dataset.thankYou;
+  }
+  return payload;
+}
 
 function buildSubmitField(fieldDef) {
   const btn = createElement('button', ['button', 'button-primary'], {
     type: 'submit',
   }, fieldDef.Label);
 
-  btn.addEventListener('click', () => {
+  btn.addEventListener('click', (evt) => {
+    evt.preventDefault();
     const form = btn.closest('form');
     if (form) {
       form.classList.add('was-validated');
+    }
+    const valid = form.reportValidity();
+    if (valid) {
+      submitForm(form);
     }
   });
 
@@ -20,8 +61,8 @@ function buildSelectField(fieldDef) {
 
   fieldDef.Placeholder = fieldDef.Placeholder || 'Please Select One';
   formGroup.innerHTML = `
-  <label for="formSelect-select${fieldDef.idx}">${fieldDef.Label} </label>
-  <select class="custom-select" id="formSelect-select${fieldDef.idx}">
+  <label for="${fieldDef.Field}">${fieldDef.Label} </label>
+  <select class="custom-select" id="${fieldDef.Field}">
     <option selected disabled value="">${fieldDef.Placeholder}</option>
   </select>
   <div class="valid-feedback">Valid selection</div>
@@ -66,10 +107,10 @@ function buildCheckboxField(fieldDef) {
     const control = createElement('div', ['custom-control', `custom-${fieldDef.Type}`]);
     control.innerHTML = `
       <input type="${fieldDef.Type}" class="custom-control-input" 
-      id="form-${fieldDef.Type}${fieldDef.idx}-${i}" 
-      ${fieldDef.Mandatory ? 'required' : ''}
+      data-id="${fieldDef.Field}" id="${fieldDef.Field}-${i}"
+      ${fieldDef.Mandatory ? 'required' : ''} value="${o}"
       ${fieldDef.Type === 'radio' ? `name=radio-${fieldDef.idx}` : ''}>
-      <label class="custom-control-label" for="form-${fieldDef.Type}${fieldDef.idx}-${i}">${o}</label>
+      <label class="custom-control-label" for="${fieldDef.Field}-${i}">${o}</label>
     `;
 
     if (fieldDef.Type === 'checkbox') {
@@ -98,7 +139,7 @@ function buildInputField(fieldDef) {
     inputTag = 'textarea';
     inputAttrs.rows = '3';
   }
-  inputAttrs.id = `form-${inputTag}${fieldDef.idx}`;
+  inputAttrs.id = `${fieldDef.Field}`;
   if (fieldDef['Help Text']) {
     const helpId = `form-${inputTag}Help${fieldDef.idx}`;
     inputAttrs['aria-describedby'] = helpId;
@@ -161,11 +202,14 @@ async function createForm(formURL) {
 }
 
 export default async function decorate(block) {
-  const form = block.querySelector('a[href$=".json"]');
-  if (form) {
-    const formEl = await createForm(form.href);
+  const cfg = readBlockConfig(block);
+  if (cfg.source && cfg.source.endsWith('.json')) {
+    const formEl = await createForm(cfg.source);
     block.innerHTML = '';
     block.append(formEl);
+    if (cfg['thank-you']) {
+      formEl.dataset.thankYou = cfg['thank-you'];
+    }
 
     formEl.querySelectorAll('.form-control').forEach((ctrl) => {
       ctrl.addEventListener('blur', () => {
