@@ -266,7 +266,7 @@ header nav .nav-tools .search-form .icon svg {
   fill: var(--clr-blue);
 }
 
-header nav .nav-tools .search-form input {
+/* header nav .nav-tools .search-form input {
   width: 100%;
   height: 35px;
   padding: 0 8px;
@@ -276,7 +276,7 @@ header nav .nav-tools .search-form input {
   background-color: var(--clr-off-white);
   border: 1px solid var(--clr-lighter-blue);
   border-radius: 3px;
-}
+} */
 
 header nav .nav-tools .search-form .search-results {
   position: absolute;
