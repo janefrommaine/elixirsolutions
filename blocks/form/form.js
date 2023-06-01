@@ -40,6 +40,10 @@ async function submitForm(form) {
 
   if (form.dataset.thankYou) {
     window.location.href = form.dataset.thankYou;
+  } else {
+    form.innerHTML = `
+      <p class="form-text">Thank you for your submisison!</p>
+    `;
   }
   return payload;
 }
@@ -73,7 +77,6 @@ function buildSelectField(fieldDef) {
   <select class="custom-select" id="${fieldDef.Field}">
     <option selected disabled value="">${fieldDef.Placeholder}</option>
   </select>
-  <div class="valid-feedback">Valid selection</div>
   <div class="invalid-feedback">${fieldDef.Placeholder}</div>
   `;
 
@@ -122,12 +125,10 @@ function buildCheckboxField(fieldDef) {
     `;
 
     if (fieldDef.Type === 'checkbox') {
-      control.innerHTML += `<div class="valid-feedback">This field is valid</div>
-      <div class="invalid-feedback">This checkbox is required</div>`;
+      control.innerHTML += '<div class="invalid-feedback">This checkbox is required</div>';
     }
     if (fieldDef.Type === 'radio' && i === (opts.length - 1)) {
-      control.innerHTML += `<div class="valid-feedback">This field is valid</div>
-      <div class="invalid-feedback">Please make a selection</div>`;
+      control.innerHTML += '<div class="invalid-feedback">Please make a selection</div>';
     }
     formGroup.append(control);
   });
@@ -172,8 +173,7 @@ function buildInputField(fieldDef) {
   }, labelText);
   formGroup.prepend(label);
 
-  formGroup.insertAdjacentHTML('beforeend', `<div class="valid-feedback">This field is valid</div>
-  <div class="invalid-feedback">This field is invalid</div>`);
+  formGroup.insertAdjacentHTML('beforeend', `<div class="invalid-feedback">This field is ${fieldDef.Mandatory ? 'required/' : ''}invalid</div>`);
 
   return formGroup;
 }
