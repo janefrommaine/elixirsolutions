@@ -127,6 +127,14 @@ function buildBreadcrumbBlock(main) {
   }
 }
 
+async function buildBlogFormBlock(main) {
+  if (document.body.classList.contains('blog')) {
+    const section = main.querySelector('main > div:last-child');
+    const fragment = buildBlock('blog-email-form', '');
+    section.append(fragment);
+  }
+}
+
 /**
  * Builds blog topics blocks from default content
  * @param {Element} main The container element
@@ -203,6 +211,7 @@ function buildAutoBlocks(main) {
     buildBreadcrumbBlock(main);
     buildBlogTopicsBlock(main);
     buildBlogSocialsBlock(main);
+    buildBlogFormBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -260,11 +269,13 @@ export default function decorateBlogImage(main) {
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
-export function decorateMain(main) {
+export function decorateMain(main, isFragment) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
   decorateIcons(main);
-  buildAutoBlocks(main);
+  if (!isFragment) {
+    buildAutoBlocks(main);
+  }
   decorateSections(main);
   decorateSectionsExt(main);
   decorateBlocks(main);

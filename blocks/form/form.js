@@ -26,17 +26,26 @@ function constructPayload(form) {
   return payload;
 }
 
+async function submitHubspotForm(form) {
+  // todo
+}
+
 async function submitForm(form) {
-  const payload = constructPayload(form);
-  const resp = await fetch(form.dataset.action, {
-    method: 'POST',
-    cache: 'no-cache',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ data: payload }),
-  });
-  await resp.text();
+  let payload;
+  if (form.dataset.guid && form.dataset.portalId) {
+    payload = submitHubspotForm(form);
+  } else {
+    payload = constructPayload(form);
+    const resp = await fetch(form.dataset.action, {
+      method: 'POST',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ data: payload }),
+    });
+    await resp.text();
+  }
 
   if (form.dataset.thankYou) {
     window.location.href = form.dataset.thankYou;
@@ -217,6 +226,11 @@ export default async function decorate(block) {
     block.append(formEl);
     if (cfg['thank-you']) {
       formEl.dataset.thankYou = cfg['thank-you'];
+    }
+
+    if (block.classList.contains('hubspot')) {
+      formEl.dataset.guid = cfg.guid;
+      formEl.dataset.portalId = cfg['portal-id'];
     }
 
     formEl.querySelectorAll('.form-control').forEach((ctrl) => {

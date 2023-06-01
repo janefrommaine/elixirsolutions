@@ -161,6 +161,14 @@ main .blog-feed.mini .blog-post-mini-card .blog-post-content .post-description {
   margin-top: .25em;
 }
 
+main .blog-feed.mini .blog-email-form-wrapper > * {
+  display: none;
+}
+
+main .blog-feed.mini .blog-email-form-wrapper.appear > * {
+  display: unset;
+}
+
 /* page control */
 main .blog-feed .blog-pages ul {
   list-style: none;
