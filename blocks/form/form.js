@@ -26,16 +26,43 @@ function constructPayload(form) {
   return payload;
 }
 
-async function submitHubspotForm(form) {
+async function submitHubspotForm(form, payload) {
+  const d = new Date();
+  const fields = Object.keys(payload).map((k) => {
+    const v = payload[k];
+    return {
+      objectTypeId: '0-1',
+      name: k,
+      value: v,
+    };
+  });
+
+  const hsPayload = {
+    submittedAt: d.getTime(),
+    fields,
+    context: {
+      hutk: form.dataset.hutk,
+      pageUri: window.location.href,
+      pageName: document.querySelector('title').textContent,
+    },
+  };
   // todo
+  const resp = await fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${form.dataset.portalId}/${form.dataset.guid}`, {
+    method: 'POST',
+    cache: 'no-cache',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(hsPayload),
+  });
+  await resp.text();
 }
 
 async function submitForm(form) {
-  let payload;
+  const payload = constructPayload(form);
   if (form.dataset.guid && form.dataset.portalId) {
-    payload = submitHubspotForm(form);
+    await submitHubspotForm(form, payload);
   } else {
-    payload = constructPayload(form);
     const resp = await fetch(form.dataset.action, {
       method: 'POST',
       cache: 'no-cache',
@@ -218,8 +245,29 @@ async function createForm(formURL) {
   return form;
 }
 
+/**
+ * load a script by adding to page head
+ * @param {string} url the script src url
+ * @param {string} type the script type
+ * @param {function} callback a funciton to callback after loading
+ */
+export function loadScript(url, type, callback) {
+  const head = document.querySelector('head');
+  let script = head.querySelector(`script[src="${url}"]`);
+  if (!script) {
+    script = document.createElement('script');
+    script.src = url;
+    if (type) script.setAttribute('type', type);
+    head.append(script);
+    script.onload = callback;
+    return script;
+  }
+  return script;
+}
+
 export default async function decorate(block) {
   const cfg = readBlockConfig(block);
+
   if (cfg.source && cfg.source.endsWith('.json')) {
     const formEl = await createForm(cfg.source);
     block.innerHTML = '';
@@ -227,10 +275,22 @@ export default async function decorate(block) {
     if (cfg['thank-you']) {
       formEl.dataset.thankYou = cfg['thank-you'];
     }
-
     if (block.classList.contains('hubspot')) {
       formEl.dataset.guid = cfg.guid;
       formEl.dataset.portalId = cfg['portal-id'];
+      loadScript('https://js.hsforms.net/forms/v2.js', 'text/javascript', () => {
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i += 1) {
+          let c = ca[i];
+          while (c.charAt(0) === ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf('hubspotutk') === 0) {
+            formEl.dataset.hutk = c.substring('hubspotutk'.length + 1, c.length);
+          }
+        }
+      });
     }
 
     formEl.querySelectorAll('.form-control').forEach((ctrl) => {
