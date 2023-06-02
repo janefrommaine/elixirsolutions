@@ -46,8 +46,8 @@ async function submitHubspotForm(form, payload) {
       pageName: document.querySelector('title').textContent,
     },
   };
-  // todo
-  const resp = await fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${form.dataset.portalId}/${form.dataset.guid}`, {
+
+  const resp = fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${form.dataset.portalId}/${form.dataset.guid}`, {
     method: 'POST',
     cache: 'no-cache',
     headers: {
@@ -55,15 +55,16 @@ async function submitHubspotForm(form, payload) {
     },
     body: JSON.stringify(hsPayload),
   });
-  await resp.text();
+  return resp;
 }
 
 async function submitForm(form) {
   const payload = constructPayload(form);
+  let resp;
   if (form.dataset.guid && form.dataset.portalId) {
-    await submitHubspotForm(form, payload);
+    resp = await submitHubspotForm(form, payload);
   } else {
-    const resp = await fetch(form.dataset.action, {
+    resp = await fetch(form.dataset.action, {
       method: 'POST',
       cache: 'no-cache',
       headers: {
@@ -71,17 +72,21 @@ async function submitForm(form) {
       },
       body: JSON.stringify({ data: payload }),
     });
-    await resp.text();
   }
 
-  if (form.dataset.thankYou) {
+  if (!resp.ok) {
+    // eslint-disable-next-line no-console
+    console.error('form submission failed');
+    form.innerHTML = `
+      <p class="form-text error">Sorry, an error occurred. please try again.</p>
+    `;
+  } else if (form.dataset.thankYou) {
     window.location.href = form.dataset.thankYou;
   } else {
     form.innerHTML = `
       <p class="form-text">Thank you for your submisison!</p>
     `;
   }
-  return payload;
 }
 
 function buildSubmitField(fieldDef) {
