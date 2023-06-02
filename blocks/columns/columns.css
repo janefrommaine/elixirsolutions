@@ -37,6 +37,15 @@
 
 .columns > div > .columns-img-col img {
   display: block;
+  float: right;
+}
+
+.columns > div > .columns-img-col a {
+  display: block;
+  float: right;
+  float: right;
+  margin-right: 153px;
+  margin-top: 15px;
 }
 
 @media (min-width: 600px) {
