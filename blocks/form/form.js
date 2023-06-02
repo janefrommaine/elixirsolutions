@@ -1,4 +1,4 @@
-import { readBlockConfig } from '../../scripts/lib-franklin.js';
+import { fetchPlaceholders, readBlockConfig } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/scripts.js';
 
 function constructPayload(form) {
@@ -26,26 +26,76 @@ function constructPayload(form) {
   return payload;
 }
 
-async function submitForm(form) {
-  const payload = constructPayload(form);
-  const resp = await fetch(form.dataset.action, {
+async function submitHubspotForm(form, payload) {
+  const d = new Date();
+  const fields = Object.keys(payload).map((k) => {
+    const v = payload[k];
+    return {
+      objectTypeId: '0-1',
+      name: k,
+      value: v,
+    };
+  });
+
+  const cookies = decodeURIComponent(document.cookie);
+  let hsutk;
+  cookies.split(';').forEach((cookie) => {
+    const c = cookie.trim();
+    if (c.indexOf('hubspotutk') === 0) {
+      hsutk = c.substring('hubspotutk'.length + 1, c.length);
+    }
+  });
+
+  const hsPayload = {
+    submittedAt: d.getTime(),
+    fields,
+    context: {
+      hutk: hsutk,
+      pageUri: window.location.href,
+      pageName: document.querySelector('title').textContent,
+    },
+  };
+
+  const resp = fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${form.dataset.portalId}/${form.dataset.guid}`, {
     method: 'POST',
     cache: 'no-cache',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ data: payload }),
+    body: JSON.stringify(hsPayload),
   });
-  await resp.text();
+  return resp;
+}
 
-  if (form.dataset.thankYou) {
+async function submitForm(form) {
+  const payload = constructPayload(form);
+  let resp;
+  if (form.dataset.guid && form.dataset.portalId) {
+    resp = await submitHubspotForm(form, payload);
+  } else {
+    resp = await fetch(form.dataset.action, {
+      method: 'POST',
+      cache: 'no-cache',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ data: payload }),
+    });
+  }
+
+  if (!resp.ok) {
+    // eslint-disable-next-line no-console
+    console.error('form submission failed');
+    form.innerHTML = `
+      <p class="form-text error">Sorry, an error occurred. please try again.</p>
+    `;
+  } else if (form.dataset.thankYou) {
     window.location.href = form.dataset.thankYou;
   } else {
     form.innerHTML = `
       <p class="form-text">Thank you for your submisison!</p>
     `;
   }
-  return payload;
 }
 
 function buildSubmitField(fieldDef) {
@@ -211,12 +261,18 @@ async function createForm(formURL) {
 
 export default async function decorate(block) {
   const cfg = readBlockConfig(block);
+
   if (cfg.source && cfg.source.endsWith('.json')) {
     const formEl = await createForm(cfg.source);
     block.innerHTML = '';
     block.append(formEl);
     if (cfg['thank-you']) {
       formEl.dataset.thankYou = cfg['thank-you'];
+    }
+    if (block.classList.contains('hubspot')) {
+      formEl.dataset.guid = cfg['form-id'];
+      const placeholders = await fetchPlaceholders();
+      formEl.dataset.portalId = placeholders.hubspotPortalId;
     }
 
     formEl.querySelectorAll('.form-control').forEach((ctrl) => {

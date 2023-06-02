@@ -1,5 +1,12 @@
 import ffetch from '../../scripts/ffetch.js';
-import { createOptimizedPicture, decorateIcons } from '../../scripts/lib-franklin.js';
+import {
+  createOptimizedPicture,
+  decorateIcons,
+  decorateBlock,
+  loadBlock,
+  buildBlock,
+} from '../../scripts/lib-franklin.js';
+import { createElement } from '../../scripts/scripts.js';
 
 function buildSmallPost(post) {
   const postCard = document.createElement('div');
@@ -67,9 +74,13 @@ async function buildMiniFeed(block, ul) {
     i += 1;
   }
 
-  const formWrapper = document.createElement('div');
-  // todo add insight form block
-  block.append(formWrapper);
+  const formFragmentWrapper = createElement('div');
+  block.append(formFragmentWrapper);
+  const fragment = buildBlock('blog-email-form', '');
+  formFragmentWrapper.append(fragment);
+  decorateBlock(fragment);
+  await loadBlock(fragment);
+  formFragmentWrapper.classList.add('appear');
 }
 
 async function buildBlogFeed(ul, pageNum, pagesElem) {

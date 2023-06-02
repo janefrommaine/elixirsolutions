@@ -56,6 +56,26 @@ export function createElement(tagName, classes, props, html) {
   return elem;
 }
 
+/**
+ * load a script by adding to page head
+ * @param {string} url the script src url
+ * @param {string} type the script type
+ * @param {function} callback a funciton to callback after loading
+ */
+export function loadScript(url, type, callback) {
+  const head = document.querySelector('head');
+  let script = head.querySelector(`script[src="${url}"]`);
+  if (!script) {
+    script = document.createElement('script');
+    script.src = url;
+    if (type) script.setAttribute('type', type);
+    head.append(script);
+    script.onload = callback;
+    return script;
+  }
+  return script;
+}
+
 function buildNewsColumns(main) {
   if (!document.body.classList.contains('news')) {
     return;
@@ -124,6 +144,14 @@ function buildBreadcrumbBlock(main) {
     const section = createElement('div');
     section.append(buildBlock('breadcrumb', { elems: [] }));
     main.prepend(section);
+  }
+}
+
+async function buildBlogFormBlock(main) {
+  if (document.body.classList.contains('blog')) {
+    const section = main.querySelector('main > div:last-child');
+    const fragment = buildBlock('blog-email-form', '');
+    section.append(fragment);
   }
 }
 
@@ -202,6 +230,7 @@ function buildAutoBlocks(main) {
     buildHeroBlock(main);
     buildBreadcrumbBlock(main);
     buildBlogTopicsBlock(main);
+    buildBlogFormBlock(main);
     buildBlogSocialsBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -260,11 +289,13 @@ export default function decorateBlogImage(main) {
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
-export function decorateMain(main) {
+export function decorateMain(main, isFragment) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
   decorateIcons(main);
-  buildAutoBlocks(main);
+  if (!isFragment) {
+    buildAutoBlocks(main);
+  }
   decorateSections(main);
   decorateSectionsExt(main);
   decorateBlocks(main);
