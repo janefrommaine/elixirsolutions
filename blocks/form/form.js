@@ -1,5 +1,5 @@
 import { fetchPlaceholders, readBlockConfig } from '../../scripts/lib-franklin.js';
-import { createElement, loadScript } from '../../scripts/scripts.js';
+import { createElement } from '../../scripts/scripts.js';
 
 function constructPayload(form) {
   const payload = {};
@@ -37,11 +37,20 @@ async function submitHubspotForm(form, payload) {
     };
   });
 
+  const cookies = decodeURIComponent(document.cookie);
+  let hsutk;
+  cookies.split(';').forEach((cookie) => {
+    const c = cookie.trim();
+    if (c.indexOf('hubspotutk') === 0) {
+      hsutk = c.substring('hubspotutk'.length + 1, c.length);
+    }
+  });
+
   const hsPayload = {
     submittedAt: d.getTime(),
     fields,
     context: {
-      hutk: form.dataset.hutk,
+      hutk: hsutk,
       pageUri: window.location.href,
       pageName: document.querySelector('title').textContent,
     },
@@ -264,15 +273,6 @@ export default async function decorate(block) {
       formEl.dataset.guid = cfg['form-id'];
       const placeholders = await fetchPlaceholders();
       formEl.dataset.portalId = placeholders.hubspotPortalId;
-      loadScript('https://js.hsforms.net/forms/v2.js', 'text/javascript', () => {
-        const cookies = decodeURIComponent(document.cookie);
-        cookies.split(';').forEach((cookie) => {
-          const c = cookie.trim();
-          if (c.indexOf('hubspotutk') === 0) {
-            formEl.dataset.hutk = c.substring('hubspotutk'.length + 1, c.length);
-          }
-        });
-      });
     }
 
     formEl.querySelectorAll('.form-control').forEach((ctrl) => {
