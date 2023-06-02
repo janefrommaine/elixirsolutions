@@ -1,4 +1,4 @@
-import { readBlockConfig } from '../../scripts/lib-franklin.js';
+import { fetchPlaceholders, readBlockConfig } from '../../scripts/lib-franklin.js';
 import { createElement } from '../../scripts/scripts.js';
 
 function constructPayload(form) {
@@ -276,20 +276,17 @@ export default async function decorate(block) {
       formEl.dataset.thankYou = cfg['thank-you'];
     }
     if (block.classList.contains('hubspot')) {
-      formEl.dataset.guid = cfg.guid;
-      formEl.dataset.portalId = cfg['portal-id'];
+      formEl.dataset.guid = cfg['form-id'];
+      const placeholders = await fetchPlaceholders();
+      formEl.dataset.portalId = placeholders.hubspotPortalId;
       loadScript('https://js.hsforms.net/forms/v2.js', 'text/javascript', () => {
-        const decodedCookie = decodeURIComponent(document.cookie);
-        const ca = decodedCookie.split(';');
-        for (let i = 0; i < ca.length; i += 1) {
-          let c = ca[i];
-          while (c.charAt(0) === ' ') {
-            c = c.substring(1);
-          }
+        const cookies = decodeURIComponent(document.cookie);
+        cookies.split(';').forEach((cookie) => {
+          const c = cookie.trim();
           if (c.indexOf('hubspotutk') === 0) {
             formEl.dataset.hutk = c.substring('hubspotutk'.length + 1, c.length);
           }
-        }
+        });
       });
     }
 
