@@ -230,8 +230,8 @@ function buildAutoBlocks(main) {
     buildHeroBlock(main);
     buildBreadcrumbBlock(main);
     buildBlogTopicsBlock(main);
-    buildBlogSocialsBlock(main);
     buildBlogFormBlock(main);
+    buildBlogSocialsBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
