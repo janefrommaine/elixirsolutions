@@ -1,3 +1,5 @@
+import { createElement } from '../../scripts/scripts.js';
+
 const getPageTitle = async (url) => {
   const resp = await fetch(url);
   if (resp.ok) {
@@ -35,7 +37,10 @@ const createLink = (path) => {
 };
 
 export default async function decorate(block) {
-  const breadcrumb = block.querySelector(':scope div');
+  const breadcrumb = createElement('nav', '', {
+    'aria-label': 'Breadcrumb',
+  });
+  block.innerHTML = '';
   const HomeLink = createLink({ path: '', name: 'Home', url: window.location.origin });
   const breadcrumbLinks = [HomeLink.outerHTML];
 
@@ -48,7 +53,7 @@ export default async function decorate(block) {
     currentPath.innerText = document.querySelector('title').innerText;
     breadcrumbLinks.push(currentPath.outerHTML);
 
-    const space = '&nbsp;&nbsp;&nbsp;';
-    breadcrumb.innerHTML = breadcrumbLinks.join(`${space}/${space}`);
+    breadcrumb.innerHTML = breadcrumbLinks.join('<span class="breadcrumb-separator">/</span>');
+    block.append(breadcrumb);
   }, 1000);
 }
