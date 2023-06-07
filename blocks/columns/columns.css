@@ -5,6 +5,10 @@
   flex-direction: column;
 }
 
+.columns > div > div[data-align=center] {
+  text-align: center;
+}
+
 .columns img {
   max-width: 100%;
   margin: 0 auto;
