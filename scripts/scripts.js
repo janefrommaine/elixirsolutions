@@ -285,6 +285,19 @@ export default function decorateBlogImage(main) {
 }
 
 /**
+ * redecorate button to make some changes after franklion default decoration runs
+ * @param {Element} element container element
+ */
+function reDecorateButtons(element) {
+  element.querySelectorAll('a').forEach((a) => {
+    // remove redundant titles
+    if (a.title === a.textContent) {
+      a.title = '';
+    }
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -292,6 +305,7 @@ export default function decorateBlogImage(main) {
 export function decorateMain(main, isFragment) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
+  reDecorateButtons(main);
   decorateIcons(main);
   if (!isFragment) {
     buildAutoBlocks(main);
