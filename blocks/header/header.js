@@ -160,7 +160,7 @@ export default async function decorate(block) {
     nav.id = 'nav';
     nav.innerHTML = html;
 
-    const classes = ['brand', 'sections', 'register', 'tools'];
+    const classes = ['brand', 'tools', 'sections', 'register'];
     classes.forEach((c, i) => {
       const section = nav.children[i];
       if (section) section.classList.add(`nav-${c}`);
@@ -190,7 +190,8 @@ export default async function decorate(block) {
       const tools = nav.querySelector('.nav-tools');
       tools.innerHTML = `
       <div class="search-form">
-        <input class="search-input form-control" type="text" name="fulltext" placeholder="Search" maxlength="100"></input>
+        <label class="sr-only" for="header-search-input">Search</label>
+        <input id="header-search-input" class="search-input form-control" type="text" name="fulltext" placeholder="Search" maxlength="100"></input>
         <span class="icon icon-search"></span>
         <div class="search-results"></div>
       </div>`;
@@ -227,6 +228,8 @@ export default async function decorate(block) {
     navWrapper.className = 'nav-wrapper';
     navWrapper.append(nav);
     wrapImgsInLinks(nav);
+    block.insertAdjacentHTML('beforebegin', '<a href="#main" class="sr-only">Skip to main content</a>');
+    document.querySelector('main').id = 'main';
     block.append(navWrapper);
   }
 }
