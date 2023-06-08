@@ -31,8 +31,8 @@ header nav[aria-expanded="true"] {
   grid-template:
     'hamburger brand' var(--nav-height)
     'tools tools' auto
-    'register register' auto
-    'sections sections' 1fr / var(--hamburger-width) 1fr;
+    'sections sections' auto
+    'register register' 1fr / var(--hamburger-width) 1fr;
   overflow-y: auto;
   min-height: 100vh;
   border-bottom: 10px solid var(--clr-blue);
@@ -184,7 +184,7 @@ header nav[aria-expanded="true"] .nav-sections {
 
 header nav .nav-sections ul  {
   list-style: none;
-  padding-left: 0;
+  padding-inline: 0;
   display: flex;
   gap: 1em;
   align-items: center;
@@ -314,7 +314,7 @@ header nav .nav-tools .search-form .search-results .search-result span {
 header nav .nav-register {
   grid-area: register;
   display: none;
-  align-items: center;
+  align-self: start;
   justify-content: center;
 }
 
