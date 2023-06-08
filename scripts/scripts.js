@@ -351,6 +351,7 @@ export function decorateLinks(element) {
           a.href = `${url.pathname.replace('.html', '')}${url.search}${url.hash}`;
         } else {
           a.target = '_blank';
+          a.rel = 'noopener noreferrer';
         }
       }
     } catch (e) {
