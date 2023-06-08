@@ -9,8 +9,7 @@ import {
 import { createElement } from '../../scripts/scripts.js';
 
 function buildSmallPost(post) {
-  const postCard = document.createElement('div');
-  postCard.classList.add('blog-post-card', 'blog-post-mini-card');
+  const postCard = createElement('article', ['blog-post-card', 'blog-post-mini-card']);
 
   postCard.innerHTML = `
     <div class="blog-post-content">
@@ -23,8 +22,7 @@ function buildSmallPost(post) {
 }
 
 function buildPost(post, eager) {
-  const postCard = document.createElement('div');
-  postCard.classList.add('blog-post-card');
+  const postCard = createElement('article', 'blog-post-card');
 
   postCard.innerHTML = `
       <div class="blog-post-image">
