@@ -70,6 +70,11 @@ function closeOnEscape(e) {
       toggleAllNavSections(navSections);
       navSectionExpanded.focus();
     } else if (!isDesktop.matches) {
+      const visibleSearch = nav.querySelector('.search-results.visible');
+      if (visibleSearch) {
+        visibleSearch.classList.remove('visible');
+        return;
+      }
       // eslint-disable-next-line no-use-before-define
       toggleMenu(nav, navSections);
       nav.querySelector('button').focus();
@@ -197,8 +202,12 @@ export default async function decorate(block) {
       </div>`;
       const searchInput = tools.querySelector('.search-input');
       const results = tools.querySelector('.search-results');
-      searchInput.addEventListener('keyup', () => {
+      searchInput.addEventListener('keyup', (event) => {
         debounce(() => {
+          if (event.key === 'Escape') {
+            results.classList.remove('visible');
+            return;
+          }
           const q = searchInput.value;
           execSearch(q, results);
         }, 250);
