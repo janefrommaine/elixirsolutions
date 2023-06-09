@@ -8,7 +8,7 @@ async function loadLinkedInTracking() {
   // eslint-disable-next-line no-underscore-dangle
   window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
   // eslint-disable-next-line no-underscore-dangle
-  window._linkedin_data_partner_ids.push(linkedInPartnerId);
+  window._linkedin_data_partner_ids.push(linkedinPartnerId);
 
   ((l) => {
     if (!l) {
