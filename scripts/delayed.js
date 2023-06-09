@@ -1,6 +1,29 @@
 // eslint-disable-next-line import/no-cycle
 import { sampleRUM, fetchPlaceholders } from './lib-franklin.js';
 
+async function loadLinkedInTracking() {
+  const placeholders = await fetchPlaceholders();
+  const { linkedInPartnerId } = placeholders;
+
+  // eslint-disable-next-line no-underscore-dangle
+  window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+  // eslint-disable-next-line no-underscore-dangle
+  window._linkedin_data_partner_ids.push(linkedInPartnerId);
+
+  ((l) => {
+    if (!l) {
+      window.lintrk = (a, b) => { window.lintrk.q.push([a, b]); };
+      window.lintrk.q = [];
+    }
+    const s = document.getElementsByTagName('script')[0];
+    const b = document.createElement('script');
+    b.type = 'text/javascript';
+    b.async = true;
+    b.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js';
+    s.parentNode.insertBefore(b, s);
+  })(window.lintrk);
+}
+
 async function loadGoogleTagManager() {
   const placeholders = await fetchPlaceholders();
   // google tag manager
@@ -14,3 +37,4 @@ sampleRUM('cwv');
 
 // add more delayed functionality here
 loadGoogleTagManager();
+loadLinkedInTracking();
