@@ -26,16 +26,16 @@ function buildPost(post, eager) {
 
   postCard.innerHTML = `
       <div class="blog-post-image">
-        <a href="${post.path}">${createOptimizedPicture(post.image, `Teaser image for ${post.title}`, eager).outerHTML}</a>
+        <a href="${post.path}">${createOptimizedPicture(post.image, '', eager).outerHTML}</a>
       </div>
       <div class="blog-post-content">
         <a class="post-title" href="${post.path}">${post.title}</a>
         <ul class="post-tags">
         </ul>
-        <a class="post-description" href="${post.path}">
+        <div class="post-description">
           <p>${post.description}</p>
-          <span>Read More</span>
-        </a>
+          <a href="${post.path}">Read More<span class="sr-only"> about ${post.title}</span></a>
+        </div>
       </div>
     </a>
   `;
