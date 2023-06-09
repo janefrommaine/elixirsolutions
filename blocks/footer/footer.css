@@ -211,6 +211,10 @@ footer .footer-social-icon {
   background-size: 50%;
 }
 
+footer .footer-social-icon .icon-external-link {
+  display: none;
+}
+
 footer .footer-social-icon-twitter {
   background-color: var(--clr-lighter-blue);
   background-image: url('/blocks/footer/images/twitter.webp');

@@ -293,6 +293,12 @@ main img {
   fill: currentcolor;
 }
 
+.icon-external-link {
+  margin-inline-start: 1ch;
+  width: 1em;
+  height: 1em;
+}
+
 /* Sections */
 main .section {
   padding: 16px;
