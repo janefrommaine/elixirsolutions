@@ -315,7 +315,7 @@ export function decorateLinks(element) {
           const icon = createElement('span', ['icon', 'icon-external-link']);
           a.insertAdjacentElement('beforeend', icon);
           const linkTitle = a.title;
-          a.title = `${linkTitle} (opens an external site)`;
+          a.title = linkTitle ? `${linkTitle} (opens an external site)` : 'Link opens an external site';
         }
       }
     } catch (e) {
