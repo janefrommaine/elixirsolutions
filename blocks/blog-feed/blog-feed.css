@@ -98,6 +98,7 @@ main .blog-feed .blog-post-card .blog-post-content .post-description p {
   margin-top: .5em;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 main .blog-feed .blog-post-card .blog-post-content .post-description a {
   display: inline-block;
   box-sizing: border-box;
