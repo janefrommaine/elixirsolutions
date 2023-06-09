@@ -61,6 +61,7 @@ main .blog-feed .blog-post-card .blog-post-content .post-title {
 
 main .blog-feed .blog-post-card .blog-post-content a {
   text-decoration: none;
+  display: block;
 }
 
 main .blog-feed .blog-post-card .blog-post-content .post-tags {
