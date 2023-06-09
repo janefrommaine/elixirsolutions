@@ -3,7 +3,7 @@ import { sampleRUM, fetchPlaceholders } from './lib-franklin.js';
 
 async function loadLinkedInTracking() {
   const placeholders = await fetchPlaceholders();
-  const { linkedInPartnerId } = placeholders;
+  const { linkedinPartnerId } = placeholders;
 
   // eslint-disable-next-line no-underscore-dangle
   window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
