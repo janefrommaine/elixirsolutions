@@ -266,18 +266,6 @@ header nav .nav-tools .search-form .icon svg {
   fill: var(--clr-blue);
 }
 
-/* header nav .nav-tools .search-form input {
-  width: 100%;
-  height: 35px;
-  padding: 0 8px;
-  font-size: var(--body-font-size-xs);
-  line-height: 35px;
-  font-weight: 400;
-  background-color: var(--clr-off-white);
-  border: 1px solid var(--clr-lighter-blue);
-  border-radius: 3px;
-} */
-
 header nav .nav-tools .search-form .search-results {
   position: absolute;
   background-color: var(--clr-off-white);
@@ -286,19 +274,25 @@ header nav .nav-tools .search-form .search-results {
   flex-direction: column;
   padding-top: 3px;
   width: 100%;
+  list-style: none;
+  padding-inline: 0;
+  margin-block: 0;
 }
 
-header nav .nav-tools .search-form .search-results.visible { 
+header nav .nav-tools .search-form .search-input[aria-expanded='true'] ~ .search-results { 
   display: flex;
 }
 
-header nav .nav-tools .search-form .search-results .search-result {
+header nav .nav-tools .search-form .search-results .search-result a {
   color: var(--text-color);
 }
 
-header nav .nav-tools .search-form .search-results .search-result:is(:hover, :focus) {
-  color: var(--clr-white);
+header nav .nav-tools .search-form .search-results .search-result[aria-selected] {
   background-color: #1e90ff;
+}
+
+header nav .nav-tools .search-form .search-results .search-result[aria-selected] a {
+  color: var(--clr-white);
   text-decoration: none;
 }
 
