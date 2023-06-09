@@ -60,7 +60,7 @@ header nav[aria-expanded="true"] {
     'brand sections register' 72px / auto 1fr auto;
     min-height: 0;
     overflow: visible;
-    border-bottom: 2px solid rgb(0 0 0 / 10%);
+    border-bottom: none;
   }
 }
 
@@ -139,11 +139,22 @@ header .nav-brand {
   grid-area: brand;
   margin: auto;
   padding-right: var(--hamburger-width);
+
+  --logo-width: 128px;
+  --logo-max-height: 80px;
 }
 
+header nav .nav-brand .icon {
+  display: block;
+  width: unset;
+  height: unset;
+}
+
+header nav .nav-brand .icon svg,
 header nav .nav-brand img {
-  width: 128px;
+  width: var(--logo-width);
   height: auto;
+  max-height: var(--logo-max-height);
 }
 
 @media (min-width: 600px) {
@@ -158,14 +169,20 @@ header nav .nav-brand img {
     padding-left: 0;
   }
 
-  header nav .nav-brand img {
+  header nav .nav-brand img,
+  header nav .nav-brand .icon svg {
     margin-top: 3rem;
   }
 }
 
 @media (min-width: 1200px) {
-  header nav .nav-brand img {
-    width: 185px;
+  header nav .nav-brand {
+    --logo-width: 185px;
+    --logo-max-height: 100px;
+  }
+  
+  header nav .nav-brand img,
+  header nav .nav-brand .icon svg {
     margin-top: 0;
   }
 }

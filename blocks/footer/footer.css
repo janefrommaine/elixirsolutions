@@ -93,7 +93,14 @@ footer .footer-image a {
   margin: 0 auto;
 }
 
-footer .footer-image img {
+footer .footer-image .icon {
+  display: block;
+  width: unset;
+  height: unset;
+}
+
+footer .footer-image img,
+footer .footer-image .icon svg {
   max-width: 166px;
   max-height: 77.42px;
   object-fit: contain;
@@ -101,13 +108,16 @@ footer .footer-image img {
   margin: 45px auto 0;
 }
 
+
+
 @media (min-width: 900px) {
   footer .footer-image {
     display: flex;
     align-items: center;
   }
 
-  footer .footer-image img {
+  footer .footer-image img,
+  footer .footer-image .icon svg {
     margin: 0 60px;
   }
 }
