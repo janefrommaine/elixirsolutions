@@ -69,6 +69,7 @@ main .blog-feed .blog-post-card .blog-post-content .post-tags {
   display: flex;
   flex-flow: row wrap;
   gap: 1rem;
+  padding: .5rem 0;
 }
 
 main .blog-feed .blog-post-card .blog-post-content .post-tags a {
@@ -94,9 +95,11 @@ main .blog-feed .blog-post-card .blog-post-content .post-description p {
   -webkit-box-orient: vertical;
   overflow: hidden;
   color: var(--text-color);
+  margin-top: .5em;
 }
 
-main .blog-feed .blog-post-card .blog-post-content .post-description span {
+/* stylelint-disable-next-line no-descending-specificity */
+main .blog-feed .blog-post-card .blog-post-content .post-description a {
   display: inline-block;
   box-sizing: border-box;
   text-decoration: none;
@@ -110,9 +113,10 @@ main .blog-feed .blog-post-card .blog-post-content .post-description span {
   overflow: hidden;
   text-overflow: ellipsis;
   border-radius: 30px;
+  position: relative;
 }
 
-main .blog-feed .blog-post-card .blog-post-content .post-description span:hover {
+main .blog-feed .blog-post-card .blog-post-content .post-description a:hover {
   border-color: var(--link-hover-color);
 }
 
