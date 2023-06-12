@@ -133,7 +133,21 @@ main .blog-feed.mini {
   gap: 2rem;
 }
 
+@media (min-width: 600px) {
+  main .blog-feed.mini {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  main .blog-feed.mini .blog-email-form-wrapper {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (min-width: 900px) {
+  main .blog-feed.mini .blog-email-form-wrapper {
+    grid-column: unset;
+  }
+
   main .blog-feed.mini {
     grid-auto-flow: column;
     grid-auto-columns: minmax(0, 1fr);
