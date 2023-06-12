@@ -318,7 +318,7 @@ main .section .section-container {
   margin: auto;
 }
 
-main .section.highlight .section-container {
+main .section.highlight {
   background-color: var(--clr-blue);
 
   --headline-color: var(--clr-white);
@@ -328,6 +328,10 @@ main .section.highlight .section-container {
   --text-color: var(--clr-white); 
   */
   color: var(--clr-white);
+}
+
+main .section.secondary-highlight {
+  background-color: rgb(209 231 241);
 }
 
 /* screen reade only text  util class */

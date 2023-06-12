@@ -1,5 +1,5 @@
 import { getMetadata, decorateIcons } from '../../scripts/lib-franklin.js';
-import { wrapImgsInLinks } from '../../scripts/scripts.js';
+import { createElement, wrapImgsInLinks } from '../../scripts/scripts.js';
 import ffetch from '../../scripts/ffetch.js';
 
 let tId;
@@ -10,9 +10,50 @@ function debounce(method, delay) {
   }, delay);
 }
 
-async function execSearch(query, resultsContainer) {
+function getSearchResultsContainer(searchInput) {
+  let resultsContainer;
+  let nextSibling = searchInput.nextElementSibling;
+  while (!resultsContainer && nextSibling) {
+    if (nextSibling.classList.contains('search-results')) {
+      resultsContainer = nextSibling;
+    }
+    nextSibling = nextSibling.nextElementSibling;
+  }
+
+  return resultsContainer;
+}
+
+function clearSelectedSearchOption(searchInput, resultsContainer) {
+  searchInput.removeAttribute('aria-activedescendant');
+  resultsContainer.querySelector('[aria-selected]')?.removeAttribute('aria-selected');
+}
+
+function setSelectedSearchOption(searchInput, resultsContainer, option) {
+  clearSelectedSearchOption(searchInput, resultsContainer);
+  option.setAttribute('aria-selected', true);
+  searchInput.setAttribute('aria-activedescendant', option.id);
+}
+
+function incrementSelectedSearchOption(searchInput, resultsContainer, forward) {
+  const selected = resultsContainer.querySelector('[aria-selected]');
+  let newSelected;
+  if (forward) {
+    newSelected = (selected && selected.nextElementSibling) ? selected.nextElementSibling : resultsContainer.querySelector('.search-result:first-child');
+  } else {
+    newSelected = (selected && selected.previousElementSibling) ? selected.previousElementSibling : resultsContainer.querySelector('.search-result:last-child');
+  }
+
+  clearSelectedSearchOption(searchInput, resultsContainer);
+  if (newSelected) {
+    newSelected.setAttribute('aria-selected', true);
+    searchInput.setAttribute('aria-activedescendant', newSelected.id);
+  }
+}
+
+async function execSearch(searchInput, resultsContainer) {
+  const query = searchInput.value;
   if (query.length === 0) {
-    resultsContainer.classList.remove('visible');
+    searchInput.setAttribute('aria-expanded', false);
   }
 
   if (query.length >= 3) {
@@ -22,11 +63,16 @@ async function execSearch(query, resultsContainer) {
       .limit(10);
     let hasResults = false;
     resultsContainer.innerHTML = '';
+    let i = 0;
     // eslint-disable-next-line no-restricted-syntax
     for await (const res of results) {
+      const li = createElement('li', 'search-result', {
+        id: `search-option-${i}`,
+      });
+      i += 1;
       const a = document.createElement('a');
-      a.classList.add('search-result');
       a.href = res.path;
+      li.append(a);
       hasResults = true;
       const span = document.createElement('span');
       const titleExec = regex.exec(res.title);
@@ -44,7 +90,11 @@ async function execSearch(query, resultsContainer) {
       }
       span.innerHTML = titleContent;
       a.append(span);
-      resultsContainer.append(a);
+      resultsContainer.append(li);
+
+      li.addEventListener('mouseover', () => {
+        setSelectedSearchOption(searchInput, resultsContainer, li);
+      });
     }
 
     if (!hasResults) {
@@ -53,7 +103,112 @@ async function execSearch(query, resultsContainer) {
       span.textContent = 'No Results Found.';
       resultsContainer.append(span);
     }
-    resultsContainer.classList.add('visible');
+    searchInput.setAttribute('aria-expanded', true);
+  }
+}
+
+function searchKeyDown(event) {
+  const {
+    key,
+    altKey,
+    ctrlKey,
+    shiftKey,
+  } = event;
+  let stop = false;
+  const searchInput = event.target;
+  const resultsContainer = getSearchResultsContainer(searchInput);
+
+  if (ctrlKey || shiftKey) {
+    return;
+  }
+
+  switch (key) {
+    case 'Down':
+    case 'ArrowDown':
+      if (!altKey) {
+        incrementSelectedSearchOption(searchInput, resultsContainer, true);
+      }
+      stop = true;
+      break;
+    case 'Up':
+    case 'ArrowUp':
+      if (!altKey) {
+        incrementSelectedSearchOption(searchInput, resultsContainer, false);
+      }
+      stop = true;
+      break;
+    case 'Esc':
+    case 'Escape': {
+      const expanded = searchInput.getAttribute('aria-expanded') === 'true';
+      searchInput.setAttribute('aria-expanded', false);
+      clearSelectedSearchOption(searchInput, resultsContainer);
+      if (expanded) {
+        stop = true;
+      }
+      break;
+    }
+    case 'Tab':
+      searchInput.setAttribute('aria-expanded', false);
+      clearSelectedSearchOption(searchInput, resultsContainer);
+      break;
+    default:
+      break;
+  }
+
+  if (stop) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+}
+
+function searchKeyUp(event) {
+  const {
+    key,
+  } = event;
+  const searchInput = event.target;
+  const resultsContainer = getSearchResultsContainer(searchInput);
+  let stop = false;
+
+  switch (key) {
+    case 'Enter': {
+      const expanded = searchInput.getAttribute('aria-expanded') === 'true';
+      const selected = resultsContainer.querySelector('[aria-selected] a');
+      if (expanded && selected) {
+        window.location = selected.href;
+        stop = true;
+      }
+      break;
+    }
+    case 'Down':
+    case 'ArrowDown':
+    case 'Up':
+    case 'ArrowUp': {
+      const expanded = searchInput.getAttribute('aria-expanded') === 'true';
+      if (expanded) {
+        stop = true;
+      }
+      break;
+    }
+    case 'Left':
+    case 'ArrowLeft':
+    case 'Right':
+    case 'ArrowRight':
+    case 'Tab':
+    case 'Esc':
+    case 'Escape':
+      stop = true;
+      break;
+    default:
+      break;
+  }
+
+  if (!stop) {
+    debounce(() => {
+      execSearch(searchInput, resultsContainer);
+    }, 250);
+  } else {
+    event.stopPropagation();
+    event.preventDefault();
   }
 }
 
@@ -70,11 +225,6 @@ function closeOnEscape(e) {
       toggleAllNavSections(navSections);
       navSectionExpanded.focus();
     } else if (!isDesktop.matches) {
-      const visibleSearch = nav.querySelector('.search-results.visible');
-      if (visibleSearch) {
-        visibleSearch.classList.remove('visible');
-        return;
-      }
       // eslint-disable-next-line no-use-before-define
       toggleMenu(nav, navSections);
       nav.querySelector('button').focus();
@@ -194,27 +344,20 @@ export default async function decorate(block) {
     if (search) {
       const tools = nav.querySelector('.nav-tools');
       tools.innerHTML = `
+      <label class="sr-only" for="header-search-input">Search</label>
       <div class="search-form">
-        <label class="sr-only" for="header-search-input">Search</label>
-        <input id="header-search-input" class="search-input form-control" type="text" name="fulltext" placeholder="Search" maxlength="100"></input>
+        <input id="header-search-input" class="search-input form-control" type="text" name="fulltext" placeholder="Search" maxlength="100"
+          role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="header-search-results-grid"></input>
         <span class="icon icon-search"></span>
-        <div class="search-results"></div>
+        <ul class="search-results" id="header-search-results-grid" role="listbox" aria-label="Search Results"></div>
       </div>`;
       const searchInput = tools.querySelector('.search-input');
       const results = tools.querySelector('.search-results');
-      searchInput.addEventListener('keyup', (event) => {
-        debounce(() => {
-          if (event.key === 'Escape') {
-            results.classList.remove('visible');
-            return;
-          }
-          const q = searchInput.value;
-          execSearch(q, results);
-        }, 250);
-      });
+      searchInput.addEventListener('keyup', searchKeyUp);
+      searchInput.addEventListener('keydown', searchKeyDown);
       document.addEventListener('click', (event) => {
         if (!results.contains(event.target)) {
-          results.classList.remove('visible');
+          searchInput.setAttribute('aria-expanded', false);
         }
       });
     }
