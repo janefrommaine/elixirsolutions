@@ -198,6 +198,10 @@ function buildInputField(fieldDef) {
     inputTag = 'textarea';
     inputAttrs.rows = '3';
   }
+  if (fieldDef.Type === 'tel') {
+    inputAttrs.pattern = '[0-9\\(\\)\\+\\-x ]*';
+  }
+
   inputAttrs.id = `${fieldDef.Field}`;
   if (fieldDef['Help Text']) {
     const helpId = `form-${inputTag}Help${fieldDef.idx}`;
@@ -245,12 +249,11 @@ function buildFormField(fieldDef) {
 }
 
 async function createForm(formURL) {
-  const { pathname } = new URL(formURL);
-  const resp = await fetch(pathname);
+  const resp = await fetch(formURL);
   const json = await resp.json();
   const form = createElement('form', '', { novalidate: '' });
   // eslint-disable-next-line prefer-destructuring
-  form.dataset.action = pathname.split('.json')[0];
+  form.dataset.action = formURL.pathname.split('.json')[0];
   json.data.forEach((fieldDef, i) => {
     fieldDef.idx = i;
     const formField = buildFormField(fieldDef);
@@ -261,32 +264,34 @@ async function createForm(formURL) {
 
 export default async function decorate(block) {
   const cfg = readBlockConfig(block);
+  if (cfg.source) {
+    const srcUrl = new URL(cfg.source);
+    if (srcUrl.pathname.endsWith('.json')) {
+      const formEl = await createForm(srcUrl);
+      block.innerHTML = '';
+      block.append(formEl);
+      if (cfg['thank-you']) {
+        formEl.dataset.thankYou = cfg['thank-you'];
+      }
+      if (block.classList.contains('hubspot')) {
+        formEl.dataset.guid = cfg['form-id'];
+        const placeholders = await fetchPlaceholders();
+        formEl.dataset.portalId = placeholders.hubspotPortalId;
+      }
 
-  if (cfg.source && cfg.source.endsWith('.json')) {
-    const formEl = await createForm(cfg.source);
-    block.innerHTML = '';
-    block.append(formEl);
-    if (cfg['thank-you']) {
-      formEl.dataset.thankYou = cfg['thank-you'];
-    }
-    if (block.classList.contains('hubspot')) {
-      formEl.dataset.guid = cfg['form-id'];
-      const placeholders = await fetchPlaceholders();
-      formEl.dataset.portalId = placeholders.hubspotPortalId;
-    }
+      // prevent browser invalid message from displaying
+      formEl.addEventListener('invalid', (e) => {
+        e.preventDefault();
+      }, true);
 
-    // prevent browser invalid message from displaying
-    formEl.addEventListener('invalid', (e) => {
-      e.preventDefault();
-    }, true);
-
-    formEl.querySelectorAll('.form-control').forEach((ctrl) => {
-      ctrl.addEventListener('blur', () => {
-        const group = ctrl.closest('.form-group');
-        if (group) {
-          group.classList.add('was-validated');
-        }
+      formEl.querySelectorAll('.form-control').forEach((ctrl) => {
+        ctrl.addEventListener('blur', () => {
+          const group = ctrl.closest('.form-group');
+          if (group) {
+            group.classList.add('was-validated');
+          }
+        });
       });
-    });
+    }
   }
 }

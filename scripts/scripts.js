@@ -197,6 +197,7 @@ function buildAccordions(main) {
     let row;
     const newWrapper = createElement('div');
     contentWrappers.forEach((wrapper) => {
+      let removeWrapper = true;
       [...wrapper.children].forEach((child) => {
         if (child.nodeName === 'H2') {
           if (row) {
@@ -204,9 +205,17 @@ function buildAccordions(main) {
           }
           row = [];
         }
-        row.push(child);
+        if (row) {
+          row.push(child);
+        } else {
+          // if there is content in the section before the first h2
+          // then that content is preserver
+          // otherwise, we remove the wrapper
+          removeWrapper = false;
+        }
       });
-      wrapper.remove();
+
+      if (removeWrapper) wrapper.remove();
     });
     // add last row
     if (row) {
