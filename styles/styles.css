@@ -294,9 +294,8 @@ main img {
 }
 
 .icon-external-link {
-  margin-inline-start: 1ch;
-  width: 1em;
-  height: 1em;
+  margin-inline-start: .75em;
+  height: .75em;
 }
 
 /* Sections */
