@@ -224,7 +224,7 @@ header nav .nav-sections a {
   }
 
   header nav[aria-expanded="true"] .nav-sections {
-    align-self: end;
+    align-self: center;
   }
 
   header nav .nav-sections ul {
