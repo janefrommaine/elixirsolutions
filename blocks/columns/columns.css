@@ -14,6 +14,11 @@
   margin: 0 auto;
 }
 
+.columns.icons img {
+  max-width: 25px;
+  margin: 0 5px;
+}
+
 .columns ul {
   list-style-type: circle;
   padding: 0 15px;
