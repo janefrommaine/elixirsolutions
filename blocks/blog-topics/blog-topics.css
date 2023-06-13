@@ -1,14 +1,14 @@
 .blog main .blog-topics-container {
   grid-row: 101;
   grid-column: 1;
-  padding: 48px;
+  padding: var(--default-content-gap);
 }
 
 @media (min-width: 900px) {
   .blog main .blog-topics-container {
     grid-row: 2 / 101;
     grid-column: 2 / span 1;
-    padding: 48px 48px 0 0 ;
+    padding: var(--default-content-gap) var(--default-content-gap) 0 0 ;
   }
 }
 

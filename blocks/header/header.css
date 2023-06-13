@@ -42,7 +42,7 @@ header nav[aria-expanded="true"] {
   header nav {
     grid-template:
     'hamburger brand register' var(--nav-height) / var(--hamburger-width) 1fr var(--button-width);
-    padding: 0 48px;
+    padding: 0 var(--default-content-gap);
   }
 
   header nav[aria-expanded="true"] {
@@ -180,7 +180,7 @@ header nav .nav-brand img {
     --logo-width: 160px;
     --logo-max-height: 100px;
 
-    padding-right: 48px;
+    padding-right: var(--default-content-gap);
   }
   
   header nav .nav-brand img,
@@ -259,7 +259,7 @@ header nav .nav-sections a {
 @media (min-width: 1200px) { 
   header nav .nav-sections ul {
     justify-content: left;
-    gap: 48px;
+    gap: var(--default-content-gap);
   }
 }
 

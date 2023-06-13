@@ -19,7 +19,7 @@ main .hero-container ul li {
 
 main .hero-container select {
   height: 40px;
-  margin: 0 48px 24px;
+  margin: 0 var(--default-content-gap) 24px;
   padding: 0 8px;
   width: 100%;
   border: 1px solid var(--clr-light-blue);
@@ -48,7 +48,7 @@ main .hero-container .hero-select-wrapper::after {
 
 main .hero-container h5 {
   color: var(--clr-white);
-  margin: 0 48px 4px;
+  margin: 0 var(--default-content-gap) 4px;
 }
 
 main .hero-container .default-content-wrapper {
@@ -107,13 +107,13 @@ main .hero .hero-content-container::before {
 main .hero h1 {
   color: var(--clr-white);
   margin-right: auto;
-  padding: 48px 48px 0;
+  padding: var(--default-content-gap) var(--default-content-gap) 0;
   z-index: 1;
 }
 
 main .hero h2 {
   color: var(--clr-white);
-  padding: 0 24px 48px 48px;
+  padding: 0 24px var(--default-content-gap) var(--default-content-gap);
   z-index: 1;
 }
 
@@ -130,7 +130,7 @@ main .hero img {
 main .hero .button {
   background-color: var(--clr-white);
   color: var(--link-color);
-  margin: auto 48px 48px;
+  margin: auto var(--default-content-gap) var(--default-content-gap);
   font-size: var(--heading-font-size-s);
   line-height: 16px;
   z-index: 2;

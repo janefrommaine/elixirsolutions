@@ -72,8 +72,7 @@
   /* misc. */
   --nav-height: 80px;
   --max-content-width: 1440px;
-  --default-content-padding-x: 0;
-  --default-content-padding-y: 48px;
+  --default-content-gap: 24px;
 }
 
 @media (min-width: 900px) {
@@ -87,6 +86,7 @@
 
     /* nav height */
     --nav-height: 128px;
+    --default-content-gap: 48px;
   }
 }
 
@@ -151,7 +151,7 @@ p, dl, ol, ul, pre, blockquote {
 
 ul {
   list-style-type: circle;
-  padding-inline: 48px;
+  padding-inline: var(--default-content-gap);
 }
 
 ul ul {
@@ -318,13 +318,7 @@ main img {
 
 /* Sections */
 main .section {
-  padding: 24px;
-}
-
-@media(min-width: 900px) {
-  main .section {
-    padding: 48px;
-  }
+  padding: var(--default-content-gap);
 }
 
 main .section .section-container {

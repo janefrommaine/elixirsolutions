@@ -20,7 +20,7 @@ main .blog-feed ul.blog-list {
   padding-inline: 0;
   display: grid;
   grid-template-columns: repeat(var(--blog-feed-cols), minmax(0, 1fr));
-  gap: 48px;
+  gap: var(--default-content-gap);
   list-style: none;
   margin: 0;
 }
@@ -132,7 +132,7 @@ main .blog-feed.mini {
   min-height: 500px;
   display: grid;
   grid-auto-flow: row;
-  gap: 48px;
+  gap: var(--default-content-gap);
 }
 
 @media (min-width: 600px) {
