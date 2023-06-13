@@ -9,8 +9,7 @@ header .nav-wrapper {
   width: 100%;
   position: sticky;
   z-index: 20;
-  /* border-bottom: 2px solid rgb(0 0 0 / 10%); */
-  box-shadow: 0px 4px 12px var(--clr-light-gray);
+  box-shadow: 0 4px 12px var(--clr-light-gray);
 }
 
 header nav {
@@ -61,7 +60,7 @@ header nav[aria-expanded="true"] {
     'brand sections register' 64px / auto 1fr auto;
     min-height: 0;
     overflow: visible;
-    border-bottom: 0px solid rgb(0 0 0 / 0%);
+    border-bottom: 0 solid rgb(0 0 0 / 0%);
   }
 }
 
@@ -235,8 +234,6 @@ header nav .nav-sections a {
     width: 100%;
     justify-content: space-around;
     gap: 0;
-    /* justify-content: left;
-    gap: 24px; */
   }
 
   header nav .nav-sections a {
@@ -344,7 +341,6 @@ header nav .nav-register {
 
 header nav .nav-register a.button {
   font-size: var(--body-font-size-xs);
-  /* margin: 0; */
 }
 
 header nav[aria-expanded="true"] .nav-register {

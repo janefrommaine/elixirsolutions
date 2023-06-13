@@ -16,6 +16,7 @@ main .blog-feed {
 
 main .blog-feed ul.blog-list {
   --blog-feed-cols: 1;
+  
   padding-inline: 0;
   display: grid;
   grid-template-columns: repeat(var(--blog-feed-cols), minmax(0, 1fr));

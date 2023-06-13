@@ -107,7 +107,7 @@ main .hero .hero-content-container::before {
 main .hero h1 {
   color: var(--clr-white);
   margin-right: auto;
-  padding: 48px 48px 0px 48px;
+  padding: 48px 48px 0;
   z-index: 1;
 }
 

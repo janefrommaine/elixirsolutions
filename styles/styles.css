@@ -17,15 +17,6 @@
 
  :root {
   /* colors */
-  /* --clr-blue: rgb(2 76 153);
-  --clr-light-blue: rgb(65 121 179);
-  --clr-lighter-blue: rgb(163 206 227);
-  --clr-green: rgb(128 188 0);
-  --clr-white: rgb(255 255 255);
-  --clr-black: rgb(0 0 0);
-  --clr-near-black: rgb(36 36 36);
-  --clr-midnight-blue: rgb(0 34 80);
-  --clr-off-white: rgb(231 245 249); */
 
   --clr-blue: #003da6;
   --clr-light-blue: #3d94ce;
@@ -42,7 +33,7 @@
   --clr-lightest-orange: #FEF3E9;
   --clr-green: #6ea101;
   --clr-lightest-green:  #F1F6E6;
-  --clr-white: #ffffff;
+  --clr-white: #fff;
   --clr-black: #161b1e;
   --clr-near-black: #353C3E;
   --clr-med-gray: #676E71;
@@ -331,10 +322,6 @@ main .section {
   }
 }
 
-/* main .section .default-content-wrapper {
-  padding: var(--default-content-padding-y) var(--default-content-padding-x);
-} */
-
 main .section .section-container {
   max-width: var(--max-content-width);
   margin: auto;
@@ -395,31 +382,16 @@ main .section.secondary-highlight {
 
 .blog main .section {
   grid-column: 1;
-  /* padding: 0; */
 }
-
-/* .blog main :not(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
-  padding: var(--default-content-padding-y) 20px;
-} */
 
 @media (min-width: 900px) {
   .blog main {
     grid-template-columns: auto 370px;
-    /* column-gap: 48px; */
   }
-
-  /* .blog main .section {
-    padding: 0 32px;
-  } */
-
-  /* .blog main :not(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
-    padding: var(--default-content-padding-y) var(--default-content-padding-x);
-  } */
 }
 
 .blog main :not(.highlight) .section-container :is(h1, h2, h3, h4, h5, h6) {
   color: var(--headline-color);
-  /* padding: 8px 0; */
 }
 
 .blog main .default-content-wrapper h1 { font-size: var(--heading-font-size-l) }
