@@ -57,7 +57,7 @@ main .accordion .accordion-item:nth-child(3n + 3) > h2 > .accordion-trigger {
 }
 
 main .accordion .accordion-item > .accordion-panel {
-  padding-inline: 1rem;
+  padding: 2rem 1rem;
 }
 
 main .accordion.accordion.sub-accordion .accordion-item > :is(h2, h3) > .accordion-trigger {
