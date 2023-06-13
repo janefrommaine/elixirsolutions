@@ -358,34 +358,57 @@ main .section.secondary-highlight {
   }
 }
 
-/* blog */
-.blog main {
+/* 2 col pgaes, which includes blog */
+
+:is(.blog, .two-columns) main {
   display: grid;
   grid-template-columns: auto;
   max-width: var(--max-content-width);
   margin: 0 auto;
 }
 
-.blog main .section {
+:is(.blog, .two-columns) main .section {
   grid-column: 1;
   padding: 0;
 }
 
-.blog main :not(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
+:is(.blog, .two-columns) main .section:last-child {
+  grid-row: 101;
+  grid-column: 1;
+  padding: 0 20px;
+}
+
+:is(.blog, .two-columns) main .section-container > * {
   padding: var(--default-content-padding-y) 20px;
 }
 
 @media (min-width: 900px) {
-  .blog main {
-    grid-template-columns: auto 370px;
+  :is(.blog, .two-columns) main {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
   }
 
-  .blog main .section {
+  :is(.blog, .two-columns) main .section {
     padding: 0 32px;
   }
 
-  .blog main :not(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
+  :is(.blog, .two-columns) main .section:last-child {
+    grid-row: 2 / 101;
+    grid-column: 2 / span 1;
+  }
+
+  :is(.blog, .two-columns) main .section-container > * {
     padding: var(--default-content-padding-y) var(--default-content-padding-x);
+  }
+}
+
+/* blog */
+.blog main :is(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
+  padding: 0;
+}
+
+@media (min-width: 900px) {
+  .blog main :is(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
+    padding: 0;
   }
 }
 

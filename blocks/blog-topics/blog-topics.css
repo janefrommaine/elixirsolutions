@@ -1,4 +1,4 @@
-.blog main .blog-topics-container {
+/* .blog main .blog-topics-container {
   grid-row: 101;
   grid-column: 1;
   padding: 0 20px;
@@ -9,7 +9,7 @@
     grid-row: 2 / 101;
     grid-column: 2 / span 1;
   }
-}
+} */
 
 .blog main .blog-topics .blog-topics-header {
   color: #161b1e;
