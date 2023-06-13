@@ -1,6 +1,6 @@
 header {
   --hamburger-width: 40px;
-  --button-width: 190px;
+  --button-width: 200px;
 }
 
 /* header and nav layout */
@@ -335,8 +335,15 @@ header nav .nav-tools .search-form .search-results .search-result span {
 header nav .nav-register {
   grid-area: register;
   display: none;
-  align-self: center;
-  justify-content: right;
+  align-self: start;
+  justify-content: center;
+}
+
+@media (min-width: 600px) {
+  header nav .nav-register {
+    justify-content: right;
+    align-self: center;
+  }
 }
 
 header nav .nav-register a.button {
