@@ -141,7 +141,7 @@ header .nav-brand {
   margin: auto;
   padding-right: var(--hamburger-width);
 
-  --logo-width: 128px;
+  --logo-width: 110px;
   --logo-max-height: 80px;
 }
 
@@ -172,13 +172,13 @@ header nav .nav-brand img {
 
   header nav .nav-brand img,
   header nav .nav-brand .icon svg {
-    margin-top: 3rem;
+    margin-top: 22px;
   }
 }
 
 @media (min-width: 1200px) {
   header nav .nav-brand {
-    --logo-width: 185px;
+    --logo-width: 160px;
     --logo-max-height: 100px;
 
     padding-right: 48px;
