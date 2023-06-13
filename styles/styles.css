@@ -160,7 +160,7 @@ p, dl, ol, ul, pre, blockquote {
 
 ul {
   list-style-type: circle;
-  padding-inline: 40px;
+  padding-inline: 48px;
 }
 
 ul ul {
@@ -395,30 +395,31 @@ main .section.secondary-highlight {
 
 .blog main .section {
   grid-column: 1;
-  padding: 0;
+  /* padding: 0; */
 }
 
-.blog main :not(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
+/* .blog main :not(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
   padding: var(--default-content-padding-y) 20px;
-}
+} */
 
 @media (min-width: 900px) {
   .blog main {
     grid-template-columns: auto 370px;
+    /* column-gap: 48px; */
   }
 
-  .blog main .section {
+  /* .blog main .section {
     padding: 0 32px;
-  }
+  } */
 
-  .blog main :not(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
+  /* .blog main :not(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
     padding: var(--default-content-padding-y) var(--default-content-padding-x);
-  }
+  } */
 }
 
 .blog main :not(.highlight) .section-container :is(h1, h2, h3, h4, h5, h6) {
   color: var(--headline-color);
-  padding: 8px 0;
+  /* padding: 8px 0; */
 }
 
 .blog main .default-content-wrapper h1 { font-size: var(--heading-font-size-l) }

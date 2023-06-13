@@ -1,3 +1,7 @@
 main .section .blog-email-form .default-content-wrapper {
   padding: 0;
 }
+
+main .blog-email-form .default-content-wrapper h3 {
+  font-size: var(--heading-font-size-m);
+}

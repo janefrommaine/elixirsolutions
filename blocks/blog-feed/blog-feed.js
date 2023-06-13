@@ -54,7 +54,7 @@ function buildPost(post, eager) {
 async function buildMiniFeed(block, ul) {
   const blogPosts = ffetch('/query-index.json')
     .filter((p) => p.path.startsWith('/blog/'))
-    .slice(0, 4);
+    .slice(0, 5);
 
   let i = 0;
   // eslint-disable-next-line no-restricted-syntax
