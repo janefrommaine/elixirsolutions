@@ -79,8 +79,8 @@ export default async function decorate(block) {
     lowerFooter.appendChild(lowerFooterContent);
     footer.appendChild(lowerFooter);
 
-    decorateIcons(footer);
     decorateLinks(footer);
+    decorateIcons(footer);
     wrapImgsInLinks(footer);
     block.append(footer);
   }

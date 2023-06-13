@@ -311,6 +311,11 @@ main img {
   fill: currentcolor;
 }
 
+.icon-external-link {
+  margin-inline-start: .5em;
+  height: .75em;
+}
+
 /* Sections */
 main .section {
   padding: 24px;
