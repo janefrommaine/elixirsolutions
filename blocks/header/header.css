@@ -9,7 +9,8 @@ header .nav-wrapper {
   width: 100%;
   position: sticky;
   z-index: 20;
-  border-bottom: 2px solid rgb(0 0 0 / 10%);
+  /* border-bottom: 2px solid rgb(0 0 0 / 10%); */
+  box-shadow: 0px 4px 12px var(--clr-light-gray);
 }
 
 header nav {
@@ -42,7 +43,7 @@ header nav[aria-expanded="true"] {
   header nav {
     grid-template:
     'hamburger brand register' var(--nav-height) / var(--hamburger-width) 1fr var(--button-width);
-    padding: 0 2rem;
+    padding: 0 48px;
   }
 
   header nav[aria-expanded="true"] {
@@ -56,11 +57,11 @@ header nav[aria-expanded="true"] {
 @media (min-width: 900px) {
   header nav[aria-expanded="true"] {
     grid-template:
-    'brand . tools' 72px
-    'brand sections register' 72px / auto 1fr auto;
+    'brand . tools' 64px
+    'brand sections register' 64px / auto 1fr auto;
     min-height: 0;
     overflow: visible;
-    border-bottom: none;
+    border-bottom: 0px solid rgb(0 0 0 / 0%);
   }
 }
 
@@ -165,7 +166,7 @@ header nav .nav-brand img {
 
 @media (min-width: 900px) {
   header nav .nav-brand {
-    padding-right: 0;
+    padding-right: 16px;
     padding-left: 0;
   }
 
@@ -179,6 +180,8 @@ header nav .nav-brand img {
   header nav .nav-brand {
     --logo-width: 185px;
     --logo-max-height: 100px;
+
+    padding-right: 48px;
   }
   
   header nav .nav-brand img,
@@ -232,6 +235,8 @@ header nav .nav-sections a {
     width: 100%;
     justify-content: space-around;
     gap: 0;
+    /* justify-content: left;
+    gap: 24px; */
   }
 
   header nav .nav-sections a {
@@ -253,6 +258,14 @@ header nav .nav-sections a {
     font-weight: 500;
   }
 }
+
+@media (min-width: 1200px) { 
+  header nav .nav-sections ul {
+    justify-content: left;
+    gap: 48px;
+  }
+}
+
 
 /* tools */
 header nav .nav-tools {
@@ -325,12 +338,13 @@ header nav .nav-tools .search-form .search-results .search-result span {
 header nav .nav-register {
   grid-area: register;
   display: none;
-  align-self: start;
-  justify-content: center;
+  align-self: center;
+  justify-content: right;
 }
 
 header nav .nav-register a.button {
   font-size: var(--body-font-size-xs);
+  /* margin: 0; */
 }
 
 header nav[aria-expanded="true"] .nav-register {

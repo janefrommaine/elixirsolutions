@@ -163,7 +163,7 @@
 }
 
 .highlight .columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-b {
-  background: #e1654f;
+  background: var(--clr-coral);
   width: 36px;
   height: 36px;
   top: 1%;
@@ -185,7 +185,7 @@
 }
 
 .columns.grey > div > div {
-  background-color: rgb(240 243 244);
+  background-color: var(--clr-off-white);
   padding: 20px;
   min-height: 145px;
 }
