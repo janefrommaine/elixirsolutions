@@ -1,11 +1,8 @@
 main > .breadcrumb-container {
-  padding: 10px;
+  padding-inline: 0;
+  padding-block: 16px;
   grid-row: 1;
   grid-column: 1;
-}
-
-.blog main div.breadcrumb-container {
-  padding: 10px;
 }
 
 @media (min-width: 900px) {
@@ -18,7 +15,7 @@ main > .breadcrumb-container {
 .breadcrumb > nav {
   color: var(--link-color);
   font-size: var(--body-font-size-xs);
-  padding-left: 10px;
+  padding-left: 48px;
   min-height: 26px;
 }
 

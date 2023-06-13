@@ -1,10 +1,9 @@
 main .accordion .accordion-item {
-  border-bottom: 2px solid #80d6d3;
+  margin-bottom: 24px;
 }
 
-main .accordion.sub-accordion .accordion-item,
 main .accordion .accordion-item:last-child {
-  border-bottom: none;
+  margin-bottom: 0;
 }
 
 main .accordion .accordion-item > h2 {
@@ -19,9 +18,9 @@ main .accordion .accordion-item > :is(h2, h3) > .accordion-trigger {
   font-weight: 700;
   color: var(--headline-color);
   line-height: 28px;
-  padding: 10px;
-  border-radius: 0;
-  background-color: #bfebe9;
+  padding: 10px 24px;
+  border-radius: 8px;
+  background-color: var(--clr-off-white);
   text-align: left;
   position: relative;
 }
@@ -57,7 +56,7 @@ main .accordion .accordion-item:nth-child(3n + 3) > h2 > .accordion-trigger {
 }
 
 main .accordion .accordion-item > .accordion-panel {
-  padding-inline: 1rem;
+  padding-inline: 24px;
 }
 
 main .accordion.accordion.sub-accordion .accordion-item > :is(h2, h3) > .accordion-trigger {

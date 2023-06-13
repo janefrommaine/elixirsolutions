@@ -46,7 +46,7 @@ export function addDropdown(contentBox) {
 export function removeEmptyPTags(element) {
   element.querySelectorAll('p').forEach((p) => {
     // get rid of empty p tags
-    if (!p.hasChildNodes()) {
+    if (p.children.length === 0) {
       p.remove();
     }
   });

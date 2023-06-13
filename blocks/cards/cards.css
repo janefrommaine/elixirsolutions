@@ -32,13 +32,12 @@
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 3rem;
+  gap: 48px;
   grid-template-columns: repeat(var(--num-cols), minmax(0, 1fr));
 }
 
 .cards > ul > li {
   text-align: center;
-  max-width: 350px;
   margin: 0 auto;
 }
 
@@ -87,22 +86,6 @@
 .cards .card-link-wrapper .card-more-cta:hover {
   color: var(--link-hover-color);
   text-decoration: underline;
-}
-
-/* when in highlight section */
-main .section.highlight .cards-wrapper {
-  background-color: rgb(209 231 241);
-  padding: 48px;
-}
-
-main .section.highlight.cards-container .default-content-wrapper :is(h2, h3, h4, h5, h6) {
-  margin-block: .25em;
-  text-align: center;
-  font-size: var(--heading-font-size-l);
-}
-
-main .section.highlight .cards {
-  --headline-color: var(--clr-midnight-blue);
 }
 
 /* teaser cards */
