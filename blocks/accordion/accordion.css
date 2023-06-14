@@ -52,7 +52,7 @@ main .accordion .accordion-item:nth-child(3n + 2) > h2 > .accordion-trigger {
 }
 
 main .accordion .accordion-item:nth-child(3n + 3) > h2 > .accordion-trigger {
-  background: #d1e7f1;
+  background: var(--clr-light-gray);
 }
 
 main .accordion .accordion-item > .accordion-panel {

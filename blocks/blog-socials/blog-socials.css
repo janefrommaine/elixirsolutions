@@ -1,11 +1,11 @@
 main .blog-socials-container {
   margin: 16px 0 32px;
-  padding: 0 32px;
+  padding-block: 0;
   grid-row: 100;
 }
 
 main .blog-socials {
-  color: #161b1e;
+  color: var(--clr-black);
 }
 
 main .blog-socials a  {

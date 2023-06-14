@@ -45,7 +45,7 @@ main .registration-form .registration-form-step .form-container .registration-fo
 }
 
 main .registration-form .registration-form-step .form-container .registration-form-input-tooltip {
-    border: 1px solid #777;
+    border: 1px solid var(--clr-med-light-gray);
     text-decoration: none;
     border-radius: 2px;
     width: 22%;
@@ -55,7 +55,7 @@ main .registration-form .registration-form-step .form-container .registration-fo
     margin-left: 12%;
     position: absolute;
     z-index: 1;
-    color: #555;
+    color: var(--clr-med-gray);
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.3s;
@@ -101,9 +101,9 @@ main .registration-form .registration-form-step .image-container p {
 }
 
 main .registration-form .registration-form-step .image-container p:last-child {
-    background: #002250;
+    background: var(--clr-midnight-blue);
     padding: 15px 25px;
-    color: #fff;
+    color: var(--clr-white);
     font-family: sans-serif;
     font-style: normal;
     font-weight: normal;

@@ -8,7 +8,7 @@
   max-width: 100%;
   border-collapse: collapse;
   font-size: var(--body-font-size-xs);
-  border: 1px solid #99acc2;
+  border: 1px solid var(--clr-light-gray);
   margin-bottom: 20px;
   text-align: left;
 }
@@ -41,7 +41,7 @@
 }
 
 .table thead {
-  background: #024c99;
+  background: var(--clr-blue);
 }
 
 .table thead th {
@@ -57,9 +57,9 @@
 }
 
 .table.striped tr:nth-child(even) {
-  background: #D0E4F5;
+  background: var(--clr-light-gray);
 }
 
 .table.bordered td, .table.bordered th {
-  border: 1px solid #AAA;
+  border: 1px solid var(--clr-med-gray);
 }
