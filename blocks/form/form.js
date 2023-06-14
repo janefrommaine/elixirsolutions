@@ -30,9 +30,18 @@ async function submitHubspotForm(form, payload) {
   const d = new Date();
   const fields = Object.keys(payload).map((k) => {
     const v = payload[k];
+    let name = k;
+    let type = '0-1';
+    if (name.includes('/')) {
+      const split = name.split('/');
+      // eslint-disable-next-line prefer-destructuring
+      name = split[1];
+      // eslint-disable-next-line prefer-destructuring
+      type = split[0];
+    }
     return {
-      objectTypeId: '0-1',
-      name: k,
+      objectTypeId: type,
+      name,
       value: v,
     };
   });
