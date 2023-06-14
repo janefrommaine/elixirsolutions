@@ -306,6 +306,35 @@ function reDecorateButtons(element) {
   });
 }
 
+export function decorateLinks(element) {
+  const hosts = ['localhost', 'hlx.page', 'hlx.live', ...PRODUCTION_DOMAINS];
+  element.querySelectorAll('a').forEach((a) => {
+    try {
+      if (a.href) {
+        const url = new URL(a.href);
+
+        // local links are relative
+        // non local links open in a new tab
+        const hostMatch = hosts.some((host) => url.hostname.includes(host));
+        if (hostMatch) {
+          a.href = `${url.pathname.replace('.html', '')}${url.search}${url.hash}`;
+        } else {
+          a.target = '_blank';
+          a.rel = 'noopener noreferrer';
+          const icon = createElement('span', ['icon', 'icon-external-link']);
+          a.insertAdjacentElement('beforeend', icon);
+          const linkTitle = a.title;
+          a.title = linkTitle ? `${linkTitle} (opens an external site)` : 'Link opens an external site';
+        }
+      }
+    } catch (e) {
+      // something went wrong
+      // eslint-disable-next-line no-console
+      console.log(e);
+    }
+  });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -315,6 +344,7 @@ export function decorateMain(main, isFragment) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
   reDecorateButtons(main);
+  decorateLinks(main);
   decorateIcons(main);
   if (!isFragment) {
     buildAutoBlocks(main);
@@ -360,31 +390,6 @@ export function addFavIcon(href) {
   }
 }
 
-export function decorateLinks(element) {
-  const hosts = ['localhost', 'hlx.page', 'hlx.live', ...PRODUCTION_DOMAINS];
-  element.querySelectorAll('a').forEach((a) => {
-    try {
-      if (a.href) {
-        const url = new URL(a.href);
-
-        // local links are relative
-        // non local links open in a new tab
-        const hostMatch = hosts.some((host) => url.hostname.includes(host));
-        if (hostMatch) {
-          a.href = `${url.pathname.replace('.html', '')}${url.search}${url.hash}`;
-        } else {
-          a.target = '_blank';
-          a.rel = 'noopener noreferrer';
-        }
-      }
-    } catch (e) {
-      // something went wrong
-      // eslint-disable-next-line no-console
-      console.log(e);
-    }
-  });
-}
-
 /**
  * Wraps images followed by links within a matching <a> tag.
  * @param {Element} container The container element
@@ -424,7 +429,6 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/icons/favicon_icon.png`);
-  decorateLinks(main);
   wrapImgsInLinks(main);
 
   sampleRUM('lazy');

@@ -4,8 +4,9 @@ main .news-feed {
 
 main .news-feed ul.news-list {
   display: grid;
-  gap: 2rem;
+  gap: 48px;
   list-style: none;
+  margin: 0;
 }
 
 main .news-feed .news-card {
@@ -13,7 +14,7 @@ main .news-feed .news-card {
   grid-template: 
   'image'
   'content';
-  gap: 2rem;
+  gap: 48px;
 }
 
 @media (min-width: 600px) {

@@ -17,15 +17,32 @@
 
  :root {
   /* colors */
-  --clr-blue: rgb(2 76 153);
-  --clr-light-blue: rgb(65 121 179);
-  --clr-lighter-blue: rgb(163 206 227);
-  --clr-green: rgb(128 188 0);
-  --clr-white: rgb(255 255 255);
-  --clr-black: rgb(0 0 0);
-  --clr-near-black: rgb(36 36 36);
-  --clr-midnight-blue: rgb(0 34 80);
-  --clr-off-white: rgb(231 245 249);
+
+  --clr-blue: #003da6;
+  --clr-light-blue: #3d94ce;
+  --clr-lighter-blue: #a6dff6;
+  --clr-lightest-blue: #EDF9FD;
+  --clr-slate-blue: #3E7BA4;
+  --clr-teal: #1C8172;
+  --clr-light-teal: #2CA597;
+  --clr-lightest-teal: #EAF6F5;
+  --clr-purple: #6A4182;
+  --clr-light-purple: #E1D9E6;
+  --clr-coral: #E16651;
+  --clr-orange: #F38926;
+  --clr-lightest-orange: #FEF3E9;
+  --clr-green: #6ea101;
+  --clr-lightest-green:  #F1F6E6;
+  --clr-white: #fff;
+  --clr-black: #161b1e;
+  --clr-near-black: #353C3E;
+  --clr-med-gray: #676E71;
+  --clr-med-light-gray: #8F9699;
+  --clr-light-gray: #D2DADD;
+  --clr-lighter-gray: #F0F3F4;
+  --clr-midnight-blue: #002858;
+  --clr-off-white: #F0F3F4;
+
 
   /* element colors */
   --link-color: var(--clr-blue);
@@ -55,8 +72,8 @@
   /* misc. */
   --nav-height: 80px;
   --max-content-width: 1440px;
-  --default-content-padding-x: 48px;
-  --default-content-padding-y: 16px;
+  --default-content-padding-x: 0;
+  --default-content-padding-y: 48px;
 }
 
 @media (min-width: 900px) {
@@ -69,7 +86,7 @@
     --heading-font-size-xs: 22px; */
 
     /* nav height */
-    --nav-height: 144px;
+    --nav-height: 128px;
   }
 }
 
@@ -134,7 +151,7 @@ p, dl, ol, ul, pre, blockquote {
 
 ul {
   list-style-type: circle;
-  padding-inline: 40px;
+  padding-inline: 48px;
 }
 
 ul ul {
@@ -223,9 +240,10 @@ a.button:any-link, button {
   box-sizing: border-box;
   text-decoration: none;
   border: 2px solid transparent;
-  padding: .6em 1.2em;
+  padding: 12px 24px;
   text-align: center;
   font-style: normal;
+  line-height: 16px;
   font-weight: 600;
   cursor: pointer;
   color: var(--background-color);
@@ -234,7 +252,7 @@ a.button:any-link, button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-radius: 30px;
+  border-radius: 24px;
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus  {
@@ -293,19 +311,20 @@ main img {
   fill: currentcolor;
 }
 
+.icon-external-link {
+  margin-inline-start: .5em;
+  height: .75em;
+}
+
 /* Sections */
 main .section {
-  padding: 16px;
+  padding: 24px;
 }
 
 @media(min-width: 900px) {
   main .section {
-    padding: 32px;
+    padding: 48px;
   }
-}
-
-main .section .default-content-wrapper {
-  padding: var(--default-content-padding-y) var(--default-content-padding-x);
 }
 
 main .section .section-container {
@@ -313,7 +332,7 @@ main .section .section-container {
   margin: auto;
 }
 
-main .section.highlight .section-container {
+main .section.highlight {
   background-color: var(--clr-blue);
 
   --headline-color: var(--clr-white);
@@ -323,6 +342,10 @@ main .section.highlight .section-container {
   --text-color: var(--clr-white); 
   */
   color: var(--clr-white);
+}
+
+main .section.secondary-highlight {
+  background-color: var(--clr-lightest-blue);
 }
 
 /* screen reade only text  util class */
@@ -364,30 +387,16 @@ main .section.highlight .section-container {
 
 .blog main .section {
   grid-column: 1;
-  padding: 0;
-}
-
-.blog main :not(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
-  padding: var(--default-content-padding-y) 20px;
 }
 
 @media (min-width: 900px) {
   .blog main {
     grid-template-columns: auto 370px;
   }
-
-  .blog main .section {
-    padding: 0 32px;
-  }
-
-  .blog main :not(.breadcrumb-container, .blog-topics-container, .blog-cta-container) .section-container > * {
-    padding: var(--default-content-padding-y) var(--default-content-padding-x);
-  }
 }
 
 .blog main :not(.highlight) .section-container :is(h1, h2, h3, h4, h5, h6) {
   color: var(--headline-color);
-  padding: 8px 0;
 }
 
 .blog main .default-content-wrapper h1 { font-size: var(--heading-font-size-l) }

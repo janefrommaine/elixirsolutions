@@ -14,6 +14,11 @@
   margin: 0 auto;
 }
 
+.columns.icons img {
+  max-width: 25px;
+  margin: 0 5px;
+}
+
 .columns ul {
   list-style-type: circle;
   padding: 0 15px;
@@ -57,7 +62,7 @@
 
 @media (min-width: 900px) {
   .columns > div {
-    gap: 100px;
+    gap: 48px;
   }
 }
 
@@ -65,7 +70,6 @@
 
 .columns.thirds > div {
   display: grid;
-  padding: 30px;
 }
 
 .columns.thirds > div > div.columns-img-col img {
@@ -76,7 +80,6 @@
 @media (min-width: 900px) {
   .columns.thirds > div {
     grid-template-columns: repeat(3, 1fr);
-    padding: 40px;
   }
 
   .columns.thirds > div > div {
@@ -158,7 +161,7 @@
 }
 
 .highlight .columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-b {
-  background: #e1654f;
+  background: var(--clr-coral);
   width: 36px;
   height: 36px;
   top: 1%;
@@ -180,7 +183,7 @@
 }
 
 .columns.grey > div > div {
-  background-color: rgb(240 243 244);
+  background-color: var(--clr-off-white);
   padding: 20px;
   min-height: 145px;
 }
