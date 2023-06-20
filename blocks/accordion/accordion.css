@@ -51,10 +51,6 @@ main .accordion .accordion-item:nth-child(3n + 2) > h2 > .accordion-trigger {
   background: var(--clr-off-white);
 }
 
-main .accordion .accordion-item:nth-child(3n + 3) > h2 > .accordion-trigger {
-  background: #d1e7f1;
-}
-
 main .accordion .accordion-item > .accordion-panel {
   padding-inline: 24px;
 }

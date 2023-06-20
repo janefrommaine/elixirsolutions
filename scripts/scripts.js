@@ -179,9 +179,10 @@ function buildBlogTopicsBlock(main) {
 function buildBlogSocialsBlock(main) {
   const blogFeed = main.querySelector('.blog-feed:not(.mini)');
   if (!blogFeed && document.body.classList.contains('blog')) {
+    const lastSection = main.querySelector(':scope > div:last-child');
     const section = createElement('div');
     section.append(buildBlock('blog-socials', ''));
-    main.append(section);
+    lastSection.insertAdjacentElement('beforebegin', section);
   }
 }
 
@@ -238,9 +239,9 @@ function buildAutoBlocks(main) {
     buildNewsColumns(main);
     buildHeroBlock(main);
     buildBreadcrumbBlock(main);
+    buildBlogSocialsBlock(main);
     buildBlogTopicsBlock(main);
     buildBlogFormBlock(main);
-    buildBlogSocialsBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
