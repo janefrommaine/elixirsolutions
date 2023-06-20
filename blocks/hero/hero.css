@@ -3,7 +3,12 @@ main .hero-container {
   --hero-bg-color: var(--clr-blue);
   --hero-circle-color: var(--clr-light-blue);
 
-  padding: 0;
+  padding-inline: 0;
+  padding-block-end: 0;
+}
+
+main .hero-container + .section {
+  padding-block-start: var(--default-content-gap);
 }
 
 main .hero-container.alternate-hero {

@@ -318,7 +318,9 @@ main img {
 
 /* Sections */
 main .section {
-  padding: var(--default-content-gap);
+  padding-inline: var(--default-content-gap);
+  padding-block-start: 0;
+  padding-block-end: var(--default-content-gap);
 }
 
 main .section .section-container {
@@ -326,9 +328,14 @@ main .section .section-container {
   margin: auto;
 }
 
+main .section:is(.highlight, .secondary-highlight),
+main .section:is(.highlight, .secondary-highlight) + .section {
+  padding-block-start: var(--default-content-gap);
+}
+
 main .section.highlight {
   background-color: var(--clr-blue);
-
+  
   --headline-color: var(--clr-white);
   
   /* 
@@ -336,6 +343,7 @@ main .section.highlight {
   --text-color: var(--clr-white); 
   */
   color: var(--clr-white);
+  
 }
 
 main .section.secondary-highlight {
@@ -398,7 +406,6 @@ main .section.secondary-highlight {
   :is(.blog, .two-columns) main .section.hero-container {
     grid-row: 2;
     grid-column: 1 / -1;
-    padding: 0;
   }
 
   :is(.blog, .two-columns) main .section:last-of-type {
