@@ -386,7 +386,6 @@ main .section.secondary-highlight {
 
   :is(.blog, .two-columns) main .section {
     grid-column: 1;
-    padding: var(--default-content-gap) calc(var(--default-content-gap) / 2);
   }
 
   :is(.blog, .two-columns) main .section.breadcrumb-container {
@@ -405,7 +404,11 @@ main .section.secondary-highlight {
   :is(.blog, .two-columns) main .section:last-of-type {
     grid-row: 2;
     grid-column: 2;
-    padding: var(--default-content-gap) calc(var(--default-content-gap) / 2);
+    padding-inline: 0;
+  }
+
+  :is(.blog, .two-columns) main .section:is(.secondary-highlight, .highlight):last-of-type {
+    padding-inline: var(--default-content-gap);
   }
 
   :is(.blog, .two-columns) main .section.hero-container ~ .section:last-of-type {
