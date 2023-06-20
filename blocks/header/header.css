@@ -315,7 +315,7 @@ header nav .nav-tools .search-form .search-results .search-result a {
 }
 
 header nav .nav-tools .search-form .search-results .search-result[aria-selected] {
-  background-color: #1e90ff;
+  background-color: var(--clr-light-blue);
 }
 
 header nav .nav-tools .search-form .search-results .search-result[aria-selected] a {

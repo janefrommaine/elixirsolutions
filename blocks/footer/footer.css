@@ -56,7 +56,7 @@ footer .footer-upper-content {
 
 footer .footer-lower {
   grid-area: lower;
-  background-color: #f2f6fa;
+  background-color: var(--clr-lighter-gray);
 }
 
 footer .footer-lower-content {
@@ -221,7 +221,7 @@ footer .footer-social-icon-twitter {
 }
 
 footer .footer-social-icon-linkedin {
-  background-color: #00ADA6;
+  background-color: var(--clr-light-teal);
   background-image: url('/blocks/footer/images/linkedin.webp');
 }
 
@@ -307,7 +307,7 @@ footer .footer-copyright {
   padding-top: 5px;
   font-size: 12px;
   text-align: center;
-  color: #333;
+  color: var(--clr-near-black);
 }
 
 @media (min-width: 600px) {

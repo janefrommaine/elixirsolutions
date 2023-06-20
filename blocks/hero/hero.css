@@ -1,14 +1,14 @@
 /* block specific CSS goes here */
 main .hero-container {
   --hero-bg-color: var(--clr-blue);
-  --hero-cicle-color: var(--clr-light-blue);
+  --hero-circle-color: var(--clr-light-blue);
 
   padding: 0;
 }
 
 main .hero-container.alternate-hero {
-  --hero-bg-color: #e1654f;
-  --hero-cicle-color: #e88b7b; 
+  --hero-bg-color: var(--clr-coral);
+  --hero-circle-color: #e88b7b; 
 }
 
 main .hero-container ul li {
@@ -82,7 +82,7 @@ main .hero .hero-image-container {
 main .hero .hero-content-container::after,
 main .hero .hero-content-container::before {
   content: '';
-  background: var(--hero-cicle-color); 
+  background: var(--hero-circle-color); 
   display: block;
   position: absolute;
   opacity: .4;

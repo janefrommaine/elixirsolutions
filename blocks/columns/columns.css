@@ -143,7 +143,7 @@
 }
 
 .columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-c {
-  background: #a0cd40;
+  background: var(--clr-green);
   width: 140px;
   height: 140px;
   bottom: -15%;
@@ -151,7 +151,7 @@
 }
 
 .highlight .columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-a {
-  background: #dfeebf;
+  background: var(--clr-lightest-green);
   width: 141px;
   height: 141px;
   bottom: -11%;
@@ -169,7 +169,7 @@
 }
 
 .highlight .columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-c {
-  background: #40c1bc;
+  background: var(--clr-light-teal);
   width: 82px;
   height: 82px;
   bottom: 60%;

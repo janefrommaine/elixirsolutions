@@ -4,7 +4,7 @@ main .blog-socials-container {
 }
 
 main .blog-socials {
-  color: #161b1e;
+  color: var(--clr-black);
 }
 
 main .blog-socials a  {
