@@ -19,8 +19,8 @@ function constructPayload(form) {
       if (fe.checked) {
         payload[fe.dataset.id] = fe.value;
       }
-    } else if (fe.id) {
-      payload[fe.id] = fe.value;
+    } else if (fe.name) {
+      payload[fe.name] = fe.value;
     }
   });
   return payload;
@@ -132,8 +132,8 @@ function buildSelectField(fieldDef) {
 
   fieldDef.Placeholder = fieldDef.Placeholder || 'Please Select One';
   formGroup.innerHTML = `
-  <label for="${fieldDef.Field}">${fieldDef.Label} </label>
-  <select class="custom-select" id="${fieldDef.Field}">
+  <label for="form${fieldDef.formIdx}-${fieldDef.Field}">${fieldDef.Label} </label>
+  <select class="custom-select" name="${fieldDef.Field}" id="form${fieldDef.formIdx}-${fieldDef.Field}">
     <option selected disabled value="">${fieldDef.Placeholder}</option>
   </select>
   <div class="invalid-feedback">${fieldDef.Placeholder}</div>
@@ -177,7 +177,7 @@ function buildCheckboxField(fieldDef) {
     const control = createElement('div', ['custom-control', `custom-${fieldDef.Type}`]);
     control.innerHTML = `
       <input type="${fieldDef.Type}" class="custom-control-input" 
-      data-id="${fieldDef.Field}" id="${fieldDef.Field}-${i}"
+      data-id="${fieldDef.Field}" id="form${fieldDef.formIdx}-${fieldDef.Field}-${i}"
       ${fieldDef.Mandatory ? 'required' : ''} value="${o}"
       ${fieldDef.Type === 'radio' ? `name=radio-${fieldDef.idx}` : ''}>
       <label class="custom-control-label" for="${fieldDef.Field}-${i}">${o}</label>
@@ -211,9 +211,10 @@ function buildInputField(fieldDef) {
     inputAttrs.pattern = '[0-9\\(\\)\\+\\-x ]*';
   }
 
-  inputAttrs.id = `${fieldDef.Field}`;
+  inputAttrs.id = `form${fieldDef.formIdx}-${fieldDef.Field}`;
+  inputAttrs.name = fieldDef.Field;
   if (fieldDef['Help Text']) {
-    const helpId = `form-${inputTag}Help${fieldDef.idx}`;
+    const helpId = `form${fieldDef.formIdx}-${inputTag}Help${fieldDef.idx}`;
     inputAttrs['aria-describedby'] = helpId;
     const help = createElement('span', 'form-text', {
       id: helpId,
@@ -257,7 +258,9 @@ function buildFormField(fieldDef) {
   return buildInputField(fieldDef);
 }
 
+let formNum = 0;
 async function createForm(formURL) {
+  formNum += 1;
   const resp = await fetch(formURL);
   const json = await resp.json();
   const form = createElement('form', '', { novalidate: '' });
@@ -265,6 +268,7 @@ async function createForm(formURL) {
   form.dataset.action = formURL.pathname.split('.json')[0];
   json.data.forEach((fieldDef, i) => {
     fieldDef.idx = i;
+    fieldDef.formIdx = formNum;
     const formField = buildFormField(fieldDef);
     form.append(formField);
   });
