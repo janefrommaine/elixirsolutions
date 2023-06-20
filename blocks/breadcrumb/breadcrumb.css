@@ -1,15 +1,6 @@
-main > .breadcrumb-container {
+main .breadcrumb-container {
   padding-inline: 0;
   padding-block: 16px;
-  grid-row: 1;
-  grid-column: 1;
-}
-
-@media (min-width: 900px) {
-  main .breadcrumb-container {
-    grid-row: 1;
-    grid-column: 1 / span 2;
-  }
 }
 
 .breadcrumb > nav {
