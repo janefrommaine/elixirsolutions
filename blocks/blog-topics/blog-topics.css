@@ -1,17 +1,17 @@
 .blog main .blog-topics .blog-topics-header {
-  color: #161b1e;
+  color: var(--clr-black);
   font-size: 24px;
   font-weight: 500;
   margin: 0;
 }
 
 .blog main .blog-topics a {
-  color: #676E71;
+  color: var(--clr-med-gray);
   text-decoration: none;
 }
 
 .blog main .blog-topics a:hover {
-  color: #343a40;
+  color: var(--clr-near-black);
   cursor: pointer;
 }
 
@@ -23,7 +23,7 @@
 
 .blog main .blog-topics ul li {
   display: block;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--clr-light-gray);
   padding: 15px 0;
 }
 

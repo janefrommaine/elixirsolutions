@@ -51,11 +51,11 @@
 }
 
 .form .valid-feedback {
-  color: #5e8038;
+  color: var(--clr-green);
 }
 
 .form .invalid-feedback {
-  color: #d63f24;
+  color: var(--clr-coral);
 }
 
 .form .was-validated :valid~.valid-feedback, 
@@ -64,7 +64,7 @@
 }
 
 .form .was-validated .form-control:invalid {
-  border-left: .8rem solid #d63f24;
+  border-left: .8rem solid var(--clr-coral);
 }
 
 .form fieldset {
@@ -116,8 +116,8 @@
 
 .form .custom-control-label::before {
   border-radius: .4rem;
-  background-color: #f2f6fa;
-  border: 1px solid #a3cee3;
+  background-color: var(--clr-lighter-gray);
+  border: 1px solid var(--clr-lighter-blue);
   width: 2.4rem;
   height: 2.4rem;
   top: .8rem;
@@ -142,8 +142,8 @@
 }
 
 .form .custom-control-input:active ~ .custom-control-label::before {
-  background-color: #51a5fd;
-  border-color: #51a5fd;
+  background-color: var(--clr-light-blue);
+  border-color: var(--clr-light-blue);
 }
 
 .form .custom-control-input:checked ~ .custom-control-label::before {
@@ -160,7 +160,8 @@
 }
 
 .form .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
-  border-color: #1e8bfc;
+  border-color: var(--clr-blue);
+
 }
 
 .form button {
