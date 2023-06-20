@@ -19,8 +19,8 @@ function constructPayload(form) {
       if (fe.checked) {
         payload[fe.dataset.id] = fe.value;
       }
-    } else if (fe.id) {
-      payload[fe.id] = fe.value;
+    } else if (fe.name) {
+      payload[fe.name] = fe.value;
     }
   });
   return payload;
@@ -30,9 +30,18 @@ async function submitHubspotForm(form, payload) {
   const d = new Date();
   const fields = Object.keys(payload).map((k) => {
     const v = payload[k];
+    let name = k;
+    let type = '0-1';
+    if (name.includes('/')) {
+      const split = name.split('/');
+      // eslint-disable-next-line prefer-destructuring
+      name = split[1];
+      // eslint-disable-next-line prefer-destructuring
+      type = split[0];
+    }
     return {
-      objectTypeId: '0-1',
-      name: k,
+      objectTypeId: type,
+      name,
       value: v,
     };
   });
@@ -123,8 +132,8 @@ function buildSelectField(fieldDef) {
 
   fieldDef.Placeholder = fieldDef.Placeholder || 'Please Select One';
   formGroup.innerHTML = `
-  <label for="${fieldDef.Field}">${fieldDef.Label} </label>
-  <select class="custom-select" id="${fieldDef.Field}">
+  <label for="form${fieldDef.formIdx}-${fieldDef.Field}">${fieldDef.Label} </label>
+  <select class="custom-select" name="${fieldDef.Field}" id="form${fieldDef.formIdx}-${fieldDef.Field}">
     <option selected disabled value="">${fieldDef.Placeholder}</option>
   </select>
   <div class="invalid-feedback">${fieldDef.Placeholder}</div>
@@ -168,7 +177,7 @@ function buildCheckboxField(fieldDef) {
     const control = createElement('div', ['custom-control', `custom-${fieldDef.Type}`]);
     control.innerHTML = `
       <input type="${fieldDef.Type}" class="custom-control-input" 
-      data-id="${fieldDef.Field}" id="${fieldDef.Field}-${i}"
+      data-id="${fieldDef.Field}" id="form${fieldDef.formIdx}-${fieldDef.Field}-${i}"
       ${fieldDef.Mandatory ? 'required' : ''} value="${o}"
       ${fieldDef.Type === 'radio' ? `name=radio-${fieldDef.idx}` : ''}>
       <label class="custom-control-label" for="${fieldDef.Field}-${i}">${o}</label>
@@ -198,9 +207,14 @@ function buildInputField(fieldDef) {
     inputTag = 'textarea';
     inputAttrs.rows = '3';
   }
-  inputAttrs.id = `${fieldDef.Field}`;
+  if (fieldDef.Type === 'tel') {
+    inputAttrs.pattern = '[0-9\\(\\)\\+\\-x ]*';
+  }
+
+  inputAttrs.id = `form${fieldDef.formIdx}-${fieldDef.Field}`;
+  inputAttrs.name = fieldDef.Field;
   if (fieldDef['Help Text']) {
-    const helpId = `form-${inputTag}Help${fieldDef.idx}`;
+    const helpId = `form${fieldDef.formIdx}-${inputTag}Help${fieldDef.idx}`;
     inputAttrs['aria-describedby'] = helpId;
     const help = createElement('span', 'form-text', {
       id: helpId,
@@ -244,15 +258,17 @@ function buildFormField(fieldDef) {
   return buildInputField(fieldDef);
 }
 
+let formNum = 0;
 async function createForm(formURL) {
-  const { pathname } = new URL(formURL);
-  const resp = await fetch(pathname);
+  formNum += 1;
+  const resp = await fetch(formURL);
   const json = await resp.json();
   const form = createElement('form', '', { novalidate: '' });
   // eslint-disable-next-line prefer-destructuring
-  form.dataset.action = pathname.split('.json')[0];
+  form.dataset.action = formURL.pathname.split('.json')[0];
   json.data.forEach((fieldDef, i) => {
     fieldDef.idx = i;
+    fieldDef.formIdx = formNum;
     const formField = buildFormField(fieldDef);
     form.append(formField);
   });
@@ -261,32 +277,34 @@ async function createForm(formURL) {
 
 export default async function decorate(block) {
   const cfg = readBlockConfig(block);
+  if (cfg.source) {
+    const srcUrl = new URL(cfg.source);
+    if (srcUrl.pathname.endsWith('.json')) {
+      const formEl = await createForm(srcUrl);
+      block.innerHTML = '';
+      block.append(formEl);
+      if (cfg['thank-you']) {
+        formEl.dataset.thankYou = cfg['thank-you'];
+      }
+      if (block.classList.contains('hubspot')) {
+        formEl.dataset.guid = cfg['form-id'];
+        const placeholders = await fetchPlaceholders();
+        formEl.dataset.portalId = placeholders.hubspotPortalId;
+      }
 
-  if (cfg.source && cfg.source.endsWith('.json')) {
-    const formEl = await createForm(cfg.source);
-    block.innerHTML = '';
-    block.append(formEl);
-    if (cfg['thank-you']) {
-      formEl.dataset.thankYou = cfg['thank-you'];
-    }
-    if (block.classList.contains('hubspot')) {
-      formEl.dataset.guid = cfg['form-id'];
-      const placeholders = await fetchPlaceholders();
-      formEl.dataset.portalId = placeholders.hubspotPortalId;
-    }
+      // prevent browser invalid message from displaying
+      formEl.addEventListener('invalid', (e) => {
+        e.preventDefault();
+      }, true);
 
-    // prevent browser invalid message from displaying
-    formEl.addEventListener('invalid', (e) => {
-      e.preventDefault();
-    }, true);
-
-    formEl.querySelectorAll('.form-control').forEach((ctrl) => {
-      ctrl.addEventListener('blur', () => {
-        const group = ctrl.closest('.form-group');
-        if (group) {
-          group.classList.add('was-validated');
-        }
+      formEl.querySelectorAll('.form-control').forEach((ctrl) => {
+        ctrl.addEventListener('blur', () => {
+          const group = ctrl.closest('.form-group');
+          if (group) {
+            group.classList.add('was-validated');
+          }
+        });
       });
-    });
+    }
   }
 }

@@ -1,7 +1,6 @@
 main .blog-socials-container {
   margin: 16px 0 32px;
-  padding-block: 0;
-  grid-row: 100;
+  padding: 0 32px;
 }
 
 main .blog-socials {
