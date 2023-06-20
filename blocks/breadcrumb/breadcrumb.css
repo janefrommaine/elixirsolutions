@@ -6,7 +6,7 @@ main .breadcrumb-container {
 .breadcrumb > nav {
   color: var(--link-color);
   font-size: var(--body-font-size-xs);
-  padding-left: 48px;
+  padding-left: var(--default-content-gap);
   min-height: 26px;
 }
 

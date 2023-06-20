@@ -32,7 +32,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 48px;
+  gap: var(--default-content-gap);
   grid-template-columns: repeat(var(--num-cols), minmax(0, 1fr));
 }
 

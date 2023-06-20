@@ -72,8 +72,7 @@
   /* misc. */
   --nav-height: 80px;
   --max-content-width: 1440px;
-  --default-content-padding-x: 0;
-  --default-content-padding-y: 48px;
+  --default-content-gap: 24px;
 }
 
 @media (min-width: 900px) {
@@ -87,6 +86,7 @@
 
     /* nav height */
     --nav-height: 128px;
+    --default-content-gap: 48px;
   }
 }
 
@@ -151,7 +151,7 @@ p, dl, ol, ul, pre, blockquote {
 
 ul {
   list-style-type: circle;
-  padding-inline: 48px;
+  padding-inline: var(--default-content-gap);
 }
 
 ul ul {
@@ -318,13 +318,9 @@ main img {
 
 /* Sections */
 main .section {
-  padding: 24px;
-}
-
-@media(min-width: 900px) {
-  main .section {
-    padding: 48px;
-  }
+  padding-inline: var(--default-content-gap);
+  padding-block-start: 0;
+  padding-block-end: var(--default-content-gap);
 }
 
 main .section .section-container {
@@ -332,9 +328,14 @@ main .section .section-container {
   margin: auto;
 }
 
+main .section:is(.highlight, .secondary-highlight),
+main .section:is(.highlight, .secondary-highlight) + .section {
+  padding-block-start: var(--default-content-gap);
+}
+
 main .section.highlight {
   background-color: var(--clr-blue);
-
+  
   --headline-color: var(--clr-white);
   
   /* 
@@ -342,6 +343,7 @@ main .section.highlight {
   --text-color: var(--clr-white); 
   */
   color: var(--clr-white);
+  
 }
 
 main .section.secondary-highlight {
@@ -392,26 +394,28 @@ main .section.secondary-highlight {
 
   :is(.blog, .two-columns) main .section {
     grid-column: 1;
-    padding: 48px 24px;
   }
 
   :is(.blog, .two-columns) main .section.breadcrumb-container {
     grid-row: 1;
     grid-column: 1 / -1;
     padding-inline: 0;
-    padding-block: 16px;
+    padding-block: 12px;
   }
 
   :is(.blog, .two-columns) main .section.hero-container {
     grid-row: 2;
     grid-column: 1 / -1;
-    padding: 0;
   }
 
   :is(.blog, .two-columns) main .section:last-of-type {
     grid-row: 2;
     grid-column: 2;
-    padding: 48px 24px;
+    padding-inline: 0;
+  }
+
+  :is(.blog, .two-columns) main .section:is(.secondary-highlight, .highlight):last-of-type {
+    padding-inline: var(--default-content-gap);
   }
 
   :is(.blog, .two-columns) main .section.hero-container ~ .section:last-of-type {
