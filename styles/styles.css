@@ -323,6 +323,11 @@ main .section {
   padding-block-end: var(--default-content-gap);
 }
 
+/* special for library to add top padding */
+main.sidekick-library .section:first-of-type {
+  padding-block-start: var(--default-content-gap);
+}
+
 main .section .section-container {
   max-width: var(--max-content-width);
   margin: auto;
