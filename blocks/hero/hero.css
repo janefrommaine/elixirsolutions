@@ -71,9 +71,9 @@ main .hero {
 
 main .hero .hero-content-container {
   background: var(--hero-bg-color);
-  min-height: 400px;
+  min-height: 384px;
   display: flex;
-  flex: 1;
+  flex: 2;
   flex-direction: column;
   overflow: hidden;
   position: relative;
