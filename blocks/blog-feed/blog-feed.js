@@ -4,6 +4,7 @@ import {
   decorateBlock,
   loadBlock,
   buildBlock,
+  readBlockConfig,
 } from '../../scripts/lib-franklin.js';
 import { createElement, createOptimizedPicture } from '../../scripts/scripts.js';
 
@@ -51,9 +52,10 @@ function buildPost(post, eager) {
 }
 
 async function buildMiniFeed(block, ul) {
+  const limit = block.dataset.limit ? Number(block.dataset.limit) : 4;
   const blogPosts = ffetch('/query-index.json')
     .filter((p) => p.path.startsWith('/blog/'))
-    .slice(0, 5);
+    .slice(0, limit + 1);
 
   let i = 0;
   // eslint-disable-next-line no-restricted-syntax
@@ -145,6 +147,9 @@ async function buildBlogFeed(ul, pageNum, pagesElem) {
 }
 
 export default function decorate(block) {
+  const cfg = readBlockConfig(block);
+  block.dataset.limit = cfg.limit || 4;
+  block.innerHTML = '';
   const observer = new IntersectionObserver(async (entries) => {
     if (entries.some((e) => e.isIntersecting)) {
       observer.disconnect();
