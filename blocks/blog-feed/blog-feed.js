@@ -1,12 +1,11 @@
 import ffetch from '../../scripts/ffetch.js';
 import {
-  createOptimizedPicture,
   decorateIcons,
   decorateBlock,
   loadBlock,
   buildBlock,
 } from '../../scripts/lib-franklin.js';
-import { createElement } from '../../scripts/scripts.js';
+import { createElement, createOptimizedPicture } from '../../scripts/scripts.js';
 
 function buildSmallPost(post) {
   const postCard = createElement('article', ['blog-post-card', 'blog-post-mini-card']);

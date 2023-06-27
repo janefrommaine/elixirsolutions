@@ -1,6 +1,6 @@
 import ffetch from '../../scripts/ffetch.js';
-import { createOptimizedPicture, decorateIcons } from '../../scripts/lib-franklin.js';
-import { createElement } from '../../scripts/scripts.js';
+import { decorateIcons } from '../../scripts/lib-franklin.js';
+import { createElement, createOptimizedPicture } from '../../scripts/scripts.js';
 
 function buildPost(post, eager) {
   const description = post.content.querySelector('h1 + p');
