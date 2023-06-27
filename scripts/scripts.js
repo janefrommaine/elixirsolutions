@@ -140,7 +140,9 @@ function buildHeroBlock(main) {
  * @param {Element} main The container element
  */
 function buildBreadcrumbBlock(main) {
-  if (window.location.pathname !== '/' && window.isErrorPage !== true && !getMetadata('hideBreadcrumb')) {
+  const hideBreadcrumbVal = getMetadata('hide-breadcrumb') || 'no';
+  const hideBreadcrumb = hideBreadcrumbVal.toLowerCase() === 'yes' || hideBreadcrumbVal.toLowerCase() === 'true';
+  if (window.location.pathname !== '/' && window.isErrorPage !== true && !hideBreadcrumb) {
     const section = createElement('div');
     section.append(buildBlock('breadcrumb', { elems: [] }));
     main.prepend(section);
