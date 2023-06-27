@@ -28,11 +28,6 @@
   position: relative;
 }
 
-.columns.thirds a.button {
-  font-size: var(--body-font-size-m);
-  padding: 5px 25px;
-}
-
 @media (max-width: 900px) {
   .columns > div > div {
     order: 1;
