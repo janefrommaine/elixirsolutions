@@ -53,7 +53,7 @@ function buildPost(post, eager) {
 }
 
 async function buildMiniFeed(block, ul) {
-  const limit = block.dataset.limit ? Number(block.dataset.limit) : 5;
+  const limit = block.dataset.limit ? Number(block.dataset.limit) : 4;
   const blogPosts = ffetch('/query-index.json')
     .filter((p) => p.path.startsWith('/blog/'))
     .slice(0, limit + 1);
@@ -149,7 +149,7 @@ async function buildBlogFeed(ul, pageNum, pagesElem) {
 
 export default function decorate(block) {
   const cfg = readBlockConfig(block);
-  block.dataset.limit = cfg.limit || 5;
+  block.dataset.limit = cfg.limit || 4;
   block.innerHTML = '';
   const observer = new IntersectionObserver(async (entries) => {
     if (entries.some((e) => e.isIntersecting)) {
