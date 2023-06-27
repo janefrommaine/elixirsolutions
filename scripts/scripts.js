@@ -228,7 +228,7 @@ async function buildBlogFormBlock(main) {
  */
 function buildBlogTopicsBlock(main) {
   const blogFeed = main.querySelector('.blog-feed:not(.mini)');
-  if (blogFeed) {
+  if (blogFeed && !main.classList.contains('sidekick-library')) {
     const section = createElement('div');
     const block = buildBlock('blog-topics', '');
     section.append(block);
