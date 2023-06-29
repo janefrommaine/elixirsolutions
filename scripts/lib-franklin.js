@@ -623,7 +623,8 @@ export function setup() {
  * Auto initializiation.
  */
 function init() {
-  document.body.style.display = 'none';
+  // customized to remove body hiding, hiding main instead
+  // document.body.style.display = 'none';
   setup();
   sampleRUM('top');
 
