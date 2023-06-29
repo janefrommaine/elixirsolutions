@@ -439,7 +439,7 @@ function announcePageLoaded(doc) {
   if (!srPageMessage) {
     loadScreenReaderMessage();
   }
-  srPageMessage.innerHTML = `${doc.title} page load complete`;
+  srPageMessage.textContent = `${doc.title} page load complete`;
 }
 
 /**
