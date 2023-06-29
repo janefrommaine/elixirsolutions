@@ -446,7 +446,7 @@ async function loadLazy(doc) {
 function announcePageLoaded(doc) {
   const srPageMessage = doc.getElementById('sr-page-message');
   if (!srPageMessage) {
-    loadScreenReaderMessage(doc.querySelector('main'));
+    loadScreenReaderMessage();
   }
   srPageMessage.innerHTML = `${doc.title} page load complete`;
 }
@@ -462,7 +462,7 @@ function loadDelayed() {
 }
 
 async function loadPage() {
-  loadScreenReaderMessage(document.querySelector('main'));
+  loadScreenReaderMessage();
   await loadEager(document);
   await loadLazy(document);
   announcePageLoaded(document);

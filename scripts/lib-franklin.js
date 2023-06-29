@@ -603,7 +603,7 @@ export function loadFooter(footer) {
  * Add screen reader message
  * @param {Element} element main element
  */
-export function loadScreenReaderMessage(element) {
+export function loadScreenReaderMessage() {
   let srPageMessage = document.getElementById('sr-page-message');
   if (!srPageMessage) {
     const div = document.createElement('div');
