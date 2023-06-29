@@ -425,16 +425,33 @@ export function decorateMain(main, isFragment) {
 }
 
 /**
+ * Add screen reader message
+ * @param {Element} element main element
+ */
+function loadScreenReaderMessage() {
+  let srPageMessage = document.getElementById('sr-page-message');
+  if (!srPageMessage) {
+    srPageMessage = createElement('div', 'sr-only', {
+      id: 'sr-page-message',
+      'aria-live': 'polite',
+    });
+    document.body.append(srPageMessage);
+  }
+}
+
+/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
+  loadScreenReaderMessage();
+
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
-    document.body.classList.add('appear');
+    main.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
   }
 }
@@ -481,6 +498,18 @@ export function wrapImgsInLinks(container) {
 }
 
 /**
+ * Announce to the SR that the page has loaded
+ * @param {Element} doc The container element
+ */
+function announcePageLoaded(doc) {
+  const srPageMessage = doc.getElementById('sr-page-message');
+  if (!srPageMessage) {
+    loadScreenReaderMessage();
+  }
+  srPageMessage.textContent = `${doc.title} page load complete`;
+}
+
+/**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
@@ -498,6 +527,8 @@ async function loadLazy(doc) {
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/icons/favicon_icon.png`);
   wrapImgsInLinks(main);
+
+  announcePageLoaded(document);
 
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));

@@ -117,15 +117,18 @@ body {
   line-height: 1.5;
   color: var(--text-color);
   background-color: var(--background-color);
-  display: none;
-}
-
-body.appear {
-  display: unset;
 }
 
 header {
   height: var(--nav-height);
+}
+
+main {
+  display:none;
+}
+
+main.appear {
+  display: unset;
 }
 
 h1, h2, h3,
