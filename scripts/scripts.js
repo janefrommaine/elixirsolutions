@@ -3,6 +3,7 @@ import {
   buildBlock,
   loadHeader,
   loadFooter,
+  loadScreenReaderMessage,
   decorateButtons,
   decorateIcons,
   decorateSections,
@@ -367,7 +368,8 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
-    document.body.classList.add('appear');
+    // document.body.classList.add('appear');
+    main.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
   }
 }
@@ -438,6 +440,18 @@ async function loadLazy(doc) {
 }
 
 /**
+ * Announce to the SR that the page has loaded
+ * @param {Element} doc The container element
+ */
+function announcePageLoaded(doc) {
+  const srPageMessage = doc.getElementById('sr-page-message');
+  if (!srPageMessage) {
+    loadScreenReaderMessage(doc.querySelector('main'));
+  }
+  srPageMessage.innerHTML = `${doc.title} page load complete`;
+}
+
+/**
  * Loads everything that happens a lot later,
  * without impacting the user experience.
  */
@@ -448,8 +462,10 @@ function loadDelayed() {
 }
 
 async function loadPage() {
+  loadScreenReaderMessage(document.querySelector('main'));
   await loadEager(document);
   await loadLazy(document);
+  announcePageLoaded(document);
   loadDelayed();
 }
 

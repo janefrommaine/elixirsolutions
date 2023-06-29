@@ -117,7 +117,7 @@ body {
   line-height: 1.5;
   color: var(--text-color);
   background-color: var(--background-color);
-  display: none;
+  /*display: none;*/
 }
 
 body.appear {
@@ -126,6 +126,14 @@ body.appear {
 
 header {
   height: var(--nav-height);
+}
+
+main {
+  display:none;
+}
+
+main.appear {
+  display: unset;
 }
 
 h1, h2, h3,

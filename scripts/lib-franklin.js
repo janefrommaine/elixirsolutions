@@ -600,6 +600,20 @@ export function loadFooter(footer) {
 }
 
 /**
+ * Add screen reader message
+ * @param {Element} element main element
+ */
+export function loadScreenReaderMessage(element) {
+  let srPageMessage = document.getElementById('sr-page-message');
+  if (!srPageMessage) {
+    const div = document.createElement('div');
+    div.innerHTML = '<div id="sr-page-message" class="sr-only" aria-live="polite"></div>';
+    srPageMessage = div.firstElementChild;
+    document.body.append(div.firstElementChild);
+  }
+}
+
+/**
  * Setup block utils.
  */
 export function setup() {
@@ -623,7 +637,7 @@ export function setup() {
  * Auto initializiation.
  */
 function init() {
-  document.body.style.display = 'none';
+  // document.body.style.display = 'none';
   setup();
   sampleRUM('top');
 
