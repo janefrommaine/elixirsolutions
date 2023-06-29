@@ -364,10 +364,11 @@ export function decorateMain(main, isFragment) {
 function loadScreenReaderMessage() {
   let srPageMessage = document.getElementById('sr-page-message');
   if (!srPageMessage) {
-    const div = document.createElement('div');
-    div.innerHTML = '<div id="sr-page-message" class="sr-only" aria-live="polite"></div>';
-    srPageMessage = div.firstElementChild;
-    document.body.append(div.firstElementChild);
+    srPageMessage = createElement('div', 'sr-only', {
+      id: 'sr-page-message',
+      'aria-live': 'polite',
+    });
+    document.body.append(srPageMessage);
   }
 }
 
