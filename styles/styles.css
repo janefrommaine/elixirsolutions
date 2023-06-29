@@ -119,10 +119,6 @@ body {
   background-color: var(--background-color);
 }
 
-body.appear {
-  display: unset;
-}
-
 header {
   height: var(--nav-height);
 }

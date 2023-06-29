@@ -3,7 +3,6 @@ import {
   buildBlock,
   loadHeader,
   loadFooter,
-  loadScreenReaderMessage,
   decorateButtons,
   decorateIcons,
   decorateSections,
@@ -359,16 +358,31 @@ export function decorateMain(main, isFragment) {
 }
 
 /**
+ * Add screen reader message
+ * @param {Element} element main element
+ */
+function loadScreenReaderMessage() {
+  let srPageMessage = document.getElementById('sr-page-message');
+  if (!srPageMessage) {
+    const div = document.createElement('div');
+    div.innerHTML = '<div id="sr-page-message" class="sr-only" aria-live="polite"></div>';
+    srPageMessage = div.firstElementChild;
+    document.body.append(div.firstElementChild);
+  }
+}
+
+/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
+  loadScreenReaderMessage();
+
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
-    // document.body.classList.add('appear');
     main.classList.add('appear');
     await waitForLCP(LCP_BLOCKS);
   }
@@ -416,6 +430,18 @@ export function wrapImgsInLinks(container) {
 }
 
 /**
+ * Announce to the SR that the page has loaded
+ * @param {Element} doc The container element
+ */
+function announcePageLoaded(doc) {
+  const srPageMessage = doc.getElementById('sr-page-message');
+  if (!srPageMessage) {
+    loadScreenReaderMessage();
+  }
+  srPageMessage.innerHTML = `${doc.title} page load complete`;
+}
+
+/**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
@@ -434,21 +460,11 @@ async function loadLazy(doc) {
   addFavIcon(`${window.hlx.codeBasePath}/icons/favicon_icon.png`);
   wrapImgsInLinks(main);
 
+  announcePageLoaded(document);
+
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
   sampleRUM.observe(main.querySelectorAll('picture > img'));
-}
-
-/**
- * Announce to the SR that the page has loaded
- * @param {Element} doc The container element
- */
-function announcePageLoaded(doc) {
-  const srPageMessage = doc.getElementById('sr-page-message');
-  if (!srPageMessage) {
-    loadScreenReaderMessage();
-  }
-  srPageMessage.innerHTML = `${doc.title} page load complete`;
 }
 
 /**
@@ -462,10 +478,8 @@ function loadDelayed() {
 }
 
 async function loadPage() {
-  loadScreenReaderMessage();
   await loadEager(document);
   await loadLazy(document);
-  announcePageLoaded(document);
   loadDelayed();
 }
 
