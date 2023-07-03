@@ -15,7 +15,7 @@
 .form label,
 .form fieldset legend  {
   font-weight: 600;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-m);
   display: inline-block;
 }
 
@@ -26,14 +26,14 @@
 .form .form-text {
   display: block;
   margin-top: 0;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-m);
   margin-bottom: .25rem;
   line-height: 1.2;
 }
 
 @media (min-width: 1200px) {
   .form-text {
-      font-size: var(--body-font-size-s);
+      font-size: var(--body-font-size-l);
   }
 }
 
@@ -44,7 +44,7 @@
 .form .invalid-feedback, 
 .form .valid-feedback {
   font-weight: 700;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-m);
   display: none;
   width: 100%;
   margin-top: .4rem;
@@ -162,8 +162,4 @@
 .form .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
   border-color: var(--clr-blue);
 
-}
-
-.form button {
-  font-size: var(--heading-font-size-xs);
 }

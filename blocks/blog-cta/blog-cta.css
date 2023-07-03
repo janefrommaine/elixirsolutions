@@ -4,7 +4,7 @@ main .blog-cta-container {
 
 main .blog-cta {
   color: var(--clr-blue);
-  font-size: var(--body-font-size-m);
+  font-size: var(--body-font-size-xl);
   background-color: var(--clr-lightest-blue);
   padding: 20px;
   margin: var(--default-content-gap) auto;
@@ -18,7 +18,6 @@ main .blog-cta a {
 
 main .blog-cta .button {
   background-color: var(--clr-green);
-  font-size: var(--body-font-size-s);
   border-radius: 10px;
   padding: 10px 35px;
   margin: 0 auto;

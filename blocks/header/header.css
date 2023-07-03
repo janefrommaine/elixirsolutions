@@ -237,7 +237,7 @@ header nav .nav-sections a {
   }
 
   header nav .nav-sections a {
-    font-size: var(--body-font-size-xs);
+    font-size: var(--body-font-size-s);
     line-height: 1;
     font-weight: 500;
   }
@@ -347,7 +347,7 @@ header nav .nav-register {
 }
 
 header nav .nav-register a.button {
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-s);
 }
 
 header nav[aria-expanded="true"] .nav-register {

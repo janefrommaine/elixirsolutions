@@ -68,7 +68,7 @@
 .cards .card-link-wrapper .card-more-cta {
   color: var(--link-color);
   font-weight: 800;
-  font-size: var(--heading-font-size-xs);
+  font-size: var(--body-font-size-m);
 }
 
 .cards .card-link-wrapper .card-more-cta::after {

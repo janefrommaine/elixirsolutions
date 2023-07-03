@@ -1,5 +1,5 @@
 main .footnote {
-  font-size: 12px;
+  font-size: var(--body-font-size-s);
   color: var(--clr-med-gray);
   font-weight: 500;
   letter-spacing: 0.2px;

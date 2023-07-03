@@ -185,7 +185,7 @@
 
 .columns.grey h2 {
   font-weight: bold;
-  font-size: 24px;
+  font-size: var(--heading-font-size-m);
   line-height: 32px;
   padding: 0;
   margin: 0;

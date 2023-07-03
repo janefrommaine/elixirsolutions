@@ -58,7 +58,7 @@ main .blog-feed .blog-post-card .blog-post-content {
 
 main .blog-feed .blog-post-card .blog-post-content .post-title {
   font-weight: 800;
-  font-size: var(--heading-font-size-xs);
+  font-size: var(--heading-font-size-s);
 }
 
 main .blog-feed .blog-post-card .blog-post-content a {
@@ -76,7 +76,7 @@ main .blog-feed .blog-post-card .blog-post-content .post-tags {
 
 main .blog-feed .blog-post-card .blog-post-content .post-tags a {
   color: var(--clr-med-gray);
-  font-size: 15px;
+  font-size: var(--body-font-size-s);
 }
 
 main .blog-feed .blog-post-card .blog-post-content .post-tags a:hover {
@@ -85,9 +85,11 @@ main .blog-feed .blog-post-card .blog-post-content .post-tags a:hover {
 
 
 main .blog-feed .blog-post-card .blog-post-content .post-tags a .icon {
-  width: 15px;
-  height: 15px;
+  width: var(--body-font-size-s);
+  height: var(--body-font-size-s);
   margin-right: 4px;
+  position: relative;
+  top: 3px;
 }
 
 main .blog-feed .blog-post-card .blog-post-content .post-description p {

@@ -7,22 +7,10 @@
   width: 100%;
   max-width: 100%;
   border-collapse: collapse;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-s);
   border: 1px solid var(--clr-light-gray);
   margin-bottom: 20px;
   text-align: left;
-}
-
-@media (min-width: 600px) {
-  .table table {
-    font-size: var(--body-font-size-s);
-  }
-}
-
-@media (min-width: 900px) {
-  .table table {
-    font-size: var(--body-font-size-m);
-  }
 }
 
 .table th {
@@ -36,7 +24,6 @@
 }
 
 .table tbody td {
-  font-size: 13px;
   padding: 15px 10px;
 }
 
@@ -45,7 +32,7 @@
 }
 
 .table thead th {
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-m);
   font-weight: bold;
   color: var(--clr-white);
 }
