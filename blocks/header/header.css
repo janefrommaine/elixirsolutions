@@ -38,7 +38,7 @@ header nav[aria-expanded="true"] {
   border-bottom: 10px solid var(--clr-blue);
 }
 
-@media (min-width: 600px) {
+@media (min-width: 37.5em) {
   header nav {
     grid-template:
     'hamburger brand register' var(--nav-height) / var(--hamburger-width) 1fr var(--button-width);
@@ -53,7 +53,7 @@ header nav[aria-expanded="true"] {
     }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 56.25em) {
   header nav[aria-expanded="true"] {
     grid-template:
     'brand . tools' 64px
@@ -127,7 +127,7 @@ header nav[aria-expanded="true"] .nav-hamburger-icon {
   transform: rotate(45deg);
 }
 
-@media (min-width: 900px) {
+@media (min-width: 56.25em) {
   header nav .nav-hamburger {
     display: none;
     visibility: hidden;
@@ -157,13 +157,13 @@ header nav .nav-brand img {
   max-height: var(--logo-max-height);
 }
 
-@media (min-width: 600px) {
+@media (min-width: 37.5em) {
   header nav .nav-brand {
     padding-left: var(--button-width);
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 56.25em) {
   header nav .nav-brand {
     padding-right: 16px;
     padding-left: 0;
@@ -175,7 +175,7 @@ header nav .nav-brand img {
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 75em) {
   header nav .nav-brand {
     --logo-width: 160px;
     --logo-max-height: 100px;
@@ -218,7 +218,7 @@ header nav .nav-sections a {
   text-transform: uppercase;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 56.25em) {
   header nav .nav-sections {
     display: block;
     visibility: visible;
@@ -256,7 +256,7 @@ header nav .nav-sections a {
   }
 }
 
-@media (min-width: 1200px) { 
+@media (min-width: 75em) { 
   header nav .nav-sections ul {
     justify-content: left;
     gap: var(--default-content-gap);
@@ -273,19 +273,29 @@ header nav .nav-tools {
 header nav[aria-expanded="true"] .nav-tools {
   display: flex;
   justify-content: center;
-  margin: 3rem 0 2rem;
+  margin: 1.875rem 0 1.25rem;
+}
+
+@media (min-width: 56.25em) {
+  header nav[aria-expanded="true"] .nav-tools {
+    justify-content: right;
+  }
 }
 
 header nav .nav-tools .search-form {
   position: relative;
-  width: 95%;
+  width: calc(100% - 2rem);
+}
+
+header nav .nav-tools .form-control {
+  padding-right: calc(24px + 1rem);
 }
 
 header nav .nav-tools .search-form .icon {
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 1rem;
+  right: 0.625rem;
   margin: auto;
 }
 
@@ -339,7 +349,7 @@ header nav .nav-register {
   justify-content: center;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 37.5em) {
   header nav .nav-register {
     justify-content: right;
     align-self: center;
@@ -354,7 +364,7 @@ header nav[aria-expanded="true"] .nav-register {
   display: flex;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 37.5em) {
   header nav .nav-register {
     display: flex;
   }
