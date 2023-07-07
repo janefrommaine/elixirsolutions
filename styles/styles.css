@@ -353,6 +353,10 @@ main .section.secondary-highlight {
   background-color: var(--clr-lightest-blue);
 }
 
+main .section:first-child:not(.breadcrumb-container) {
+  margin-top: 48px; /* vertical height of breadcrumb area */
+}
+
 /* screen reade only text  util class */
 .sr-only {
 	border: 0 !important;
