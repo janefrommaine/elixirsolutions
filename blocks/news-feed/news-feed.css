@@ -17,7 +17,7 @@ main .news-feed .news-card {
   gap: var(--default-content-gap);
 }
 
-@media (min-width: 600px) {
+@media (min-width: 37.5em) {
   main .news-feed .news-card {
     grid-template: 'content image' / 2fr 1fr;
   }

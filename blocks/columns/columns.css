@@ -28,7 +28,7 @@
   position: relative;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 56.25em) {
   .columns > div > div {
     order: 1;
   }
@@ -43,7 +43,7 @@
   display: block;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 37.5em) {
   .columns > div {
     align-items: stretch;
     flex-direction: unset;
@@ -55,7 +55,7 @@
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 56.25em) {
   .columns > div {
     gap: var(--default-content-gap);
   }
@@ -72,7 +72,7 @@
   margin: auto;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 56.25em) {
   .columns.thirds > div {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -88,7 +88,7 @@
 }
 
 /* teaser variant */
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 36em) {
   .bubble {
       transform: scale(.6);
   }
@@ -185,7 +185,7 @@
 
 .columns.grey h2 {
   font-weight: bold;
-  font-size: 24px;
+  font-size: var(--heading-font-size-m);
   line-height: 32px;
   padding: 0;
   margin: 0;
@@ -206,7 +206,7 @@
   padding: 5px;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 37.5em) {
   .columns.fifths > div {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -232,7 +232,7 @@
 }
 
 /* normally image on mobile view is on the top, but some variant shows at bottom */
-@media (max-width: 900px) {
+@media (max-width: 56.25em) {
   .columns.image-bottom > div > div.columns-img-col {
     order: 2;
   }
