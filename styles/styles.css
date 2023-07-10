@@ -391,7 +391,7 @@ main .section:first-child:not(.breadcrumb-container) {
 /* two cols page layout */
 :is(.blog, .two-columns) main {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 100%;
   max-width: var(--max-content-width);
   margin: 0 auto;
 }
