@@ -317,8 +317,8 @@ main img {
 }
 
 .icon-external-link {
-  margin-inline-start: .5em;
   height: .75em;
+  width: 1.25em;
 }
 
 /* Sections */
