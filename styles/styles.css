@@ -418,11 +418,19 @@ main .section:first-child:not(.breadcrumb-container) {
 
   :is(.blog, .two-columns) main .section:is(.secondary-highlight, .highlight):last-of-type {
     padding-inline: var(--default-content-gap);
+    margin-block-start: var(--default-content-gap);
+    margin-block-end: var(--default-content-gap);
   }
 
   :is(.blog, .two-columns) main .section.hero-container ~ .section:last-of-type {
     grid-row: 3;
   }
+
+  /* Temporary fix so Contact Us page's secondary highlight background color doesn't fill height of accordion container */
+  :is(.two-columns) main .section.accordion-container {
+    grid-row: span 2;
+  }
+  
 }
 
 /* blog */
