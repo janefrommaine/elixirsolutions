@@ -430,7 +430,6 @@ main .section:first-child:not(.breadcrumb-container) {
   color: var(--headline-color);
 }
 
-.blog main .default-content-wrapper h1 { font-size: var(--heading-font-size-l) }
 .blog main .default-content-wrapper h2 { font-size: var(--heading-font-size-l) }
 .blog main .default-content-wrapper h3 { font-size: var(--heading-font-size-m) }
 .blog main .default-content-wrapper h4 { font-size: var(--heading-font-size-m) }
