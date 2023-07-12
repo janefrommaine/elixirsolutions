@@ -473,17 +473,15 @@ main .section:first-child:not(.breadcrumb-container) {
 
 .blog main .default-content-wrapper ol {
   padding-left: 50px;
-  margin: 10px 0;
 }
 
 .blog main .default-content-wrapper ul {
   list-style: none;
   padding-left: 10px;
-  margin: 10px 0;
 }
 
 .blog main .default-content-wrapper li {
-  margin-bottom: 25px;
+  margin-bottom: 0.5rem;
 }
 
 .blog main .default-content-wrapper ul li::before {
