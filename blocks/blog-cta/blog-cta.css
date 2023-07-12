@@ -1,7 +1,3 @@
-main .blog-cta-container {
-  padding: 20px;
-}
-
 main .blog-cta {
   color: var(--clr-blue);
   font-size: var(--body-font-size-xl);

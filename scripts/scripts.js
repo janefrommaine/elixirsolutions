@@ -276,7 +276,12 @@ export default function decorateBlogImage(main) {
     .querySelectorAll('.default-content-wrapper picture')
     .forEach((pic, i) => {
       const parent = pic.parentNode;
-      if (i === 0) return; // hero image
+
+      // hero image
+      if (i === 0) {
+        parent.classList.add('blog-img-hero');
+        return;
+      }
 
       const textContent = parent.innerText.replaceAll('\n', '').trim();
       // inline image

@@ -494,6 +494,10 @@ main .section:first-child:not(.breadcrumb-container) {
   margin-right: 5px;
 }
 
+.blog main .default-content-wrapper .blog-img-hero {
+  margin-block-start: 0;
+}
+
 .blog main .default-content-wrapper .blog-img-center {
   text-align: center;
   margin-top: 10px;
