@@ -154,7 +154,6 @@ p, dl, ol, ul, pre, blockquote {
 }
 
 ul {
-  list-style-type: circle;
   padding-inline: var(--default-content-gap);
 }
 
