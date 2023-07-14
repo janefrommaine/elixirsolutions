@@ -10,6 +10,10 @@ main .accordion .accordion-item > h2 {
   margin: 0;
 }
 
+main .accordion .accordion-item > h3 {
+  margin: 0;
+}
+
 main .accordion .accordion-item > :is(h2, h3) > .accordion-trigger {
   display: block;
   width: 100%;
@@ -18,7 +22,7 @@ main .accordion .accordion-item > :is(h2, h3) > .accordion-trigger {
   font-weight: 700;
   color: var(--headline-color);
   line-height: 28px;
-  padding: 10px 24px;
+  padding: 8px 24px;
   border-radius: 8px;
   background-color: var(--clr-off-white);
   text-align: left;
@@ -54,6 +58,7 @@ main .accordion .accordion-item:nth-child(3n + 2) > h2 > .accordion-trigger {
 
 main .accordion .accordion-item > .accordion-panel {
   padding-inline: 24px;
+  padding-block-start: 24px;
 }
 
 main .accordion.accordion.sub-accordion .accordion-item > :is(h2, h3) > .accordion-trigger {

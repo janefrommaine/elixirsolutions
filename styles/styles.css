@@ -149,11 +149,31 @@ h4 { font-size: var(--heading-font-size-m) }
 h5 { font-size: var(--heading-font-size-s) }
 h6 { font-size: var(--heading-font-size-xs) }
 
-p, dl, ol, ul, pre, blockquote {
+p, pre, blockquote{
   margin-block: 1em;
 }
 
+p:last-child{
+  margin-bottom: 0;
+}
+
+dl, ol, ul {
+  margin-block: 1em;
+ 
+}
+
+/* pagination of blogs and news list */
+ul.pages {
+  margin-top: var(--default-content-gap);
+  margin-bottom: 0;
+}
+
+p:first-child {
+  margin-top: 0;
+}
+
 ul {
+  list-style-type: circle;
   padding-inline: var(--default-content-gap);
 }
 
@@ -397,7 +417,7 @@ main .section:first-child:not(.breadcrumb-container) {
 
 @media (min-width: 56.25em) {
   :is(.blog, .two-columns) main {
-    grid-template-columns: 1fr 370px;
+    grid-template-columns: 1fr 33%;
   }
 
   :is(.blog, .two-columns) main .section {
