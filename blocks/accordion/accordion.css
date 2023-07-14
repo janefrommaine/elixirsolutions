@@ -23,6 +23,7 @@ main .accordion .accordion-item > :is(h2, h3) > .accordion-trigger {
   background-color: var(--clr-off-white);
   text-align: left;
   position: relative;
+  white-space: unset;
 }
 
 main .accordion .accordion-item > :is(h2, h3) > .accordion-trigger .accordion-title {

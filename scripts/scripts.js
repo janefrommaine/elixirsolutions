@@ -343,7 +343,12 @@ export default function decorateBlogImage(main) {
     .querySelectorAll('.default-content-wrapper picture')
     .forEach((pic, i) => {
       const parent = pic.parentNode;
-      if (i === 0) return; // hero image
+
+      // hero image
+      if (i === 0) {
+        parent.classList.add('blog-img-hero');
+        return;
+      }
 
       const textContent = parent.innerText.replaceAll('\n', '').trim();
       // inline image
@@ -382,11 +387,13 @@ export function decorateLinks(element) {
         const url = new URL(a.href);
 
         // local links are relative
-        // non local links open in a new tab
+        // non local and non email links open in a new tab
         const hostMatch = hosts.some((host) => url.hostname.includes(host));
+        const emailMatch = a.href.includes('mailto');
+
         if (hostMatch) {
           a.href = `${url.pathname.replace('.html', '')}${url.search}${url.hash}`;
-        } else {
+        } else if (!emailMatch) {
           a.target = '_blank';
           a.rel = 'noopener noreferrer';
           const icon = createElement('span', ['icon', 'icon-external-link']);

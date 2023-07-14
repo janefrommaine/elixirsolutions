@@ -3,7 +3,7 @@ main .blog-feed-container {
   grid-column: 1;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 56.25em) {
   main .blog-feed-container {
     grid-row: 2;
     grid-column: 1 / span 1;
@@ -25,7 +25,7 @@ main .blog-feed ul.blog-list {
   margin: 0;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 37.5em) {
   main .blog-feed ul.blog-list {
     --blog-feed-cols: 2;
   }
@@ -53,12 +53,12 @@ main .blog-feed .blog-post-card picture > img {
 }
 
 main .blog-feed .blog-post-card .blog-post-content {
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem;
 }
 
 main .blog-feed .blog-post-card .blog-post-content .post-title {
   font-weight: 800;
-  font-size: var(--heading-font-size-xs);
+  font-size: var(--heading-font-size-s);
 }
 
 main .blog-feed .blog-post-card .blog-post-content a {
@@ -76,7 +76,7 @@ main .blog-feed .blog-post-card .blog-post-content .post-tags {
 
 main .blog-feed .blog-post-card .blog-post-content .post-tags a {
   color: var(--clr-med-gray);
-  font-size: 15px;
+  font-size: var(--body-font-size-s);
 }
 
 main .blog-feed .blog-post-card .blog-post-content .post-tags a:hover {
@@ -85,9 +85,11 @@ main .blog-feed .blog-post-card .blog-post-content .post-tags a:hover {
 
 
 main .blog-feed .blog-post-card .blog-post-content .post-tags a .icon {
-  width: 15px;
-  height: 15px;
+  width: var(--body-font-size-s);
+  height: var(--body-font-size-s);
   margin-right: 4px;
+  position: relative;
+  top: 3px;
 }
 
 main .blog-feed .blog-post-card .blog-post-content .post-description p {
@@ -135,7 +137,7 @@ main .blog-feed.mini {
   gap: var(--default-content-gap);
 }
 
-@media (min-width: 600px) {
+@media (min-width: 37.5em) {
   main .blog-feed.mini {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
@@ -145,7 +147,7 @@ main .blog-feed.mini {
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 56.25em) {
   main .blog-feed.mini .blog-email-form-wrapper {
     grid-column: unset;
   }

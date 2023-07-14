@@ -10,8 +10,7 @@
  * governing permissions and limitations under the License.
  */
  html {
-  /* 1rem = 10 px */
-  font-size: 62.5%;
+  /* 1rem = 16 px */
   scroll-behavior: smooth;
 }
 
@@ -57,25 +56,27 @@
   --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
 
   /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 18px;
-  --body-font-size-xs: 16px;
+  --body-font-size-xl: 1.5rem;  /* 24px */
+  --body-font-size-l: 1.25rem;  /* 20px */
+  --body-font-size-m: 1.125rem; /* 18px */
+  --body-font-size-s: 1rem;     /* 16px */
+  --body-font-size-xs: 0.75rem; /* 12px */
 
   /* heading sizes */
-  --heading-font-size-xxl: 48px;
-  --heading-font-size-xl: 40px;
-  --heading-font-size-l: 32px;
-  --heading-font-size-m: 24px;
-  --heading-font-size-s: 20px;
-  --heading-font-size-xs: 18px;
+  --heading-font-size-xxl: 3.5rem;  /* 56px */
+  --heading-font-size-xl: 2rem;     /* 32px */
+  --heading-font-size-l: 1.75rem;   /* 28px */
+  --heading-font-size-m: 1.5rem;    /* 24px */
+  --heading-font-size-s: 1.25rem;   /* 20px */
+  --heading-font-size-xs: 1.125rem; /* 18px */
 
   /* misc. */
   --nav-height: 80px;
-  --max-content-width: 1440px;
+  --max-content-width: 90rem;      /* 1440px */
   --default-content-gap: 24px;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 56.25em) {
   :root {
     /* --heading-font-size-xxl: 60px;
     --heading-font-size-xl: 48px;
@@ -112,7 +113,7 @@
 }
 
 body {
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-m);
   font-family: var(--body-font-family);
   line-height: 1.5;
   color: var(--text-color);
@@ -153,7 +154,6 @@ p, dl, ol, ul, pre, blockquote {
 }
 
 ul {
-  list-style-type: circle;
   padding-inline: var(--default-content-gap);
 }
 
@@ -170,7 +170,7 @@ hr {
 
 code, pre, samp {
   font-family: var(--fixed-font-family);
-  font-size: var(--body-font-size-s);
+  font-size: var(--body-font-size-l);
 }
 
 code, samp {
@@ -194,24 +194,24 @@ main pre {
 .custom-select {
   display: block;
   width: 100%;
-  height: calc(1.5em + 1.2rem + 2px);
-  padding: .6rem 1.3rem;
-  font-size: var(--body-font-size-xs);
+  height: calc(1.5em + .75rem + 2px);
+  padding: .375rem .813rem;
+  font-size: var(--body-font-size-s);
   font-weight: 400;
   line-height: 1.5;
   color: var(--text-color);
   background-color: var(--clr-lighter-gray);
   background-clip: padding-box;
   border: 1px solid var(--clr-lighter-blue);
-  border-radius: .3rem;
-  transition:border-color .15s ease-in-out, box-shadow .15s ease-in-out
+  border-radius: .25rem;
+  transition:border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 .custom-select {
   display: inline-block;
   appearance: none;
   width: 100%;
-  padding-right: 2.9rem;
+  padding-right: 1.813rem;
   vertical-align: middle;
   background: var(--clr-lighter-gray) url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23479DC7' d='M7.5 12c-.3 0-.6-.1-.8-.4L3.2 7.1c-.3-.4-.3-1 .2-1.4.4-.3 1-.3 1.4.2l2.8 3.5 2.8-3.5c.3-.4.9-.5 1.4-.2.4.3.5.9.2 1.4l-3.5 4.5c-.4.3-.7.4-1 .4z'/%3E%3C/svg%3E") no-repeat right .65rem center/20px 20px;
 }
@@ -239,14 +239,15 @@ a:hover {
 /* buttons */
 a.button:any-link, button {
   font-family: var(--body-font-family);
+  font-size: var(--body-font-size-m);
   display: inline-block;
   box-sizing: border-box;
   text-decoration: none;
   border: 2px solid transparent;
-  padding: 12px 24px;
+  padding: .5rem 1.5rem;
   text-align: center;
   font-style: normal;
-  line-height: 16px;
+  line-height: 1.3;
   font-weight: 600;
   cursor: pointer;
   color: var(--background-color);
@@ -271,7 +272,7 @@ button:disabled, button:disabled:hover {
 a.button.secondary, button.secondary {
   background-color: unset;
   border: 2px solid currentcolor;
-  color: var(--text-color)
+  color: var(--text-color);
 }
 
 .section.highlight a.button {
@@ -281,7 +282,7 @@ a.button.secondary, button.secondary {
 
 main blockquote {
   font-style: italic;
-  margin: 3rem;
+  margin: 1.875rem;
   text-indent: -1rem;
   hanging-punctuation: first;
 }
@@ -315,8 +316,8 @@ main img {
 }
 
 .icon-external-link {
-  margin-inline-start: .5em;
   height: .75em;
+  width: 1.25em;
 }
 
 /* Sections */
@@ -358,6 +359,10 @@ main .section.secondary-highlight {
   background-color: var(--clr-lightest-blue);
 }
 
+main .section:first-child:not(.breadcrumb-container) {
+  margin-top: 48px; /* vertical height of breadcrumb area */
+}
+
 /* screen reade only text  util class */
 .sr-only {
 	border: 0 !important;
@@ -390,12 +395,12 @@ main .section.secondary-highlight {
 /* two cols page layout */
 :is(.blog, .two-columns) main {
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 100%;
   max-width: var(--max-content-width);
   margin: 0 auto;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 56.25em) {
   :is(.blog, .two-columns) main {
     grid-template-columns: 1fr 370px;
   }
@@ -417,11 +422,19 @@ main .section.secondary-highlight {
 
   :is(.blog, .two-columns) main .section:is(.secondary-highlight, .highlight):last-of-type {
     padding-inline: var(--default-content-gap);
+    margin-block-start: var(--default-content-gap);
+    margin-block-end: var(--default-content-gap);
   }
 
   :is(.blog, .two-columns) main .section.hero-container ~ .section:last-of-type {
     grid-row: 3;
   }
+
+  /* Temporary fix so Contact Us page's secondary highlight background color doesn't fill height of accordion container */
+  :is(.two-columns) main .section.accordion-container {
+    grid-row: span 2;
+  }
+  
 }
 
 /* blog */
@@ -429,7 +442,6 @@ main .section.secondary-highlight {
   color: var(--headline-color);
 }
 
-.blog main .default-content-wrapper h1 { font-size: var(--heading-font-size-l) }
 .blog main .default-content-wrapper h2 { font-size: var(--heading-font-size-l) }
 .blog main .default-content-wrapper h3 { font-size: var(--heading-font-size-m) }
 .blog main .default-content-wrapper h4 { font-size: var(--heading-font-size-m) }
@@ -464,17 +476,15 @@ main .section.secondary-highlight {
 
 .blog main .default-content-wrapper ol {
   padding-left: 50px;
-  margin: 10px 0;
 }
 
 .blog main .default-content-wrapper ul {
   list-style: none;
   padding-left: 10px;
-  margin: 10px 0;
 }
 
 .blog main .default-content-wrapper li {
-  margin-bottom: 25px;
+  margin-bottom: 0.5rem;
 }
 
 .blog main .default-content-wrapper ul li::before {
@@ -486,6 +496,10 @@ main .section.secondary-highlight {
   width: 12px;
   height: 12px;
   margin-right: 5px;
+}
+
+.blog main .default-content-wrapper .blog-img-hero {
+  margin-block-start: 0;
 }
 
 .blog main .default-content-wrapper .blog-img-center {

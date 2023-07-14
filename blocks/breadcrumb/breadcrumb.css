@@ -4,12 +4,12 @@ main .breadcrumb-container {
 }
 
 .breadcrumb {
-  min-height: var(--body-font-size-xs);
+  min-height: var(--body-font-size-s);
 }
 
 .breadcrumb > nav {
   color: var(--link-color);
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-s);
   padding-left: var(--default-content-gap);
   line-height: 1;
 }

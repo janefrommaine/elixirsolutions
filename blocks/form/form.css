@@ -1,21 +1,21 @@
 .form .form-group {
-  margin-bottom: 2.4rem;
+  margin-bottom: 1.5rem;
 }
 
 .form .form-group.form-group-inline {
   display: flex;
-  gap: 2.5rem;
+  gap: 1.5rem;
 }
 
 .form legend {
   display: block;
-  margin-bottom: .8rem;
+  margin-bottom: .5rem;
 }
 
 .form label,
 .form fieldset legend  {
   font-weight: 600;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-m);
   display: inline-block;
 }
 
@@ -26,14 +26,14 @@
 .form .form-text {
   display: block;
   margin-top: 0;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-m);
   margin-bottom: .25rem;
   line-height: 1.2;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 75em) {
   .form-text {
-      font-size: var(--body-font-size-s);
+      font-size: var(--body-font-size-l);
   }
 }
 
@@ -44,10 +44,10 @@
 .form .invalid-feedback, 
 .form .valid-feedback {
   font-weight: 700;
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-s);
   display: none;
   width: 100%;
-  margin-top: .4rem;
+  margin-top: .25rem;
 }
 
 .form .valid-feedback {
@@ -64,7 +64,7 @@
 }
 
 .form .was-validated .form-control:invalid {
-  border-left: .8rem solid var(--clr-coral);
+  border-left: .5rem solid var(--clr-coral);
 }
 
 .form fieldset {
@@ -77,25 +77,25 @@
 .form .custom-control {
   position: relative;
   display: block;
-  min-height: 2.4rem;
-  padding-left: 2.4rem;
+  min-height: 1.5rem;
+  padding-left: 1.5rem;
 }
 
 .form .custom-control-input {
   position: absolute;
   left: 0;
   z-index: -1;
-  width: 1.6rem;
-  height: 2rem;
+  width: 1rem;
+  height: 1.25rem;
   opacity: 0;
 }
 
 .form .custom-checkbox label, 
 .form .custom-radio label {
   font-weight: 400;
-  padding-left: .8rem;
-  padding-top: .8rem;
-  padding-bottom: .8rem;
+  padding-left: .5rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
 }
 
 .form .custom-control-label {
@@ -107,20 +107,20 @@
 .form .custom-control-label::after, 
 .form .custom-control-label::before {
   position: absolute;
-  left: -2.4rem;
+  left: -1.5rem;
   display: block;
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 1rem;
+  height: 1rem;
   content: "";
 }
 
 .form .custom-control-label::before {
-  border-radius: .4rem;
+  border-radius: .25rem;
   background-color: var(--clr-lighter-gray);
   border: 1px solid var(--clr-lighter-blue);
-  width: 2.4rem;
-  height: 2.4rem;
-  top: .8rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  top: .5rem;
   pointer-events: none;
   transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
@@ -130,15 +130,15 @@
 }
 
 .form .custom-control-label::after {
-  width: 3.2rem;
-  height: 3.2rem;
-  top: .4rem;
+  width: 2rem;
+  height: 2rem;
+  top: .25rem;
   left: -28px;
   background: no-repeat 50%/50% 50%;
 }
 
 .form .custom-control-input:focus ~ .custom-control-label::before {
-  box-shadow: 0 0 0 .3rem rgba(2 76 153 / 25%);
+  box-shadow: 0 0 0 .25rem rgba(2 76 153 / 25%);
 }
 
 .form .custom-control-input:active ~ .custom-control-label::before {
@@ -162,8 +162,4 @@
 .form .custom-control-input:focus:not(:checked) ~ .custom-control-label::before {
   border-color: var(--clr-blue);
 
-}
-
-.form button {
-  font-size: var(--heading-font-size-xs);
 }
