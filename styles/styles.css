@@ -173,7 +173,6 @@ p:first-child {
 }
 
 ul {
-  list-style-type: circle;
   padding-inline: var(--default-content-gap);
 }
 
