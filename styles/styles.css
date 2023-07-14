@@ -154,7 +154,7 @@ p, pre, blockquote{
 }
 
 p:last-child{
-margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 dl, ol, ul {
@@ -165,7 +165,7 @@ dl, ol, ul {
 /* pagination of blogs and news list */
 ul.pages {
   margin-top: var(--default-content-gap);
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 p:first-child {
@@ -173,6 +173,7 @@ p:first-child {
 }
 
 ul {
+  list-style-type: circle;
   padding-inline: var(--default-content-gap);
 }
 
