@@ -2,6 +2,11 @@ main .section .blog-email-form .default-content-wrapper {
   padding: 0;
 }
 
+.blog-email-form {
+  display: block;
+  margin-right: var(--default-content-gap);
+}
+
 main .blog-email-form .default-content-wrapper h3 {
   font-size: var(--heading-font-size-m);
 }

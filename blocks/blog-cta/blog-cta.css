@@ -6,6 +6,7 @@ main .blog-cta {
   margin: var(--default-content-gap) auto;
   line-height: 1.3;
   text-align: center;
+  margin-right: var(--default-content-gap);
 }
 
 main .blog-cta a {

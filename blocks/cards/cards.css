@@ -65,6 +65,11 @@
   margin-block: .75em;
 }
 
+.card-more-cta {
+margin-top: 1em;
+display: block;
+}
+
 .cards .card-link-wrapper .card-more-cta {
   color: var(--link-color);
   font-weight: 800;
