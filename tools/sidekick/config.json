@@ -1,0 +1,17 @@
+{
+  "project": "Elixir",
+  "host": "https://www.elixirsolutions.com",
+  "plugins": [
+    {
+      "id": "library",
+      "title": "Library",
+      "environments": [
+        "edit"
+      ],
+      "url": "/tools/sidekick/library/library.html",
+      "includePaths": [
+        "**.docx**"
+      ]
+    }
+  ]
+}

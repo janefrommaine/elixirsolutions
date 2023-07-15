@@ -357,6 +357,11 @@ main .section:is(.highlight, .secondary-highlight) + .section {
   padding-block-start: var(--default-content-gap);
 }
 
+/* special for library to add top padding */
+main.sidekick-library .section:first-of-type {
+  padding-block-start: var(--default-content-gap);
+}
+
 main .section.highlight {
   background-color: var(--clr-blue);
   
