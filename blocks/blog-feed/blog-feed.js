@@ -88,6 +88,10 @@ async function buildBlogFeed(ul, pageNum, pagesElem) {
   let morePages = false;
   const usp = new URLSearchParams(window.location.search);
   const tag = usp.get('tag');
+
+  // update page title
+  if (tag) document.title += ` "${tag}"`;
+
   const blogPosts = ffetch('/query-index.json')
     .filter((p) => (tag ? p.path.startsWith('/blog/') && p.tags.includes(tag) : p.path.startsWith('/blog/')))
     .slice(offset, offset + limit + 1);
