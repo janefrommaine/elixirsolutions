@@ -386,6 +386,12 @@ export function decorateLinks(element) {
       if (a.href) {
         const url = new URL(a.href);
 
+        if (url.pathname.startsWith('/hubfs/')) {
+          // link to hubspot, rewrite hostname and reprocess
+          url.hostname = 'page.elixirsolutions.com';
+          a.href = url.toString();
+        }
+
         // local links are relative
         // non local and non email links open in a new tab
         const hostMatch = hosts.some((host) => url.hostname.includes(host));
