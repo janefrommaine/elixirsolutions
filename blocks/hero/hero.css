@@ -118,7 +118,7 @@ main .hero h1 {
 
 main .hero h2 {
   color: var(--clr-white);
-  padding: 0 24px var(--default-content-gap) var(--default-content-gap);
+  padding: 0 var(--default-content-gap) var(--default-content-gap) var(--default-content-gap);
   z-index: 1;
 }
 
