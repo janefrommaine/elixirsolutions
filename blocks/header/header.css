@@ -215,7 +215,6 @@ header nav .nav-sections a {
   line-height: 1.25em;
   font-weight: 800;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
 @media (min-width: 56.25em) {
@@ -239,7 +238,6 @@ header nav .nav-sections a {
   header nav .nav-sections a {
     font-size: var(--body-font-size-s);
     line-height: 1;
-    font-weight: 500;
   }
 
   header nav .nav-sections a:hover {
