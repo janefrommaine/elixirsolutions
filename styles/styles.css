@@ -351,8 +351,8 @@ main .section .section-container {
   margin: auto;
 }
 
-main .section:is(.highlight, .secondary-highlight),
-main .section:is(.highlight, .secondary-highlight) + .section {
+main .section:is(.highlight, .secondary-highlight, .alert-highlight),
+main .section:is(.highlight, .secondary-highlight, .alert-highlight) + .section {
   padding-block-start: var(--default-content-gap);
 }
 
@@ -376,6 +376,10 @@ main .section.highlight {
 
 main .section.secondary-highlight {
   background-color: var(--clr-lightest-blue);
+}
+
+main .section.alert-highlight {
+  background-color: var(--clr-lightest-orange);
 }
 
 main .section:first-child:not(.breadcrumb-container) {
