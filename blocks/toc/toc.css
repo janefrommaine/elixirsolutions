@@ -1,3 +1,22 @@
 .toc-list-empty {
   display: none;
 }
+
+ul.toc-list {
+  list-style-type: none;
+  padding-inline: 0;
+}
+  
+ul.toc-sub-list {
+  list-style-type: none;
+  padding-inline: 24px;
+}
+  
+li.toc-h2 {
+  font-weight: 700;
+}
+  
+li.toc-h3 {
+  margin: 16px 0;
+  font-weight: 500;
+}
