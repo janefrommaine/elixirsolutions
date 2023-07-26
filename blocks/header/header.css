@@ -238,7 +238,6 @@ header nav .nav-sections a {
   header nav .nav-sections a {
     font-size: var(--body-font-size-s);
     line-height: 1;
-    font-weight: unset;
   }
 
   header nav .nav-sections a:hover {
@@ -251,7 +250,6 @@ header nav .nav-sections a {
   header nav .nav-sections > ul > li {
     flex: 0 1 auto;
     position: relative;
-    font-weight: unset;
   }
 }
 
