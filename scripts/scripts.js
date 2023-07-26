@@ -388,9 +388,11 @@ function reDecorateButtons(element) {
  */
 function getDisplayFileTypeFromUrl(url) {
   const displayFileTypes = ['pdf', 'docx'];
-  const regex = new RegExp(`.(${displayFileTypes.join('|')})`, 'g');
-  const fileTypeArr = url.toLowerCase().match(regex);
-  return (fileTypeArr && fileTypeArr.length) ? fileTypeArr[0].slice(1).toUpperCase() : null;
+  const urlExt = url.substring(url.lastIndexOf('.'));
+  const regex = new RegExp(`(${displayFileTypes.join('|')})`, 'g');
+
+  const fileTypeArr = urlExt.toLowerCase().match(regex);
+  return (fileTypeArr && fileTypeArr.length) ? fileTypeArr[0].toUpperCase() : null;
 }
 
 export function decorateLinks(element) {
