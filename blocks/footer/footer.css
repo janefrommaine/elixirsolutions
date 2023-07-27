@@ -246,7 +246,7 @@ footer .footer-social-icon a {
 @media (min-width: 56.25em) {
   footer .footer-social {
     display: inline-block;
-    margin: 32px 0 22px 0;
+    margin: 32px 0 22px;
   }
 }
 
