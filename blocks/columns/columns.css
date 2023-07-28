@@ -103,9 +103,9 @@
 .columns.thirds.teaser .columns-img-col div.teaser-wrapper {
   display: block;
   position: relative;
-  max-width: 280px;
-  max-height: 280px;
-  margin: 0 auto;
+  max-width: 320px;
+  max-height: 320px;
+  margin: auto;
 }
 
 .columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble {

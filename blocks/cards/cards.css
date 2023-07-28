@@ -50,7 +50,7 @@
 .cards > ul > li img {
   width: 100%;
   height: auto;
-  border-radius: 4px 4px 0 0;
+  border-radius: 8px;
 } 
 
 /* link styles */
