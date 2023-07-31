@@ -1,3 +1,4 @@
+import { decorateIcons } from '../../scripts/lib-franklin.js';
 import { createOptimizedPicture } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
@@ -27,7 +28,7 @@ export default function decorate(block) {
         } else {
           div.className = 'cards-card-body';
           if (div !== cardButtonContainer) cardButtonContainer.remove();
-          div.insertAdjacentHTML('beforeEnd', `<span class="card-more-cta">${cardLinkTitle}</span>`);
+          div.insertAdjacentHTML('beforeEnd', `<span class="card-more-cta">${cardLinkTitle}<span class="icon icon-arrow-right"></span></span>`);
         }
 
         cardLink.append(div);
@@ -45,6 +46,7 @@ export default function decorate(block) {
     }
     ul.append(li);
   });
+  decorateIcons(ul);
   ul.querySelectorAll('img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
   block.textContent = '';
   block.append(ul);
