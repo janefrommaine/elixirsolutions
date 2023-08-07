@@ -278,7 +278,6 @@ a.button:any-link, button {
   color: var(--button-text-color);
   background-color: var(--button-background-color);
   margin: 16px 0;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   border-radius: 24px;
