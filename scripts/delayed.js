@@ -1,8 +1,7 @@
 // eslint-disable-next-line import/no-cycle
 import { sampleRUM, fetchPlaceholders } from './lib-franklin.js';
 
-async function loadLinkedInTracking() {
-  const placeholders = await fetchPlaceholders();
+function loadLinkedInTracking(placeholders) {
   const { linkedinPartnerId } = placeholders;
 
   // eslint-disable-next-line no-underscore-dangle
@@ -24,17 +23,32 @@ async function loadLinkedInTracking() {
   })(window.lintrk);
 }
 
-async function loadGoogleTagManager() {
-  const placeholders = await fetchPlaceholders();
+function loadGoogleTagManager(placeholders) {
   // google tag manager
   const { gtmId } = placeholders;
   // eslint-disable-next-line
   (function (w, d, s, l, i) { w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' }); var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f); })(window, document, 'script', 'dataLayer', gtmId);
 }
 
-// Core Web Vitals RUM collection
-sampleRUM('cwv');
+function loadHubSpot(placeholders) {
+  const hsScriptEl = document.createElement('script');
+  hsScriptEl.type = 'text/javascript';
+  hsScriptEl.async = true;
+  hsScriptEl.defer = true;
+  hsScriptEl.setAttribute('id', 'hs-script-loader');
+  hsScriptEl.src = `//js.hs-scripts.com/${placeholders.hubspotPortalId}.js`;
+  document.querySelector('head').append(hsScriptEl);
+}
 
-// add more delayed functionality here
-loadGoogleTagManager();
-loadLinkedInTracking();
+async function loadDelayed() {
+  // Core Web Vitals RUM collection
+  sampleRUM('cwv');
+
+  // add more delayed functionality here
+  const placeholders = await fetchPlaceholders();
+  loadHubSpot(placeholders);
+  loadGoogleTagManager(placeholders);
+  loadLinkedInTracking(placeholders);
+}
+
+loadDelayed();
