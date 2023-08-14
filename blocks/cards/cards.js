@@ -25,6 +25,8 @@ export default function decorate(block) {
       [...row.children].forEach((div) => {
         if (div.children.length === 1 && div.querySelector('picture')) {
           div.className = 'cards-card-image';
+          const imgEl = div.querySelector('img');
+          imgEl.setAttribute('alt', '');
         } else {
           div.className = 'cards-card-body';
           if (div !== cardButtonContainer) cardButtonContainer.remove();

@@ -57,6 +57,7 @@
 .cards .card-link-wrapper {
   text-decoration: none;
   color: var(--text-color);
+  display: inline-block;
 }
 
 .cards .cards-card-body :is(h2, h3, h4, h5, h6) {
