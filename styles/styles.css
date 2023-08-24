@@ -178,7 +178,7 @@ p:first-child {
   margin-top: 0;
 }
 
-ul {
+ul, ol {
   padding-inline: var(--default-content-gap);
 }
 
