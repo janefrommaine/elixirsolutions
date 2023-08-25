@@ -102,7 +102,7 @@ async function submitForm(form) {
     window.location.href = form.dataset.thankYou;
   } else {
     form.innerHTML = `
-      <p class="form-text">Thank you for your submisison!</p>
+      <p class="form-text">Thank you for your submission. We will get back to you within 48 hours.</p>
     `;
   }
 }
