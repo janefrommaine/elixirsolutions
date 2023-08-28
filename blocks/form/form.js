@@ -65,6 +65,10 @@ async function submitHubspotForm(form, payload) {
     },
   };
 
+  if (form.dataset.sfdcCampaignId) {
+    hsPayload.context.sfdcCampaignId = form.dataset.sfdcCampaignId;
+  }
+
   const resp = fetch(`https://api.hsforms.com/submissions/v3/integration/submit/${form.dataset.portalId}/${form.dataset.guid}`, {
     method: 'POST',
     cache: 'no-cache',
@@ -288,6 +292,9 @@ export default async function decorate(block) {
       }
       if (block.classList.contains('hubspot')) {
         formEl.dataset.guid = cfg['form-id'];
+        if (cfg['sfdc-campaign-id']) {
+          formEl.dataset.sfdcCampaignId = cfg['sfdc-campaign-id'];
+        }
         const placeholders = await fetchPlaceholders();
         formEl.dataset.portalId = placeholders.hubspotPortalId;
       }
