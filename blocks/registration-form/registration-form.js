@@ -89,11 +89,8 @@ async function stepOneLookup(lookupUrl, lookupValue, textBoxTooltip, block) {
 }
 
 async function stepTwoLookup(lookupValue, textBoxTooltip) {
-  const groupData = await groupsRegistryCache;
-  const grpItem = groupData
-    .find((rx) => rx['Group Id'].toLowerCase() === lookupValue);
-
-  if (grpItem === null || typeof (grpItem) === 'undefined') {
+  // show validation message if input field is empty, do not look up with empty field
+  if (!lookupValue) {
     textBoxTooltip.innerText = 'Please provide a valid Group Number.';
     textBoxTooltip.style.visibility = 'visible';
     textBoxTooltip.style.opacity = 1;
@@ -103,8 +100,18 @@ async function stepTwoLookup(lookupValue, textBoxTooltip) {
     }, 5000);
     return;
   }
-  // grpItem was found
-  const url = grpItem.URL;
+
+  // if lookup is not empty, see if value exists in registry source
+  const groupData = await groupsRegistryCache;
+  const grpItem = groupData
+    .find((rx) => rx['Group Id'].toLowerCase() === lookupValue);
+
+  let url = 'https://member.elixirsolutions.com/';
+
+  if (grpItem !== null && typeof (grpItem) !== 'undefined') {
+    // grpItem was found, use this instead of the default url
+    url = grpItem.URL;
+  }
   // follow the URL
   window.open(url, '_blank');
 }

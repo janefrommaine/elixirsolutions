@@ -2,7 +2,6 @@ main .registration-form {
     max-width: var(--max-content-width);
     margin: auto;
     position: relative;
-    padding: 32px;
 }
 
 main .registration-form .registration-form-step {
@@ -18,12 +17,12 @@ main .registration-form.step-2 .registration-form-step.registration-form-step-2 
 
 main .registration-form .registration-form-step .form-container {
   flex: 1;
-  margin-right: 15px;
+  margin-right: var(--default-content-gap);
 }
 
 main .registration-form .registration-form-step .form-container h3 {
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 24px;
+    margin-bottom: 24px;
 }
 
 main .registration-form .registration-form-step .form-container button {
