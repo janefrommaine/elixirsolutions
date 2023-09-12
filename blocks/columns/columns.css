@@ -171,13 +171,14 @@
 /* grey variant */
 
 .columns.grey > div {
-  gap: 35px;
+  gap: var(--default-content-gap);
 }
 
 .columns.grey > div > div {
   background-color: var(--clr-off-white);
-  padding: 20px;
+  padding: 24px;
   min-height: 145px;
+  border-radius: 8px;
 }
 
 .columns.grey h2 {
@@ -189,18 +190,14 @@
 }
 
 .columns.grey p {
-  margin: 0 0 15px;
+  margin: 0 0 16px;
 }
 
 /* fifths variant */
 
 .columns.fifths > div {
-  gap: unset;
-  margin-bottom: 25px;
-}
-
-.columns.fifths > div > div {
-  padding: 5px;
+  gap: var(--default-content-gap);
+  margin-bottom: var(--default-content-gap);
 }
 
 @media (min-width: 37.5em) {
