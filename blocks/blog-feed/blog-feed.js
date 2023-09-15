@@ -6,14 +6,22 @@ import {
   buildBlock,
   readBlockConfig,
 } from '../../scripts/lib-franklin.js';
+import {
+  getBlogLongDateFormat,
+  getTimeElementFormat,
+} from '../../scripts/date.js';
 import { createElement, createOptimizedPicture } from '../../scripts/scripts.js';
 
 function buildSmallPost(post) {
   const postCard = createElement('article', ['blog-post-card', 'blog-post-mini-card']);
+  const postDate = new Date(post.date * 1000); /* Unix timestamp convert to date format */
+  const longDateFormat = getBlogLongDateFormat(postDate);
+  const dashedDateFormat = getTimeElementFormat(postDate);
 
   postCard.innerHTML = `
     <div class="blog-post-content">
       <a class="post-title" href="${post.path}">${post.title}</a>
+      <time class="post-date" datetime="${dashedDateFormat}">${longDateFormat}</time>      
       <p class="post-description">${post.description}</p>
     </div>
   `;
@@ -23,6 +31,9 @@ function buildSmallPost(post) {
 
 function buildPost(post, eager) {
   const postCard = createElement('article', 'blog-post-card');
+  const postDate = new Date(post.date * 1000); /* Unix timestamp convert to date format */
+  const longDateFormat = getBlogLongDateFormat(postDate);
+  const dashedDateFormat = getTimeElementFormat(postDate);
 
   postCard.innerHTML = `
       <div class="blog-post-image">
@@ -30,6 +41,7 @@ function buildPost(post, eager) {
       </div>
       <div class="blog-post-content">
         <a class="post-title" href="${post.path}">${post.title}</a>
+        <time class="post-date" datetime="${dashedDateFormat}">${longDateFormat}</time>
         <ul class="post-tags">
         </ul>
         <div class="post-description">

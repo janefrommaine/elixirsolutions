@@ -67,6 +67,11 @@ main .blog-feed .blog-post-card .blog-post-content a {
   display: block;
 }
 
+.blog-post-content .post-date {
+  color: var(--clr-med-gray);
+  font-size: var(--body-font-size-s);
+}
+
 main .blog-feed .blog-post-card .blog-post-content .post-tags {
   list-style: none;
   display: flex;
