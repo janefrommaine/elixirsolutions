@@ -1,5 +1,5 @@
 footer {
-  border-top: 10px solid var(--clr-blue);
+  box-shadow: 4px 0 12px var(--clr-light-gray);
   background-color: var(--clr-white);
   font-size: var(--body-font-size-l);
 }
