@@ -23,6 +23,7 @@
 
 .columns .columns-img-col {
   position: relative;
+  display: flex;
 }
 
 @media (max-width: 56.25em) {
@@ -108,65 +109,6 @@
   margin: auto;
 }
 
-.columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble {
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  opacity: .8;
-  z-index: 10;
-}
-
-.columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-a {
-  background: #f6a75c;
-  width: 40px;
-  height: 40px;
-  bottom: 0;
-  left: 0;
-}
-
-.columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-b {
-  background: var(--clr-lighter-blue);
-  width: 60px;
-  height: 60px;
-  top: 5%;
-  left: 5%;
-}
-
-.columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-c {
-  background: var(--clr-green);
-  width: 140px;
-  height: 140px;
-  bottom: -15%;
-  right: -15%;
-}
-
-.highlight .columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-a {
-  background: var(--clr-lightest-green);
-  width: 141px;
-  height: 141px;
-  bottom: -11%;
-  left: -13%;
-  z-index: 1;
-  opacity: unset;
-}
-
-.highlight .columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-b {
-  background: var(--clr-coral);
-  width: 36px;
-  height: 36px;
-  top: 1%;
-  left: 0;
-}
-
-.highlight .columns.thirds.teaser .columns-img-col div.teaser-wrapper .bubble.style-c {
-  background: var(--clr-light-teal);
-  width: 82px;
-  height: 82px;
-  bottom: 60%;
-  right: -9%;
-}
 
 /* grey variant */
 
