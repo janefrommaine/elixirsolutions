@@ -7,6 +7,7 @@ import {
 import {
   getBlogLongDateFormat,
   getTimeElementFormat,
+  getMetadataDate,
 } from '../../scripts/date.js';
 import { createElement } from '../../scripts/scripts.js';
 
@@ -19,11 +20,6 @@ async function buildBylineIcon(block) {
 }
 
 function buildBylinePublishDate(block, publishDate) {
-  const formatOptions = {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  };
   const longDateFormat = getBlogLongDateFormat(publishDate);
   const dashedDateFormat = getTimeElementFormat(publishDate);
 
@@ -89,14 +85,12 @@ function buildBylineReviewer(block, rewiewerIds, lookupData) {
       block.append(ddEl);
     });
   }
-
-  // block.append(`Clinically reviewed by: ${reviewer} `);
 }
 
 export default async function decorate(block) {
-  // Get data
-  const metaDate = getMetadata('publication-date');
-  const publishDate = new Date(metaDate);
+  const metaDateStr = getMetadata('publication-date');
+  const publishDate = getMetadataDate(metaDateStr);
+
   const author = getMetadata('author');
   const reviewer = getMetadata('reviewer');
 
@@ -127,7 +121,5 @@ export default async function decorate(block) {
     }
   }
 
-  // byline.append('Published <time datetime="2023-08-22">Aug 22, 2023</time> | By: Author Name');
-  // byline.append('Clinically reviewed by: Clinician Name');
   block.append(byline);
 }

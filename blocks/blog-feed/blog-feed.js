@@ -9,12 +9,15 @@ import {
 import {
   getBlogLongDateFormat,
   getTimeElementFormat,
+  updateUTCDateToMatchWordDocDate,
 } from '../../scripts/date.js';
 import { createElement, createOptimizedPicture } from '../../scripts/scripts.js';
 
 function buildSmallPost(post) {
   const postCard = createElement('article', ['blog-post-card', 'blog-post-mini-card']);
-  const postDate = new Date(post.date * 1000); /* Unix timestamp convert to date format */
+  const postDate = new Date(post.date * 1000); /* Unix timestamp convert to UTC date format */
+  updateUTCDateToMatchWordDocDate(postDate);
+
   const longDateFormat = getBlogLongDateFormat(postDate);
   const dashedDateFormat = getTimeElementFormat(postDate);
 
@@ -31,7 +34,9 @@ function buildSmallPost(post) {
 
 function buildPost(post, eager) {
   const postCard = createElement('article', 'blog-post-card');
-  const postDate = new Date(post.date * 1000); /* Unix timestamp convert to date format */
+  const postDate = new Date(post.date * 1000); /* Unix timestamp convert to UTC date format */
+  updateUTCDateToMatchWordDocDate(postDate);
+
   const longDateFormat = getBlogLongDateFormat(postDate);
   const dashedDateFormat = getTimeElementFormat(postDate);
 

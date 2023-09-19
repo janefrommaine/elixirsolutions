@@ -125,8 +125,6 @@ export default function decorate(block) {
   }
   // extract the URL for the lookup data
   const rxBinRegistry = rows[2].querySelector('a').href;
-  console.log('rows, ', rows);
-  console.log('rxBinRegistry, ', rxBinRegistry);
   if (rxBinRegistry === null || typeof (rxBinRegistry) === 'undefined') {
     return;
   }

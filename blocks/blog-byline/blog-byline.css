@@ -12,7 +12,6 @@
   width: 3rem;
   margin-right: 1rem;
   flex-shrink:0;
-  /*margin-top: 0.25rem;*/
 }
 
 .blog-byline-meta dl {
@@ -43,78 +42,3 @@ dt.blog-byline-clinician::before{
   content: '\A';
   display: block;
 }
-
-/*
-dt.blog-byline-author::before {
-    content: '|';
-    margin-left: 0.5em;
-    margin-right: 0.5em;
-}
-
-
-.blog-byline-meta dl {
-    display: grid;
-    grid-auto-columns: 1fr;
-    grid-auto-flow: row;
-}
-
-.blog-byline-meta .blog-byline-date,
-.blog-byline-meta .blog-byline-author {
-    grid-row: 1;
-    background-color: lightgreen;
-}
-
-.blog-byline-metadt, 
-.blog-byline-meta dd {
-    border: solid 1px silver;
-    margin: 0;
-}
-*/
-
-/*
-
-.blog-byline-meta dl {
-  display: inline-flex;
-  flex-flow: row wrap;
-}
-
-.blog-byline-meta dl dt {
-  margin-right: 0.25em;
-}
-
-.blog-byline-meta dl dt.blog-byline-clinician {
-  flex-basis: 100%;
-}
-
-*/
-
-/*
-.blog-byline-meta dl dt {
-  float: left;
-  clear: left;
-  margin-right: 0.5em;
-}
-
-
-
-.blog-byline-meta dl {
-  margin-block: unset;
-  display: block;
-  width: 100%;
-}
-
-.blog-byline-meta dl dt {
-  float: left;
-  margin-right: 0.5em;
-}
-
-dd.blog-byline-date {
-  float: left;
-  margin-right: 0.5em;
-}
-
-dt.blog-byline-author::before {
-    content: '|';
-    margin-right: 0.5em;
-}
-*/
