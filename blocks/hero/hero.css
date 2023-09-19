@@ -85,7 +85,6 @@ main .hero .hero-image-container {
 main .hero .hero-content-container::after,
 main .hero .hero-content-container::before {
   content: '';
-
   display: block;
   position: absolute;
   opacity: .4;
