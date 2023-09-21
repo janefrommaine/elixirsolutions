@@ -259,17 +259,9 @@ function buildBlogSocialsBlock(main) {
  */
 function buildBlogBylineBlock(main) {
   const blogFeed = main.querySelector('.blog-feed:not(.mini)');
-  if (blogFeed && !main.classList.contains('sidekick-library')) {
-    const section = createElement('div');
-    const block = buildBlock('blog-byline', '');
-    section.append(block);
-    main.append(section);
-  } else if (document.body.classList.contains('blog')) {
-    // const section = main.querySelector('main > div:last-child');
+  if (document.body.classList.contains('blog') && !blogFeed) {
     const section = main.querySelector('h1');
     section.insertAdjacentElement('afterend', buildBlock('blog-byline', ''));
-    // section.prepend(buildBlock('blog-byline', ''));
-    // section.insertAdjacentElement('afterend', buildBlock('blog-byline', ''));
   }
 }
 
