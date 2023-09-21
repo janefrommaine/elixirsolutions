@@ -23,6 +23,9 @@
 
 .columns .columns-img-col {
   position: relative;
+}
+
+.columns.teaser .columns-img-col {
   display: flex;
 }
 
