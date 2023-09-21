@@ -41,6 +41,14 @@ async function loadBlogAuthorCache() {
     .all();
 }
 
+function buildBylineAuthorDefault(block) {
+  const dtEl = createElement('dt', 'blog-byline-author', null, 'By: ');
+  block.append(dtEl);
+  const ddEl = createElement('dd', 'blog-byline-author');
+  ddEl.append('Elixir');
+  block.append(ddEl);
+}
+
 function buildBylineAuthor(block, authorIds, lookupData) {
   const authorIdList = authorIds.replaceAll(' ', '').split(',');
   const grpAuthors = lookupData
@@ -61,6 +69,8 @@ function buildBylineAuthor(block, authorIds, lookupData) {
 
       block.append(ddEl);
     });
+  } else {
+    buildBylineAuthorDefault(block);
   }
 }
 
@@ -108,17 +118,20 @@ export default async function decorate(block) {
 
   buildBylinePublishDate(dlEl, publishDate);
 
+  let lookupData;
   if (author || reviewer) {
     loadBlogAuthorCache();
-    const lookupData = await blogAuthorsCache;
+    lookupData = await blogAuthorsCache;
+  }
 
-    if (author) {
-      buildBylineAuthor(dlEl, author, lookupData);
-    }
+  if (author) {
+    buildBylineAuthor(dlEl, author, lookupData);
+  } else {
+    buildBylineAuthorDefault(dlEl);
+  }
 
-    if (reviewer) {
-      buildBylineReviewer(dlEl, reviewer, lookupData);
-    }
+  if (reviewer) {
+    buildBylineReviewer(dlEl, reviewer, lookupData);
   }
 
   block.append(byline);
