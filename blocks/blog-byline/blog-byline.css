@@ -1,0 +1,44 @@
+.blog-byline-wrapper {
+  margin-bottom: var(--default-content-gap);
+}
+
+.blog-byline-meta {
+  display: flex;
+  align-items: center;
+}
+
+.blog-byline-meta .icon {
+  height: 3rem;
+  width: 3rem;
+  margin-right: 1rem;
+  flex-shrink:0;
+}
+
+.blog-byline-meta dl {
+  margin-block: 0;
+}
+
+.blog-byline-meta dt, 
+.blog-byline-meta dd {
+    display: inline;
+}
+
+dd.blog-byline-author::before,
+dd.blog-byline-clinician::before {
+    content: ',';
+    display: inline-block;
+    margin-right: 0.25rem;
+}
+
+dt + dd.blog-byline-author::before,
+dt + dd.blog-byline-clinician::before {
+    content: '';
+    display: inline;
+    margin-right: 0;
+}
+
+dt.blog-byline-author::before,
+dt.blog-byline-clinician::before{
+  content: '\A';
+  display: block;
+}
