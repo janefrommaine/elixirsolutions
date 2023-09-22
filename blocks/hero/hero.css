@@ -1,7 +1,6 @@
 /* block specific CSS goes here */
 main .hero-container {
   --hero-bg-color: var(--clr-blue);
-  --hero-circle-color: var(--clr-light-blue);
 
   padding-inline: 0;
   padding-block-end: 0;
@@ -13,7 +12,6 @@ main .hero-container + .section {
 
 main .hero-container.alternate-hero {
   --hero-bg-color: var(--clr-coral);
-  --hero-circle-color: #e88b7b; 
 }
 
 main .hero-container ul li {
@@ -87,7 +85,6 @@ main .hero .hero-image-container {
 main .hero .hero-content-container::after,
 main .hero .hero-content-container::before {
   content: '';
-  background: var(--hero-circle-color); 
   display: block;
   position: absolute;
   opacity: .4;
