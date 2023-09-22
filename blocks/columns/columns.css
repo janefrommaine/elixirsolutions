@@ -33,10 +33,10 @@
   .columns > div > div {
     order: 1;
   }
-  
+
   .columns > div > div.columns-img-col {
     order: 0;
-    margin-bottom: 50px;
+    margin-bottom: var(--default-content-gap);
   }
 }
 
@@ -69,7 +69,7 @@
 }
 
 .columns.thirds > div > div.columns-img-col img {
-  max-width: 280px;
+  max-width: 352px;
   margin: auto;
 }
 
@@ -107,8 +107,8 @@
 .columns.thirds.teaser .columns-img-col div.teaser-wrapper {
   display: block;
   position: relative;
-  max-width: 320px;
-  max-height: 320px;
+  max-width: 352px;
+  max-height: 352px;
   margin: auto;
 }
 
