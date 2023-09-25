@@ -10,6 +10,14 @@ main .hero-container + .section {
   padding-block-start: var(--default-content-gap);
 }
 
+.section.hero-container {
+  background-color: var(--clr-blue)
+}
+
+.section.hero-container.hero-container.alternate-hero {
+  background-color: var(--clr-coral)
+}
+
 main .hero-container.alternate-hero {
   --hero-bg-color: var(--clr-coral);
 }
