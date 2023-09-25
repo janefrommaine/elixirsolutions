@@ -14,6 +14,15 @@ main .hero-container + .section {
   background-color: var(--clr-blue)
 }
 
+.two-columns .section.hero-container {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
 .section.hero-container.hero-container.alternate-hero {
   background-color: var(--clr-coral)
 }
