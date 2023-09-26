@@ -85,7 +85,7 @@ main .hero {
 }
 
 main .hero .hero-content-container {
-  background: var(--hero-bg-color);
+  
   min-height: 384px;
   display: flex;
   flex: 2;
