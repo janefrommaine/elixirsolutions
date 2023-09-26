@@ -74,7 +74,7 @@ main .hero-container h5 {
 main .hero-container .default-content-wrapper {
   display: none;
 }
-  
+
 main .hero {
   position: relative;
   padding: 0;
@@ -85,7 +85,6 @@ main .hero {
 }
 
 main .hero .hero-content-container {
-  
   min-height: 384px;
   display: flex;
   flex: 2;
