@@ -12,7 +12,3 @@ main .footnote p {
   display: block;
   margin: 5px 0;
 }
-
-main .footnote ol li {
-  margin: 10px 40px;
-}
