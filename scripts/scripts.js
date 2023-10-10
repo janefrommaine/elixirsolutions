@@ -12,6 +12,9 @@ import {
   loadCSS,
   decorateBlock,
   getMetadata,
+  readBlockConfig,
+  toClassName,
+  toCamelCase,
 } from './lib-franklin.js';
 
 const PRODUCTION_DOMAINS = ['www.elixirsolutions.com'];
@@ -310,6 +313,62 @@ function buildAccordions(main) {
 }
 
 /**
+ * adds metadata to the wrapper (styles, data, etc)
+ * @param {Element} section The container element
+ */
+function addSidebarLayoutSectionsMetadata(section) {
+  const sectionMeta = section.firstChild;
+  if (sectionMeta) {
+    const meta = readBlockConfig(sectionMeta);
+    Object.keys(meta).forEach((key) => {
+      if (key === 'style') {
+        const styles = meta.style.split(',').map((style) => toClassName(style.trim()));
+        styles.forEach((style) => section.classList.add(style));
+      } else {
+        section.dataset[toCamelCase(key)] = meta[key];
+      }
+    });
+    // remove the metadata on sidebar-layout sections
+    section.querySelector('div').querySelector('div').remove();
+  }
+}
+
+/**
+ * adds container divs to each section and other additional section decoration activities
+ * @param {Element} main The container element
+ */
+function buildSidebarLayout(main) {
+  const sidebarLayoutSectionContainers = main.querySelectorAll('.section.sidebar-layout > .section-container');
+
+  sidebarLayoutSectionContainers.forEach((sidebarLayoutSection) => {
+    // loop through all the blocks in the sidebar layout and move blocks in proper sub-section
+    const sidebarBlock = sidebarLayoutSection.querySelectorAll('.sidebar-wrapper')[0];
+    const notSidebarBlock = sidebarLayoutSection.querySelectorAll('.notsidebar-wrapper')[0];
+    const sidebarIndex = Array.from(sidebarLayoutSection.children).indexOf(sidebarBlock);
+    const notSidebarIndex = Array.from(sidebarLayoutSection.children).indexOf(notSidebarBlock);
+    let populateSidebar = sidebarIndex < notSidebarIndex;
+
+    let i = 0;
+    while (i < sidebarLayoutSection.childNodes.length) {
+      const block = sidebarLayoutSection.childNodes[i];
+      if (block === sidebarBlock) {
+        populateSidebar = true;
+        addSidebarLayoutSectionsMetadata(block);
+        i += 1;
+      } else if (block === notSidebarBlock) {
+        populateSidebar = false;
+        addSidebarLayoutSectionsMetadata(block);
+        i += 1;
+      } else if (populateSidebar) {
+        sidebarBlock.firstChild.appendChild(block);
+      } else {
+        notSidebarBlock.firstChild.appendChild(block);
+      }
+    }
+  });
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -471,6 +530,7 @@ export function decorateMain(main, isFragment) {
   decorateBlocks(main);
   decorateBlogImage(main);
   buildAccordions(main);
+  buildSidebarLayout(main);
 }
 
 /**

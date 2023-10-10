@@ -1,0 +1,28 @@
+main .section.sidebar-layout {
+  padding-inline: 0;
+  padding-block-start: 0;
+  padding-block-end: 0;    
+}
+
+.sidebar-layout .section-container {
+  display: grid;
+}
+
+@media (min-width: 56.25em) {
+  .sidebar-layout .section-container {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--default-content-gap);
+  }
+  
+  .sidebar-wrapper {
+    grid-column: span 1;
+  }
+}
+
+
+.sidebar-wrapper {
+  background: lightblue;
+  padding-inline: var(--default-content-gap);
+  padding-block-start: var(--default-content-gap);
+  padding-block-end: var(--default-content-gap);  
+}

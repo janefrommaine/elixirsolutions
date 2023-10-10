@@ -1,0 +1,12 @@
+@media (min-width: 56.25em) {
+  .notsidebar-wrapper {
+    grid-column: span 2;
+  }
+}
+
+.notsidebar-wrapper {
+    background: pink;
+    padding-inline: var(--default-content-gap);
+    padding-block-start: var(--default-content-gap);
+    padding-block-end: var(--default-content-gap);  
+}
