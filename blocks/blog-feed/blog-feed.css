@@ -114,7 +114,7 @@ main .blog-feed .blog-post-card .blog-post-content .post-description a {
   box-sizing: border-box;
   text-decoration: none;
   border: 2px solid var(--link-color);
-  padding: .6em 1.2em;
+  padding: 0.5rem 1.5rem;
   text-align: center;
   font-style: normal;
   font-weight: 600;
