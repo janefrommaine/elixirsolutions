@@ -86,7 +86,7 @@
     --heading-font-size-m: 30px;
     --heading-font-size-s: 24px;
     --heading-font-size-xs: 22px; */
-
+ 
     /* nav height */
     --nav-height: 128px;
     --default-content-gap: 48px;
@@ -225,10 +225,10 @@ main pre {
   font-weight: 400;
   line-height: 1.5;
   color: var(--text-color);
-  background-color: var(--clr-lighter-gray);
+  background-color: var(--clr-off-white);
   background-clip: padding-box;
-  border: 1px solid var(--clr-lighter-blue);
-  border-radius: .25rem;
+  border: 2px solid var(--clr-blue);
+  border-radius: 8px;
   transition:border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
@@ -424,7 +424,7 @@ main .section:first-child:not(.breadcrumb-container) {
 :is(.blog, .two-columns) main {
   display: grid;
   grid-template-columns: 100%;
-  max-width: var(--max-content-width);
+  max-width: calc(var(--max-content-width) + var(--default-content-gap) * 2); /* max size up due to how the two column template pulls in section containers that already have default margins */
   margin: 0 auto;
 }
 

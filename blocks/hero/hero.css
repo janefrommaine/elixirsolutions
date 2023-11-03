@@ -1,9 +1,10 @@
 /* block specific CSS goes here */
-main .hero-container {
-  --hero-bg-color: var(--clr-blue);
 
-  padding-inline: 0;
-  padding-block-end: 0;
+main .hero-container {
+  --hero-bg-color: var(--clr-off-white);
+
+  padding-inline: var(--default-content-gap);
+  padding-bottom: 0;
 }
 
 main .hero-container + .section {
@@ -11,7 +12,7 @@ main .hero-container + .section {
 }
 
 .section.hero-container {
-  background-color: var(--clr-blue)
+  background-color: var(--clr-off-white)
 }
 
 .two-columns .section.hero-container {
@@ -24,51 +25,50 @@ main .hero-container + .section {
 }
 
 .section.hero-container.hero-container.alternate-hero {
-  background-color: var(--clr-coral)
+  background-color: var(--clr-lightest-blue)
 }
 
 main .hero-container.alternate-hero {
-  --hero-bg-color: var(--clr-coral);
+  --hero-bg-color: var(--clr-lightest-blue);
 }
 
 main .hero-container ul li {
   list-style-type: none;
-  color: var(--clr-white);
+  color: var(--clr-blue);
   font-family: var(--heading-font-family);
 }
 
 main .hero-container select {
   height: 40px;
-  margin: 0 var(--default-content-gap) 24px;
-  padding: 0 8px;
+  margin: 0;
+  padding: 8px 32px 8px 8px;
   width: 100%;
-  border: 1px solid var(--clr-light-blue);
-  border-radius: 3px;
+  border: 2px solid var(--clr-blue);
+  border-radius: 8px;
   font-size: var(--body-font-size-s);
   display: block;
   appearance: none;
 }
 
 main .hero-container .hero-select-wrapper {
-  width: 70%;
+  width: fit-content;
   position: relative;
 }
 
 main .hero-container .hero-select-wrapper::after {
   content: "";
   position: absolute;
-  top: 20px;
-  right: -36px;
+  top: 16px;
+  right: 16px;
   width: 9px;
   height: 7px;
-  margin-top: -3px;
   background: url("/icons/down-arrow.png") no-repeat;
   background-size: contain; 
 }
 
 main .hero-container h5 {
-  color: var(--clr-white);
-  margin: 0 var(--default-content-gap) 4px;
+  color: var(--clr-blue);
+  font-size: var(--heading-font-size-xs);
 }
 
 main .hero-container .default-content-wrapper {
@@ -78,19 +78,17 @@ main .hero-container .default-content-wrapper {
 main .hero {
   position: relative;
   padding: 0;
-  min-height: 300px;
   display: flex;
   max-width: var(--max-content-width);
   margin: auto;
 }
 
 main .hero .hero-content-container {
-  min-height: 384px;
   display: flex;
   flex: 2;
   flex-direction: column;
-  overflow: hidden;
   position: relative;
+  margin: var(--default-content-gap) var(--default-content-gap) var(--default-content-gap) 0;
 }
 
 main .hero .hero-image-container {
@@ -107,11 +105,10 @@ main .hero .hero-content-container::before {
 }
 
 main .hero .hero-content-container::after {
-  width: 390px;
-  height: 390px;
+  width: 1fr;
+  height: 1fr;
   right: -90px;
   top: -210px;
-  border-radius: 195px;
 }
 
 main .hero .hero-content-container::before {
@@ -123,16 +120,17 @@ main .hero .hero-content-container::before {
 }
 
 main .hero h1 {
-  color: var(--clr-white);
-  margin-right: auto;
-  padding: var(--default-content-gap) var(--default-content-gap) 0;
+  color: var(--clr-blue);
+  line-height: 1;
+  padding: 0;
   z-index: 1;
 }
 
 main .hero h2 {
-  color: var(--clr-white);
-  padding: 0 var(--default-content-gap) var(--default-content-gap) var(--default-content-gap);
+  color: var(--clr-blue);
   z-index: 1;
+  padding: 0;
+  margin-block-end: 0;
 }
 
 main .hero picture {
@@ -141,14 +139,18 @@ main .hero picture {
 
 main .hero img {
   object-fit: cover;
-  width: 100%;
-  height: 100%;
+  width: 384px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  margin: -24px 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 main .hero .button {
-  background-color: var(--clr-white);
-  color: var(--link-color);
-  margin: auto var(--default-content-gap) var(--default-content-gap);
+  background-color: var(--clr-blue);
+  margin: 0;
   font-size: var(--body-font-size-l);
   z-index: 2;
   transition: .3s;
@@ -156,8 +158,9 @@ main .hero .button {
 }
 
 
-@media (min-width: 56.25em) {
+@media (min-width: 64.25em) {
   main .hero .hero-image-container {
     display: block;
   }
+
 }
