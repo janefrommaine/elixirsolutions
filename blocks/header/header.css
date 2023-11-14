@@ -10,6 +10,7 @@ header .nav-wrapper {
   position: sticky;
   z-index: 20;
   box-shadow: 0 4px 12px var(--clr-light-gray);
+  padding-inline: var(--default-content-gap);
 }
 
 header nav {
@@ -21,7 +22,6 @@ header nav {
   margin: auto;
   max-width: var(--max-content-width);
   height: var(--nav-height);
-  padding: 0 1rem;
   font-family: var(--body-font-family);
   min-height: 0;
   transition: min-height .5s ease;
@@ -42,7 +42,6 @@ header nav[aria-expanded="true"] {
   header nav {
     grid-template:
     'hamburger brand register' var(--nav-height) / var(--hamburger-width) 1fr var(--button-width);
-    padding: 0 var(--default-content-gap);
   }
 
   header nav[aria-expanded="true"] {
