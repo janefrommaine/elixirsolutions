@@ -243,7 +243,7 @@ main pre {
 
 .form-control:focus {
   background-color: var(--clr-white);
-  border: 1px solid var(--clr-light-blue);
+  border: 2px solid var(--clr-light-blue);
   outline: 0;
 }
 
