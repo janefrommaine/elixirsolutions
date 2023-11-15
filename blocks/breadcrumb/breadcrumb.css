@@ -1,5 +1,5 @@
 main .breadcrumb-container {
-  padding-inline: 0;
+  padding-inline: var(--default-content-gap);
   padding-block: 16px;
 }
 
@@ -10,7 +10,6 @@ main .breadcrumb-container {
 .breadcrumb > nav {
   color: var(--link-color);
   font-size: var(--body-font-size-s);
-  padding-left: var(--default-content-gap);
   line-height: 1;
 }
 

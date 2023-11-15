@@ -28,6 +28,7 @@ footer .footer > div {
 
 footer .footer-upper {
   grid-area: upper;
+  padding-inline: var(--default-content-gap);
 }
 
 footer .footer-upper-content {
@@ -58,6 +59,7 @@ footer .footer-lower {
   grid-area: lower;
   background-color: var(--clr-lighter-gray);
   min-height: var(--default-content-gap);
+  padding-inline: var(--default-content-gap);
 }
 
 footer .footer-lower-content {
@@ -120,7 +122,7 @@ footer .footer-image .icon svg {
 
   footer .footer-image img,
   footer .footer-image .icon svg {
-    margin: 0 var(--default-content-gap);
+    margin: 0;
   }
 }
 
@@ -144,7 +146,6 @@ footer .footer-links-container {
   footer .footer-links-container {
     display: inline;
     justify-self: end;
-    padding-right: var(--default-content-gap);
   }
 }
 
@@ -288,7 +289,7 @@ footer .footer-legal ul li {
 
 @media (min-width: 56.25em) {
   footer .footer-legal {
-    padding: 15px 0 0 var(--default-content-gap);
+    padding: 15px 0 0;
     margin: 0;
   }
 
@@ -329,7 +330,4 @@ footer .footer-copyright {
     margin: 0;
   }
 
-  footer .footer-copyright p {
-    margin-right: var(--default-content-gap);
-  }
 }

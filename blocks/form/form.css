@@ -64,6 +64,7 @@
 }
 
 .form .was-validated .form-control:invalid {
+  border: 2px solid var(--clr-coral);
   border-left: .5rem solid var(--clr-coral);
 }
 
