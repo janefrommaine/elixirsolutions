@@ -329,7 +329,9 @@ function addSidebarLayoutSectionsMetadata(section) {
       }
     });
     // remove the metadata on sidebar-layout sections
-    section.querySelector('div').querySelector('div').remove();
+    if (section.querySelector('div').querySelector('div')) {
+      section.querySelector('div').querySelector('div').remove();
+    }
   }
 }
 
@@ -343,10 +345,10 @@ function buildSidebarLayout(main) {
   sidebarLayoutSectionContainers.forEach((sidebarLayoutSection) => {
     // loop through all the blocks in the sidebar layout and move blocks in proper sub-section
     const sidebarBlock = sidebarLayoutSection.querySelectorAll('.sidebar-wrapper')[0];
-    const notSidebarBlock = sidebarLayoutSection.querySelectorAll('.notsidebar-wrapper')[0];
+    const primaryBlock = sidebarLayoutSection.querySelectorAll('.primary-wrapper')[0];
     const sidebarIndex = Array.from(sidebarLayoutSection.children).indexOf(sidebarBlock);
-    const notSidebarIndex = Array.from(sidebarLayoutSection.children).indexOf(notSidebarBlock);
-    let populateSidebar = sidebarIndex < notSidebarIndex;
+    const primaryIndex = Array.from(sidebarLayoutSection.children).indexOf(primaryBlock);
+    let populateSidebar = sidebarIndex < primaryIndex;
 
     let i = 0;
     while (i < sidebarLayoutSection.childNodes.length) {
@@ -355,14 +357,14 @@ function buildSidebarLayout(main) {
         populateSidebar = true;
         addSidebarLayoutSectionsMetadata(block);
         i += 1;
-      } else if (block === notSidebarBlock) {
+      } else if (block === primaryBlock) {
         populateSidebar = false;
         addSidebarLayoutSectionsMetadata(block);
         i += 1;
       } else if (populateSidebar) {
         sidebarBlock.firstChild.appendChild(block);
       } else {
-        notSidebarBlock.firstChild.appendChild(block);
+        primaryBlock.firstChild.appendChild(block);
       }
     }
   });

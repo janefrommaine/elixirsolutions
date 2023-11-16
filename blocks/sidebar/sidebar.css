@@ -1,8 +1,8 @@
-main .section.sidebar-layout {
-  padding-inline: 0;
-  padding-block-start: 0;
-  padding-block-end: 0;    
-}
+/*
+ sidebar-layout = section
+ sidebar-wrapper
+ sidebar - block
+*/
 
 .sidebar-layout .section-container {
   display: grid;
@@ -16,13 +16,20 @@ main .section.sidebar-layout {
   
   .sidebar-wrapper {
     grid-column: span 1;
+    /*padding-inline: var(--default-content-gap);*/
   }
 }
 
-
 .sidebar-wrapper {
-  background: lightblue;
-  padding-inline: var(--default-content-gap);
-  padding-block-start: var(--default-content-gap);
+  /*padding-block-start: var(--default-content-gap);*/
   padding-block-end: var(--default-content-gap);  
 }
+
+.sidebar-wrapper img,
+.video-wrapper {
+  width: 100%;
+  max-width: 352px;
+  margin: auto;
+  margin: auto;
+  display: block;
+}  

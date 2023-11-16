@@ -1,0 +1,19 @@
+/* 
+  Next steps:
+  Home Delivery (build this out)
+  Get the video for members/about-mail (Home Delivery page) ask Serenity
+  Make sure extra meta data for sidebar and primary are deleted
+  Add Code audit task - April/May
+
+*/
+
+@media (min-width: 56.25em) {
+  .primary-wrapper {
+    grid-column: span 2;
+  }
+}
+
+.primary-wrapper {
+  padding-block-start: 0;
+  padding-block-end: var(--default-content-gap);  
+}
