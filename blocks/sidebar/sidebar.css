@@ -1,8 +1,8 @@
-/*
+/* 
  sidebar-layout = section
  sidebar-wrapper
  sidebar - block
-*/
+ */ 
 
 .sidebar-layout .section-container {
   display: grid;
@@ -16,12 +16,10 @@
   
   .sidebar-wrapper {
     grid-column: span 1;
-    /*padding-inline: var(--default-content-gap);*/
   }
 }
 
 .sidebar-wrapper {
-  /*padding-block-start: var(--default-content-gap);*/
   padding-block-end: var(--default-content-gap);  
 }
 
@@ -30,6 +28,11 @@
   width: 100%;
   max-width: 352px;
   margin: auto;
-  margin: auto;
   display: block;
-}  
+}
+
+.sidebar {
+  display: flex;
+  gap: var(--default-content-gap);
+  flex-direction: column;
+}
