@@ -23,13 +23,41 @@
   padding-block-end: var(--default-content-gap);  
 }
 
-.sidebar-wrapper img,
-.video-wrapper {
+.sidebar-wrapper[class*="bg-"] {
+  margin: 0 calc(-1 * var(--default-content-gap));
+  padding-block-end: 0;
+}
+
+.sidebar-wrapper[class*="bg-"] .sidebar {
+  padding: var(--default-content-gap);
+}
+
+@media (min-width: 56.25em) {
+  .sidebar-wrapper[class*="bg-"] {
+    margin: 0;
+  }
+}
+
+.sidebar-wrapper img {
+  margin: auto;
+  display: block;
+}
+
+/* remove the max-width on imgs but we may find we need this later
+.sidebar-wrapper img {
   width: 100%;
   max-width: 352px;
   margin: auto;
   display: block;
 }
+
+@media (min-width: 56.25em) {
+  .sidebar-wrapper img,
+  .video-wrapper {  
+    max-width: none;
+  }
+}
+*/
 
 .sidebar {
   display: flex;
