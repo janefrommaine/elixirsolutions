@@ -19,8 +19,8 @@
 
 .table table thead tr,
 .table table tbody tr {
-  border-top: unset;
-  border-bottom: unset;
+  border: 1px solid var(--clr-light-gray);
+
 }
 
 .table tbody td {
