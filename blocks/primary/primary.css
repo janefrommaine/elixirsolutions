@@ -1,0 +1,11 @@
+@media (min-width: 56.25em) {
+  .primary-wrapper {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+}
+
+.primary-wrapper {
+  padding-block-start: 0;
+  padding-block-end: var(--default-content-gap);  
+}

@@ -522,3 +522,16 @@ main .section:first-child:not(.breadcrumb-container) {
   float: right;
   margin: 0 20px;
 }
+
+/* utility classes */
+.bg-light-blue {
+  background-color: var(--clr-lightest-blue);
+}
+
+.bg-light-grey {
+  background-color: var(--clr-off-white);
+}
+
+.bg-light-orange {
+  background-color: var(--clr-lightest-orange);
+}
