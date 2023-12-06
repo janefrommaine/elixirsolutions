@@ -23,6 +23,12 @@
   padding-block-end: var(--default-content-gap);  
 }
 
+.sidebar {
+  display: flex;
+  gap: var(--default-content-gap);
+  flex-direction: column;
+}
+
 .sidebar-wrapper[class*="bg-"] {
   margin: 0 calc(-1 * var(--default-content-gap));
   padding-block-end: 0;
@@ -59,8 +65,3 @@
 }
 */
 
-.sidebar {
-  display: flex;
-  gap: var(--default-content-gap);
-  flex-direction: column;
-}
