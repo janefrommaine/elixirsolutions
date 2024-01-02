@@ -76,6 +76,12 @@
   --nav-height: 80px;
   --max-content-width: 90rem;      /* 1440px */
   --default-content-gap: 24px;
+  --spc-xl: var(--default-content-gap);
+  --spc-l: 36px;
+  --spc-m: 24px;
+  --spc-s: 12px;
+  --spc-xs: 6px;
+
 }
 
 @media (min-width: 56.25em) {

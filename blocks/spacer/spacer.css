@@ -1,0 +1,24 @@
+.spacer {
+  padding-bottom: var(--spc-xl);
+  margin: 0;
+}
+
+.spacer.l {
+  padding-bottom: var(--spc-l);
+  margin: 0;
+}
+
+.spacer.m {
+  padding-bottom: var(--spc-m);
+  margin: 0;
+}
+
+.spacer.s {
+  padding-bottom: var(--spc-s);
+  margin: 0;
+}
+
+.spacer.xs {
+  padding-bottom: var(--spc-xs);
+  margin: 0;
+}
